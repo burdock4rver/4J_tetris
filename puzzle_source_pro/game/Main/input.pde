@@ -2,7 +2,7 @@ abstract class Input extends Stage  {
 
   private int inputSignal;
 
-  abstract void checkInput();
+  abstract void checkInput(int inputSignal);
 
   public void inputHarddrop() {
 

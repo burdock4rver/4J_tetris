@@ -1,4 +1,4 @@
-class InutKey extends Input {
+class InputKey extends Input {
 
   private int inputSignal;
 

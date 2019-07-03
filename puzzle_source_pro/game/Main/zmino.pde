@@ -13,5 +13,5 @@ public class ZMino extends Mino {
   public void turnMino(int turn) {
 
   }
-
+  
 }
