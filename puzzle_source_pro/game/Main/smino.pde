@@ -6,13 +6,16 @@ public class SMino extends Mino {
 
   private int Id;
 
-  public void showTexture() {
+  public SMino() {
     shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 1, 1, 0}, 
       {0, 1, 1, 0, 0}, 
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
+  }
+  
+  public void showTexture() {
   }
 
   public void turnMino(int turn) {

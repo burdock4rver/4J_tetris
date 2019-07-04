@@ -6,7 +6,7 @@ public class ZMino extends Mino {
 
   private int id;
 
-  public void showTexture() {
+  public ZMino(){
     shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}, 
@@ -15,6 +15,9 @@ public class ZMino extends Mino {
       {0, 0, 0, 0, 0}};
   }
 
+  public void showTexture() {
+  }
+  
   public void turnMino(int turn) {
   }
 }

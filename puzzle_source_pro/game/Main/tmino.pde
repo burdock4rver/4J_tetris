@@ -8,7 +8,7 @@ public class TMino extends Mino {
 
   private int id;
 
-  public void showTexture() {
+  public TMino(){
     shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 1, 0, 0}, 
@@ -16,7 +16,10 @@ public class TMino extends Mino {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
   }
-
+  
+  public void showTexture() {
+  }
+  
   public void turnMino(int turn) {
   }
 }

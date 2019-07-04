@@ -1,12 +1,13 @@
-Display disbg;
+Display disp;
 
 public void setup() {
   size(540,960);
-  disbg=new Display();
+  disp=new Display();
 }
 
 public void draw() {
-  disbg.drawBackground();
+  disp.drawBackground();
+  disp.drawgame();
 }
 
 //Display display;
