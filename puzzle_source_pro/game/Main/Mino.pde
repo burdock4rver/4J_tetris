@@ -5,5 +5,4 @@ public abstract class Mino {
   public void turnMino(int turn) {
 
   }
-
 }

@@ -4,7 +4,7 @@ class Display {
   PImage img;
   
   public Display(){    
-    img = loadImage("main_ui.png");
+    img = loadImage("resources/main_ui.png");
   }
   public void showGhost() {
 
