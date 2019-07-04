@@ -1,7 +1,11 @@
 class Display {
 
   private Mino mino;
-
+  PImage img;
+  
+  public Display(){    
+    img = loadImage("main_ui.png");
+  }
   public void showGhost() {
 
   }
@@ -15,6 +19,14 @@ class Display {
   }
 
   public void showHold() {
+
+  }
+  
+  public void drawBackground(){
+    image(img, 0, 0);
+  }
+  
+  public void drawgame(){
 
   }
 
