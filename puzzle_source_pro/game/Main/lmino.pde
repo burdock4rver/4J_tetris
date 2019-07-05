@@ -7,6 +7,8 @@ public class LMino extends Mino {
       {0, 1, 1, 1, 0}, 
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
+      
+      super.texture = loadImage("resources/minoLfront.png");
   }
 
   public void showTexture() {

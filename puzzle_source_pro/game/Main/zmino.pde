@@ -7,6 +7,8 @@ public class ZMino extends Mino {
       {0, 1, 1, 0, 0}, 
       {0, 0, 1, 1, 0}, 
       {0, 0, 0, 0, 0}};
+      
+      super.texture = loadImage("resources/minoZfront.png");
   }
 
   public void showTexture() {

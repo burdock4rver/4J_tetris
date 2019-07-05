@@ -7,9 +7,11 @@ public class OMino extends Mino {
       {0, 0, 1, 1, 0}, 
       {0, 0, 1, 1, 0}, 
       {0, 0, 0, 0, 0}};
+      
+      super.texture = loadImage("resources/minoOfront.png");
   }
   
-    public void showTexture() {
+  public void showTexture() {
   }
 
   public void turnMino(int turn) {
