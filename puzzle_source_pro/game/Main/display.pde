@@ -2,13 +2,13 @@ class Display {
 
   private Mino mino;
   int i, j;
-  float blockSize=35;  //ブロックの大きさ
   int stageSize_x=10;  //横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  //縦ブロック数(ゲーム高さ) //*
-  int sSarray_x;    //横配列
-  int sSarray_y;    //縦配列
+  float blockSize=35;  //ブロックの大きさ
   float stagePosition_x=(180)/2;  //プレイ画面の位置
   float stagePosition_y=(1920-1530)/2;
+  int sSarray_x;    //横配列
+  int sSarray_y;    //縦配列
   float arst_y;
   PImage ui_img;  //画面背景
   Stage stage1;
@@ -16,17 +16,17 @@ class Display {
 
   public Display() {    
     ui_img = loadImage("resources/main_ui.png");
-    stage1 =new Stage();
-    minos=new Mino[7];
-    minos[0]=new TMino();
-    minos[1]=new IMino();
-    minos[2]=new JMino();
-    minos[3]=new LMino();
-    minos[4]=new SMino();
-    minos[5]=new ZMino();
-    minos[6]=new OMino();
-    sSarray_x=stage1.stage[0].length;    //横配列
-    sSarray_y=stage1.stage.length;  //縦配列
+    stage1 = new Stage();
+    minos = new Mino[7];
+    minos[0] = new TMino();
+    minos[1] = new IMino();
+    minos[2] = new JMino();
+    minos[3] = new LMino();
+    minos[4] = new SMino();
+    minos[5] = new ZMino();
+    minos[6] = new OMino();
+    sSarray_x = stage1.stage[0].length;    //横配列
+    sSarray_y = stage1.stage.length;  //縦配列
     arst_y = sSarray_y-stageSize_y-1;   //配列とブロック数の差
   }
   public void showGhost() {
@@ -47,7 +47,7 @@ class Display {
 
 
   public void drawgame() {  //ゲームプレイ画面
-    
+
     for (i = (int)arst_y; i < sSarray_y; i++) {
       for (j = 0; j < sSarray_x; j++) {
 

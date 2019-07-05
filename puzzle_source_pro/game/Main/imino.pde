@@ -3,7 +3,7 @@ public class IMino extends Mino {
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}, 
-      {0, 1, 1, 1, 1}, 
+      {0, 2, 2, 2, 2}, 
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
       super.texture = loadImage("resources/minoIfront.png");

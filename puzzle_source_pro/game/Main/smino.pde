@@ -3,8 +3,8 @@ public class SMino extends Mino {
   public SMino() {
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
-      {0, 0, 1, 1, 0}, 
-      {0, 1, 1, 0, 0}, 
+      {0, 0, 5, 5, 0}, 
+      {0, 5, 5, 0, 0}, 
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
       

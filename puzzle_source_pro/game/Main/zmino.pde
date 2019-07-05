@@ -4,8 +4,8 @@ public class ZMino extends Mino {
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}, 
-      {0, 1, 1, 0, 0}, 
-      {0, 0, 1, 1, 0}, 
+      {0, 6, 6, 0, 0}, 
+      {0, 0, 6, 6, 0}, 
       {0, 0, 0, 0, 0}};
       
       super.texture = loadImage("resources/minoZfront.png");
