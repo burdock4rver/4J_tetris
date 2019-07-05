@@ -1,13 +1,7 @@
 public class IMino extends Mino {
-
-  private int shape[][];
-
-  private char texture;
-
-  private int id;
-
+  
   public IMino() {
-    shape = new int[][] {
+    super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}, 
       {1, 1, 1, 1, 0}, 
