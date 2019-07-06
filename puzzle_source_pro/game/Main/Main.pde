@@ -7,8 +7,9 @@ public void setup() {
 
 public void draw() {
   disp.drawBackground();
-  disp.stage1.stagesetMino(1, 5, 5);
+  disp.stage1.fallMino();
   disp.drawgame();
+
 }
 
 //Display display;

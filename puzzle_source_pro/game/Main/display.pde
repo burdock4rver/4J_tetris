@@ -13,6 +13,7 @@ class Display {
   PImage ui_img;  //画面背景
   Stage stage1;
   Mino minos[];
+  
 
   public Display() {    
     ui_img = loadImage("resources/main_ui.png");
