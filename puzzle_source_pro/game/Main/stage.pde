@@ -2,7 +2,7 @@ class Stage {
 
   private int score;
 
-  private int nextMino;
+
 
   private int holdMino;
 
@@ -10,16 +10,21 @@ class Stage {
 
   private int time=1;
 
-  private int sx=5, sy=3;
+  private int sx=5, sy=2;// stage左上を原点として0から始まる
 
   private int groundFlag;
-
+  
+  int blockID;
+  
+  RandomMino next;
+  
+  
   Mino minos[];
 
   int[][] stage = {{-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
-    {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, //5,3
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
+    {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, //5,3
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, //<=ここからミノ生成 (6,5)を回転軸に
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
@@ -37,8 +42,8 @@ class Stage {
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
     {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
-    {-1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, -1}, 
-    {-1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, -1}, 
+    {-1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1}, 
+    {-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, -1}, 
     {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}};
   //private Mino mino;
 
@@ -51,6 +56,8 @@ class Stage {
     minos[4]=new SMino();
     minos[5]=new ZMino();
     minos[6]=new OMino();
+    next = new RandomMino();
+    blockID = next.getNextMino();
   }
 
   public void stagesetMino(int sw, int cx, int cy, boolean delete) {        //ステージにミノの状態を反映 sw>1ブロック種類，sw=0削除
@@ -88,14 +95,16 @@ class Stage {
   }
 
   public void fallMino() {
-    int blockID=5;
+     
     stagesetMino(blockID, sx, sy, false);
-    delay(1000);
+    delay(500);
     stagesetMino(blockID, sx, sy, true);
     sy++;
-    if(BlockCheck(sx,sy,1)==1){
-    sx=0;
+    if(BlockCheck(sx,sy,blockID)==1){
+    stagesetMino(blockID, sx, sy-1, false);
+    sx=3;
     sy=3;
+    blockID = next.getNextMino();
     }
     stagesetMino(blockID, sx, sy, false);
   }
@@ -116,10 +125,6 @@ class Stage {
   }
 
   public void next() {
-  }
-
-  public int randomMino() {
-    return 0;
   }
 
   public void renCount() {
