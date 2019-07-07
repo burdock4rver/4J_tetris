@@ -84,13 +84,12 @@ class Stage { //<>//
 
 
   public int BlockCheck(int cx, int cy, int sw) { //次に移動するブロックチェック  
-    int flag = 0;
+    int flag = 0; //<>//
 
     for (int i = 0; i < 5 && flag == 0; i++) {
       for (int j = 0; j < 5 && flag == 0; j++) {
         // 落下ブロックがステージのブロックとぶつかった場合
         if (minos[sw-1].shape[i][j] >= 1 && stage[cy + i][cx + j] >= 1)  flag = 1;
-
 
         // 落下ブロックがステージの場外に出た場合
         if (minos[sw-1].shape[i][j] >= 1 && stage[cy + i][cx + j] == -1)  flag = 1;
@@ -107,7 +106,7 @@ class Stage { //<>//
       stagesetMino(blockID, sx, sy, false);
       stagesetMino(blockID, sx, sy, true);
       sy++;
-      if (BlockCheck(sx, sy, blockID)==1) {
+      if (BlockCheck(sx, sy, blockID) == 1) {
         stagesetMino(blockID, sx, sy-1, false);
         sx=3;
         sy=3;
@@ -122,18 +121,25 @@ class Stage { //<>//
   }
   
   public void moveMino(){
-    if(key == 'a' && sx != 0) {
+    
+    if(key == 'a') {
       stagesetMino(blockID, sx, sy, true);
-      sx--;
-      stagesetMino(blockID, sx, sy, false);
-      key = '\0';
+        if (BlockCheck(sx - 1 , sy, blockID) == 0){
+          sx--;
+          stagesetMino(blockID, sx, sy, false);
+          key = '\0';
+          }
+      stagesetMino(blockID, sx, sy, false); 
     }
-    if(key == 'd' && sx <= 8 ) {
+    if(key == 'd') {
       stagesetMino(blockID, sx, sy, true);
-      sx++;
-      stagesetMino(blockID, sx, sy, false);
-      key = '\0';
-    }  
+        if (BlockCheck(sx + 1 , sy, blockID) == 0){
+          sx++;
+          stagesetMino(blockID, sx, sy, false);
+          key = '\0';
+          }
+      stagesetMino(blockID, sx, sy, false); 
+    }
   }
 
   public void addScore() {

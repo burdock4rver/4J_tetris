@@ -56,7 +56,7 @@ public class RandomMino {
       
       
       q_point++;
-      return (next); //<>//
+      return (next);
     }
   
 }
