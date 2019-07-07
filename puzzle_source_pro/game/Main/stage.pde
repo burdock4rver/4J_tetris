@@ -120,6 +120,21 @@ class Stage { //<>//
     elapsedTime += ms - preTime;
     preTime = ms;
   }
+  
+  public void moveMino(){
+    if(key == 'a' && sx != 0) {
+      stagesetMino(blockID, sx, sy, true);
+      sx--;
+      stagesetMino(blockID, sx, sy, false);
+      key = '\0';
+    }
+    if(key == 'd' && sx <= 8 ) {
+      stagesetMino(blockID, sx, sy, true);
+      sx++;
+      stagesetMino(blockID, sx, sy, false);
+      key = '\0';
+    }  
+  }
 
   public void addScore() {
   }
