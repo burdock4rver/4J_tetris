@@ -54,7 +54,6 @@ public class RandomMino {
       if(q_point % 8 == 0) nextMino();
       next = nextMino2[q_point];
       
-      
       q_point++;
       return (next);
     }

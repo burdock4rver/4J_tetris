@@ -1,6 +1,7 @@
 public class TMino extends Mino {
   
-  public TMino(){
+  public TMino(int x, int y){
+    super(x, y);
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 1, 0, 0}, 
@@ -9,6 +10,11 @@ public class TMino extends Mino {
       {0, 0, 0, 0, 0}};
       
       super.texture = loadImage("resources/minoTfront.png");
+      super.id = 1;
+  }
+  
+  public TMino() {
+    this(0, 0);
   }
   
   public void showTexture() {
