@@ -66,9 +66,14 @@ abstract class Input {
         state[H_DROP] = true;
         wait[H_DROP] = 0;
       }
+    } else {
+      wait[H_DROP] = input_delay;
     }
     
     for (int i = 0; i < 7; i++) {
+      if (i == H_DROP) {
+        continue;
+      }
       wait[i] += delta_time;
     }
   }
