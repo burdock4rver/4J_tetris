@@ -17,8 +17,23 @@ public abstract class Mino {
    各種ミノで実装すること
    posxとposyの変更も忘れずに
    */
-  // public abstract void turnRight(int[][] stage);
-  // public abstract void turnLeft(int[][] stage);
+  public boolean turnRight(int[][] stage) {
+    int rotate_shape[][] = rotateRight();
+    if (checkMino(stage, rotate_shape, 0, 0)) {
+      shape = rotate_shape;
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean turnLeft(int[][] stage) {
+    int rotate_shape[][] = rotateLeft();
+    if (checkMino(stage, rotate_shape, 0, 0)) {
+      shape = rotate_shape;
+      return true;
+    }
+    return false;
+  }
 
   public Mino() {
     this(0, 0);
@@ -35,7 +50,13 @@ public abstract class Mino {
     for (int y = 0; y < 5; y++) {
       for (int x = 0; x < 5; x++) {
         if (shape[y][x] != 0) { 
-          if (stage[y + posy + dy][x + posx + dx] != 0) {
+          int check_x = x + posx + dx;
+          int check_y = y + posy + dy;
+          // インデックスがstage[][]からはみ出さないか監視
+          if (check_x < 0 || check_x >= stage[0].length || check_y < 0 || check_y > stage.length) {
+            return false; 
+          }
+          if (stage[check_y][check_x] != 0) {
             return false;
           }
         }

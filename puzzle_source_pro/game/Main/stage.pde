@@ -66,11 +66,11 @@ class Stage { //<>//
 
     // 操作されたか（カサカサ用）
     boolean wasOperate = false;
-    
+
     // ゴーストの位置設定
     mino.setGhost(stage);
-    
-    // キーと走査の対応はclass InputKeyを参照されたし
+
+    // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {
       wasOperate = mino.moveRight(stage);
     }
@@ -80,9 +80,11 @@ class Stage { //<>//
     }
 
     if (input.state[input.R_TURN]) {
+      wasOperate = mino.turnRight(stage);
     }
 
     if (input.state[input.L_TURN]) {
+      wasOperate = mino.turnLeft(stage);
     }
 
     if (input.state[input.HOLD]) {
@@ -97,7 +99,7 @@ class Stage { //<>//
 
     if (input.state[input.H_DROP]) {
       mino.posy = mino.ghost_y;
-      minoFreeTime = FREE_TIME + 1;
+      minoFreeTime = FREE_TIME;
       isGround = true;
     }
 
@@ -111,7 +113,7 @@ class Stage { //<>//
     // カサカサとミノ設置
     if (isGround) {
       minoFreeTime += delta_time;
-      
+
       if (wasOperate) {
         lastInputTime = 0;
       } else {
@@ -120,13 +122,17 @@ class Stage { //<>//
 
       // ミノの位置が決まった
       if (minoFreeTime >= FREE_TIME || lastInputTime >= INPUT_WAIT) {
-        stageSetMino(mino);
+        // ラインチェックと次のミノの処理
+        stageSetMino(mino);      // stage[][]にミノのブロックを反映
+        checkline(mino.posy);    // ラインチェック
+        
+        setRandomMino();         // 次のミノを取り出す
+        
         doneHold = false; 
         isGround = false;
         minoFreeTime = 0;
         lastInputTime = 0;
         waitFall = 0;
-        setRandomMino();
       }
     }
   }
@@ -172,12 +178,12 @@ class Stage { //<>//
 
   // ホールドの処理
   public void changeHold() {
-    if (!doneHold) {
-      minoFreeTime = 0;
+    if (!doneHold) {           // 既にホールドを使っていないかのチェック
+      minoFreeTime = 0;        // 各種変数の再設定
       lastInputTime = 0;
       waitFall = 0;
       doneHold = true;
-      if (holdMino == null) {  // ホールドに何もないとき
+      if (holdMino == null) {  // ホールドにミノがないとき
         holdMino = mino;
         setRandomMino();
       } else {                 // ホールドにミノがあるとき
@@ -199,10 +205,45 @@ class Stage { //<>//
     }
   }
   
-  public void addScore() {
+  // int cy : ミノの位置  
+  // cyを基準にしてブロックを走査
+  public void checkline(int cy) {
+    int flag = 0;
+    int blockCount = 0;    // 1行にあるブロックの数のバッファ
+    int clearY = 0;
+    int checknum = 4;     
+
+    for (int i = checknum; i >= 0; i -= 1) {    // 最大4行消えるから?
+      flag = 0;
+      blockCount = 0;
+      for (int j = 1; j <= 10 && flag == 0; j += 1) {
+        blockCount += 1;
+        if ((cy - i + checknum)>=23)break;      // stage[][]を縦にはみ出さないように
+        if (stage[cy - i+4][j] == -1)
+          break;
+        else if (stage[cy - i+ checknum ][j] == 0)
+          flag = 1;
+        if (blockCount == 10) {
+          clearY = cy - i + checknum;
+        }
+      }
+      if (flag == 0 && blockCount == 10) {
+        for (int j = 1; j <= 10; j += 1) {
+          stage[clearY][j] = 0;
+        }
+        for (int ci = clearY; ci > 0; ci -= 1) {
+          if (stage[ci][1] == -1) break;
+          for (int cj = 1; cj <= 10; cj += 1) {
+            stage[ci][cj] = stage[ci - 1][cj];
+          }
+        }
+      }
+
+      blockCount = 0;
+    }
   }
 
-  public void checkline() {
+  public void addScore() {
   }
 
   public void gameClear() {
