@@ -1,4 +1,4 @@
-class Stage { //<>// //<>//
+class Stage { //<>//
 
   private int score;
 
@@ -12,8 +12,10 @@ class Stage { //<>// //<>//
   private boolean isGround;   // ミノが接地しているか
   private int minoFreeTime;   // 地面に接している間にミノが自由に動ける時間
   private boolean doneHold;   // ホールドを使ったか
+  private int fall_time;
 
-  private final int FALL_TIME = 200;
+  private final int NORMAL_FALL_TIME = 1000;
+  private final int SOFT_FALL_TIME = 40;
   private final int FREE_TIME = 4000;   // 接地後に最大何ms動かせるか
   private final int INPUT_WAIT = 1000;  // 最後の入力から何ms待つか(カサカサ)
 
@@ -29,6 +31,7 @@ class Stage { //<>// //<>//
     holdMino = null;
     isGround = false;
     waitFall = 0;
+    fall_time = NORMAL_FALL_TIME;
     minoFreeTime = 0;
     lastInputTime = 0;
     doneHold = false;
@@ -61,8 +64,11 @@ class Stage { //<>// //<>//
 
   public void update(Input input, int delta_time) {
 
-    // 操作れたか（カサカサ用）
+    // 操作されたか（カサカサ用）
     boolean wasOperate = false;
+    
+    // ゴーストの位置設定
+    mino.setGhost(stage);
     
     // キーと走査の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {
@@ -84,14 +90,20 @@ class Stage { //<>// //<>//
     }
 
     if (input.state[input.S_DROP]) {
+      fall_time = SOFT_FALL_TIME;
+    } else {
+      fall_time = NORMAL_FALL_TIME;
     }
 
     if (input.state[input.H_DROP]) {
+      mino.posy = mino.ghost_y;
+      minoFreeTime = FREE_TIME + 1;
+      isGround = true;
     }
 
     // ミノ落下
     waitFall += delta_time;
-    if (waitFall >= FALL_TIME) {
+    if (waitFall >= fall_time) {
       isGround = !mino.fall(stage);  // 落下と接地判定
       waitFall = 0;
     }
@@ -113,6 +125,7 @@ class Stage { //<>// //<>//
         isGround = false;
         minoFreeTime = 0;
         lastInputTime = 0;
+        waitFall = 0;
         setRandomMino();
       }
     }
@@ -162,6 +175,7 @@ class Stage { //<>// //<>//
     if (!doneHold) {
       minoFreeTime = 0;
       lastInputTime = 0;
+      waitFall = 0;
       doneHold = true;
       if (holdMino == null) {  // ホールドに何もないとき
         holdMino = mino;
@@ -184,7 +198,7 @@ class Stage { //<>// //<>//
       }
     }
   }
-
+  
   public void addScore() {
   }
 

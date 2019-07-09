@@ -5,6 +5,7 @@ public abstract class Mino {
 
   // ミノの左上の座標 stageの配列にそのまま入る
   private int posx, posy;
+  private int ghost_y;
 
   private int id;
 
@@ -26,6 +27,7 @@ public abstract class Mino {
   public Mino(int x, int y) {
     posx = x;
     posy = y;
+    ghost_y = 0;
   }
 
   // 現在の位置から+(dx, dy)ずれた位置にミノが存在できるかを判定する
@@ -70,6 +72,13 @@ public abstract class Mino {
       return true;
     }
     return false;
+  }
+  
+  // ゴーストの位置を作成
+  public void setGhost(int[][] stage) {
+    for (int y = posy; checkMino(stage, 0, y - posy); y++) {
+      ghost_y = y;
+    }
   }
 
   /*
