@@ -19,34 +19,31 @@ class InputKey extends Input {
         super.wait[L_MOVE] = super.input_delay;
       }
       break;
-    case ' ':
+    case 'w':
       if (super.wait[H_DROP] <= 0) {
         super.state[H_DROP] = true;
         super.wait[H_DROP] = super.input_delay;
       }
       break;
-    }
-
-    switch (keyCode) {
-    case RIGHT:
+    case 'j':
       if (super.wait[R_TURN] <= 0) {
         super.state[R_TURN] = true;
         super.wait[R_TURN] = super.input_delay;
       }
       break;
-    case LEFT:
+    case 'l':
       if (super.wait[L_TURN] <= 0) {
         super.state[L_TURN] = true;
         super.wait[L_TURN] = super.input_delay;
       }
       break;
-    case UP:
+    case ' ':
       if (super.wait[HOLD] <= 0) {
         super.state[HOLD] = true;
         super.wait[HOLD] = super.input_delay;
       }
       break;
-    case DOWN:
+    case 's':
       if (super.wait[S_DROP] <= 0) {
         super.state[S_DROP] = true;
         super.wait[S_DROP] = super.input_delay;
