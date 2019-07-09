@@ -13,10 +13,6 @@ public class SMino extends Mino {
       super.id = 5;
   }
   
-  public SMino() {
-    this(0, 0);
-  }
-  
   public void showTexture() {
   }
 

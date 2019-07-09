@@ -11,6 +11,12 @@ public abstract class Mino {
 
   public abstract void showTexture();
 
+  public Mino(int x, int y) {
+    posx = x;
+    posy = y;
+    ghost_y = 0;
+  }
+
   /*
    回転はstageとミノの状況からcheckMino(), rotateRight(), rotateLeft()をうまく使って実装する
    回転後のshapeは上書きしてもらって構わない
@@ -33,16 +39,6 @@ public abstract class Mino {
       return true;
     }
     return false;
-  }
-
-  public Mino() {
-    this(0, 0);
-  }
-
-  public Mino(int x, int y) {
-    posx = x;
-    posy = y;
-    ghost_y = 0;
   }
 
   // 現在の位置から+(dx, dy)ずれた位置にミノが存在できるかを判定する

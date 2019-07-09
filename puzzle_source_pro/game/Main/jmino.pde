@@ -12,10 +12,6 @@ public class JMino extends Mino {
       super.texture = loadImage("resources/minoJfront.png");
       super.id = 3;
   }
-  
-  public JMino(){
-    this(0, 0);
-  }
 
   public void showTexture(){
   

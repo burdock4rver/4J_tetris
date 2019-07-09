@@ -12,10 +12,6 @@ public class IMino extends Mino {
     super.id = 2;
   }
 
-  public IMino() {
-    this(0, 0);
-  }
-
   public void showTexture() {
   }
 

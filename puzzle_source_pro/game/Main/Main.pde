@@ -38,5 +38,3 @@ public void keyPressed() {
 public void keyReleased() {
   input.checkRelease();
 }
-
-//Display display;

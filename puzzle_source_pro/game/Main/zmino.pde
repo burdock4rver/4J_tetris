@@ -13,10 +13,6 @@ public class ZMino extends Mino {
       super.id = 6;
   }
   
-  public ZMino() {
-    super(0, 0);
-  }
-
   public void showTexture() {
   }
   
