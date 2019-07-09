@@ -67,9 +67,6 @@ class Stage { //<>//
     // 操作されたか（カサカサ用）
     boolean wasOperate = false;
 
-    // ゴーストの位置設定
-    mino.setGhost(stage);
-
     // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {
       wasOperate = mino.moveRight(stage);
@@ -135,6 +132,9 @@ class Stage { //<>//
         waitFall = 0;
       }
     }
+    
+    // ゴーストの位置設定
+    mino.setGhost(stage);
   }
 
   // 新しいミノのインスタンスを返す

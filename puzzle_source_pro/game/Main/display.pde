@@ -1,5 +1,5 @@
 class Display {
-  
+
   int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
   float blockSize=35;  // ブロックの大きさ
@@ -10,7 +10,7 @@ class Display {
   float arst_y;
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
-  
+
   public Display(Stage stage) {    
     ui_img = loadImage("resources/main_ui.png");
     minoTex = new PImage[7];
@@ -21,10 +21,10 @@ class Display {
     minoTex[4] = loadImage("resources/minoSfront.png");
     minoTex[5] = loadImage("resources/minoZfront.png");
     minoTex[6] = loadImage("resources/minoOfront.png");
-    
+
     sSarray_x = stage.stage[0].length;    //横配列
     sSarray_y = stage.stage.length;  //縦配列
-    
+
     arst_y = sSarray_y-stageSize_y-1;   //配列とブロック数の差
   }
   public void showGhost() {
@@ -42,7 +42,7 @@ class Display {
   public void drawBackground() {  //背景を含むゲーム全体画面
     image(ui_img, 0, 0, width, height);
   }
-  
+
   // ステージに設置されているブロックを描画
   public void drawgame(Stage stage) {  //ゲームプレイ画面
 
@@ -50,6 +50,8 @@ class Display {
       for (int j = 0; j < sSarray_x; j++) {
 
         if (stage.stage[i][j] == 0) {
+          fill(255);
+          stroke(0);
           rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
         } else if (stage.stage[i][j] > 0) {
           image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);
@@ -57,12 +59,19 @@ class Display {
       }
     }
   }
-  
+
   // 落下中のミノ描画
   public void drawFallingMino(Mino mino) {
     for (int y = 0; y < 5; y++) {
       for (int x = 0; x < 5; x++) {
         if (mino.shape[y][x] != 0) {
+          // ミノの影
+          if (mino.posy < mino.ghost_y) {
+            fill(210, 200);
+            noStroke();
+            rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.ghost_y - arst_y), blockSize, blockSize);
+          }
+          // ミノの本体
           image(mino.texture, stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize);
         }
       }
