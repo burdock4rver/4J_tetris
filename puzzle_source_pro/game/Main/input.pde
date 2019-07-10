@@ -7,15 +7,23 @@ abstract class Input {
   public final int HOLD   = 4;
   public final int S_DROP = 5;
   public final int H_DROP = 6;
-  
   public  boolean state[];      // 7種類のキーの状態 ON or OFF
-  public  boolean keyState[];   // 押されているキー
+  
+  protected boolean keyState[];   // 押されているキー
   private int     wait[];       // 7種類のキーの待ち時間
   private int     input_delay;  // 次の入力を受け付けるまでの時間(ms)
+  private boolean r_turn_released;
+  private boolean l_turn_released;
   
   abstract void checkInput();
   
   abstract void checkRelease();
+  
+public Input() {
+    input_delay = 200;
+    r_turn_released = true;
+    l_turn_released = true;
+}
   
   // draw()の最初で呼ぶ
   public void update(int delta_time) {
@@ -38,16 +46,18 @@ abstract class Input {
     }
     if (keyState[R_TURN]) {
       if (wait[R_TURN] >= input_delay) {
-        if (!state[L_TURN]) {
+        if (!state[L_TURN] && r_turn_released) {
           state[R_TURN] = true; 
+          r_turn_released = false;
         }
         wait[R_TURN] = 0;
       }
     }
     if (keyState[L_TURN]) {
       if (wait[R_TURN] >= input_delay) {
-        if (!state[R_TURN]) {
+        if (!state[R_TURN] && l_turn_released) {
           state[L_TURN] = true; 
+          l_turn_released = false;
         }
         wait[R_TURN] = 0;
       }
@@ -83,9 +93,5 @@ abstract class Input {
     for (int i = 0; i < 7; i++) {
      state[i] = false;
     }
-  }
-  
-  public Input() {
-    input_delay = 200;
   }
 }
