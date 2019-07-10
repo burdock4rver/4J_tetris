@@ -1,4 +1,4 @@
-class Stage { //<>//
+class Stage { //<>// //<>//
 
   private int score;
 
@@ -82,14 +82,22 @@ class Stage { //<>//
 
     if (input.state[input.R_TURN]) {        // 右回転
       wasOperate = mino.turnRight(stage);
+      // 浮かび上がったときの処理
+      boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
-      waitFall = 0;
+      if (preIsGround && isGround) {
+        waitFall = 0;
+      }
     }
 
     if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
+      // 浮かび上がったときの処理
+      boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
-      waitFall = 0;
+      if (preIsGround && isGround) {
+         waitFall = 0;
+      }
     }
 
     if (input.state[input.HOLD]) {          // ホールド
