@@ -28,6 +28,7 @@ public void draw() {
   disp.drawBackground();
   disp.drawgame(stage);
   disp.showNext();
+  disp.showHold();
   disp.drawFallingMino(stage.mino);
  
   input.clean();

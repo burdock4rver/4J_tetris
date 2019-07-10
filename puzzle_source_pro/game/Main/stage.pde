@@ -192,12 +192,17 @@ class Stage { //<>//
       if (holdMino == null) {  // ホールドにミノがないとき
         holdMino = mino;
         setNextMino();
-      } else {                 // ホールドにミノがあるとき
+      } else {                 // ホールドにミノがあるときr
         Mino tmp = mino;
         mino = getNewMino(holdMino.id);
         holdMino = tmp;
       }
     }
+  }
+  
+  public Mino getHoldMino(Mino holdMino2){
+      holdMino2 = holdMino;
+      return holdMino2;
   }
   
 

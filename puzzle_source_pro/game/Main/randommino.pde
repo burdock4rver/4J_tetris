@@ -34,7 +34,7 @@ public class RandomMino {
         firstFlag = true;
       }else{
       
-        if(q_point == 8){ //<>//
+        if(q_point == 8){
           randomMino();
           for(int i = 0;i < 7;i++){
             nextMino2[i] = nextMino1[i];

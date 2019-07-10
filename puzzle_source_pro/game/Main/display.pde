@@ -1,4 +1,4 @@
-class Display { //<>//
+class Display { //<>// //<>//
 
   int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
@@ -11,11 +11,15 @@ class Display { //<>//
   float nextMinoY = 140; //次のブロックの表示するY座標
   float nextPointInreval = 50; //次のブロックの表示位置の差
   float nextMinoSize = blockSize-10;
+  float holdMinoX=15;
+  float holdMinoY=180;
+  float holdMinoSize=blockSize-10;
   float arst_y;
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
 
   Mino dispNextMino[];
+  Mino holdMino;
 
   public Display(Stage stage) {    
     ui_img = loadImage("resources/TEST.png");
@@ -37,6 +41,7 @@ class Display { //<>//
 
   public void update() {
     stage.getNext(dispNextMino);
+    holdMino = stage.getHoldMino(holdMino);
   }
 
   public void showGhost() {
@@ -46,26 +51,38 @@ class Display { //<>//
   }
 
   public void showNext() {
-    translate(nextMinoX,nextMinoY);
+    translate(nextMinoX, nextMinoY);
     for (int next = 0; next < 4; next++) {
-      translate(0,nextPointInreval);
-      if(next == 1){
+      translate(0, nextPointInreval);
+      if (next == 1) {
         nextMinoSize-=5;       //2個前のブロックを小さく
       }
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
           if (dispNextMino[next].shape[i][j] >= 1) {
-            image(minoTex[dispNextMino[next].id - 1], nextMinoSize* j , nextMinoSize * i, nextMinoSize, nextMinoSize); //<>//
+            image(minoTex[dispNextMino[next].id - 1], nextMinoSize* j, nextMinoSize * i, nextMinoSize, nextMinoSize);
           }
         }
       }
     }
     //元に戻す
     nextMinoSize +=5;
-    translate(-nextMinoX,-nextMinoY+nextPointInreval*(-4));
+    translate(-nextMinoX, -nextMinoY+nextPointInreval*(-4));
   }
 
   public void showHold() {
+    if (holdMino != null) {
+      translate(holdMinoX, holdMinoY);
+      for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+          if (holdMino.shape[i][j] >= 1) {
+            image(minoTex[holdMino.id - 1], holdMinoSize* j, holdMinoSize * i, holdMinoSize, holdMinoSize);
+          }
+        }
+      }
+      //元に戻す
+      translate(-holdMinoX, -holdMinoY);
+    }
   }
 
   public void drawBackground() {  //背景を含むゲーム全体画面
