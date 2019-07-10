@@ -142,7 +142,7 @@ public abstract class Mino {
     }
     return false;
   }
-
+  
   // 移動出来たらtrue, だめならfalse
   public boolean moveRight(int[][] stage) {
     if (checkMino(stage, 1, 0)) {

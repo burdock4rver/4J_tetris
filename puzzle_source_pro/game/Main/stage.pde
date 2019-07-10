@@ -14,6 +14,8 @@ class Stage { //<>//
                                 
   private Mino nextMino[];
                                 
+  private final int FIRST_X = 3;  // ミノの生成位置
+  private final int FIRST_Y = 3;
   private final int NORMAL_FALL_TIME = 1000; //自然落下間隔時間
   private final int SOFT_FALL_TIME = 40;  //強制落下間隔時間
   private final int FREE_TIME = 4000;   // 接地後に最大何ms動かせるか
@@ -26,10 +28,10 @@ class Stage { //<>//
   int[][] stage;
 
   public Stage() {
-    next = new RandomMino();
+    next = new RandomMino();  // ミノ生成マシーン
+    mino = getNewMino(next.getNextMino());  // 最初のミノを生成
     nextMino =new Mino[4];
-    for (int i = 0;i < 4;i++) nextMino[i]=getNewMino(next.getNextMino());
-    mino = nextMino[0];
+    for (int i = 0;i < 4;i++) nextMino[i]=getNewMino(next.getNextMino());  // Nextの4つのミノを生成
     holdMino = null;
     isGround = false;
     waitFall = 0;
@@ -142,32 +144,29 @@ class Stage { //<>//
   // 新しいミノのインスタンスを返す
   // idは17の間
   private Mino getNewMino(int id) {
-    int first_x = 3;
-    int first_y = 3;
-
     Mino nmino = null;
 
     switch(id) {
     case 1 : 
-      nmino = new TMino(first_x, first_y);
+      nmino = new TMino(FIRST_X, FIRST_Y);
       break;
     case 2 :
-      nmino = new IMino(first_x, first_y);
+      nmino = new IMino(FIRST_X, FIRST_Y);
       break;
     case 3 :
-      nmino = new JMino(first_x, first_y);
+      nmino = new JMino(FIRST_X, FIRST_Y);
       break;
     case 4 :
-      nmino = new LMino(first_x, first_y);
+      nmino = new LMino(FIRST_X, FIRST_Y);
       break;
     case 5 :
-      nmino = new SMino(first_x, first_y);
+      nmino = new SMino(FIRST_X, FIRST_Y);
       break;
     case 6 :
-      nmino = new ZMino(first_x, first_y);
+      nmino = new ZMino(FIRST_X, FIRST_Y);
       break;
     case 7 :
-      nmino = new OMino(first_x, first_y);
+      nmino = new OMino(FIRST_X, FIRST_Y);
       break;
     }
     return nmino;
