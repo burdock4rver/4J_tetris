@@ -20,6 +20,7 @@ class Display { //<>// //<>//
 
   Mino dispNextMino[];
   Mino holdMino;
+  Mino minos[];
 
   public Display(Stage stage) {    
     ui_img = loadImage("resources/TEST.png");
@@ -31,6 +32,15 @@ class Display { //<>// //<>//
     minoTex[4] = loadImage("resources/minoSfront.png");
     minoTex[5] = loadImage("resources/minoZfront.png");
     minoTex[6] = loadImage("resources/minoOfront.png");
+    
+    minos = new Mino[7];
+    minos[0] = new TMino(0,0);
+    minos[1] = new IMino(0,0);
+    minos[2] = new JMino(0,0);
+    minos[3] = new LMino(0,0);
+    minos[4] = new SMino(0,0);
+    minos[5] = new ZMino(0,0);
+    minos[6] = new OMino(0,0);
 
     sSarray_x = stage.stage[0].length;    //横配列
     sSarray_y = stage.stage.length;  //縦配列
@@ -75,8 +85,8 @@ class Display { //<>// //<>//
       translate(holdMinoX, holdMinoY);
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
-          if (holdMino.shape[i][j] >= 1) {
-            image(minoTex[holdMino.id - 1], holdMinoSize* j, holdMinoSize * i, holdMinoSize, holdMinoSize);
+          if (minos[holdMino.id - 1].shape[i][j] >= 1) {
+            image(minoTex[minos[holdMino.id - 1].id - 1], holdMinoSize* j, holdMinoSize * i, holdMinoSize, holdMinoSize);
           }
         }
       }
