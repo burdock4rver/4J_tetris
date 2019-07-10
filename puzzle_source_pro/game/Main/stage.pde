@@ -72,33 +72,37 @@ class Stage { //<>//
     boolean wasOperate = false;
 
     // キーと操作の対応はclass InputKeyを参照されたし
-    if (input.state[input.R_MOVE]) {
+    if (input.state[input.R_MOVE]) {        // 右移動
       wasOperate = mino.moveRight(stage);
     }
 
-    if (input.state[input.L_MOVE]) {
+    if (input.state[input.L_MOVE]) {        // 左移動
       wasOperate = mino.moveLeft(stage);
     }
 
-    if (input.state[input.R_TURN]) {
+    if (input.state[input.R_TURN]) {        // 右回転
       wasOperate = mino.turnRight(stage);
+      isGround = mino.checkMino(stage, 0, 1);
     }
 
-    if (input.state[input.L_TURN]) {
+    if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
+      isGround = mino.checkMino(stage, 0, 1);
     }
 
-    if (input.state[input.HOLD]) {
+    if (input.state[input.HOLD]) {          // ホールド
       hold();
     }
 
-    if (input.state[input.S_DROP]) {
+    if (input.state[input.S_DROP]) {        // ソフトドロップ
       fall_time = SOFT_FALL_TIME;
     } else {
       fall_time = NORMAL_FALL_TIME;
     }
 
-    if (input.state[input.H_DROP]) {
+    mino.setGhost(stage);    // ゴーストの位置設定
+    
+    if (input.state[input.H_DROP]) {        // ハードドロップ
       mino.posy = mino.ghost_y;
       minoFreeTime = FREE_TIME;
       isGround = true;
@@ -136,9 +140,6 @@ class Stage { //<>//
         waitFall = 0;
       }
     }
-
-    // ゴーストの位置設定
-    mino.setGhost(stage);
   }
 
   // 新しいミノのインスタンスを返す
@@ -204,8 +205,6 @@ class Stage { //<>//
       return holdMino2;
   }
   
-
-
   // ミノをstage[][]にセットする
   public void stageSetMino(Mino mino) {
     for (int y = 0; y < 5; y++) {
