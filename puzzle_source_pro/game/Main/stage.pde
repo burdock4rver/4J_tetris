@@ -2,20 +2,20 @@ class Stage { //<>//
 
   private int score;
 
-  private boolean holdFlag;
-
   private int time=1;
 
-  private int waitFall;
+  private int waitFall;       
   private int lastInputTime;  // 最後の入力からの経過時間
 
   private boolean isGround;   // ミノが接地しているか
   private int minoFreeTime;   // 地面に接している間にミノが自由に動ける時間
   private boolean doneHold;   // ホールドを使ったか
-  private int fall_time;
-
-  private final int NORMAL_FALL_TIME = 1000;
-  private final int SOFT_FALL_TIME = 40;
+  private int fall_time;     //落下間隔時間
+                                
+  private Mino nextMino[];
+                                
+  private final int NORMAL_FALL_TIME = 1000; //自然落下間隔時間
+  private final int SOFT_FALL_TIME = 40;  //強制落下間隔時間
   private final int FREE_TIME = 4000;   // 接地後に最大何ms動かせるか
   private final int INPUT_WAIT = 1000;  // 最後の入力から何ms待つか(カサカサ)
 
@@ -27,7 +27,9 @@ class Stage { //<>//
 
   public Stage() {
     next = new RandomMino();
-    setRandomMino();
+    nextMino =new Mino[4];
+    for (int i = 0;i < 4;i++) nextMino[i]=getNewMino(next.getNextMino());
+    mino = nextMino[0];
     holdMino = null;
     isGround = false;
     waitFall = 0;
@@ -85,7 +87,7 @@ class Stage { //<>//
     }
 
     if (input.state[input.HOLD]) {
-      changeHold();
+      hold();
     }
 
     if (input.state[input.S_DROP]) {
@@ -122,8 +124,8 @@ class Stage { //<>//
         // ラインチェックと次のミノの処理
         stageSetMino(mino);      // stage[][]にミノのブロックを反映
         checkline(mino.posy);    // ラインチェック
-        
-        setRandomMino();         // 次のミノを取り出す
+
+        setNextMino();         // 次のミノを取り出す
         
         doneHold = false; 
         isGround = false;
@@ -132,7 +134,7 @@ class Stage { //<>//
         waitFall = 0;
       }
     }
-    
+
     // ゴーストの位置設定
     mino.setGhost(stage);
   }
@@ -140,7 +142,7 @@ class Stage { //<>//
   // 新しいミノのインスタンスを返す
   // idは17の間
   private Mino getNewMino(int id) {
-    int first_x = 4;
+    int first_x = 3;
     int first_y = 3;
 
     Mino nmino = null;
@@ -172,12 +174,16 @@ class Stage { //<>//
   }
 
   // 次のミノをminoに代入する
-  public void setRandomMino() {
-    mino = getNewMino(next.getNextMino());
+  public void setNextMino() {
+    mino = nextMino[0];
+    for (int i = 0;i < 3;i++){
+      nextMino[i] = nextMino[i + 1];
+    }
+    nextMino[3] = getNewMino(next.getNextMino());
   }
 
   // ホールドの処理
-  public void changeHold() {
+  public void hold() {
     if (!doneHold) {           // 既にホールドを使っていないかのチェック
       minoFreeTime = 0;        // 各種変数の再設定
       lastInputTime = 0;
@@ -185,7 +191,7 @@ class Stage { //<>//
       doneHold = true;
       if (holdMino == null) {  // ホールドにミノがないとき
         holdMino = mino;
-        setRandomMino();
+        setNextMino();
       } else {                 // ホールドにミノがあるとき
         Mino tmp = mino;
         mino = getNewMino(holdMino.id);
@@ -193,6 +199,8 @@ class Stage { //<>//
       }
     }
   }
+  
+
 
   // ミノをstage[][]にセットする
   public void stageSetMino(Mino mino) {
@@ -204,7 +212,7 @@ class Stage { //<>//
       }
     }
   }
-  
+
   // int cy : ミノの位置  
   // cyを基準にしてブロックを走査
   public void checkline(int cy) {
@@ -252,10 +260,10 @@ class Stage { //<>//
   public void gameOver() {
   }
 
-  public void hold() {
-  }
-
-  public void next() {
+  public void getNext(Mino dispNextMino[]) {
+    for(int i = 0;i < 4;i++)  {
+      dispNextMino[i] = nextMino[i];
+    }
   }
 
   public void renCount() {

@@ -1,18 +1,24 @@
-class Display {
+class Display { //<>//
 
   int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
-  float blockSize=35;  // ブロックの大きさ
-  float stagePosition_x = (180)/2;  //プレイ画面の位置
-  float stagePosition_y = (1920-1530)/2;
+  float blockSize=30;  // ブロックの大きさ
+  float stagePosition_x = (241)/2;  //プレイ画面の位置
+  float stagePosition_y = 503 / 2;
   int sSarray_x;       // 横配列
   int sSarray_y;       // 縦配列
+  float nextMinoX = 430; //次のブロックの表示するX座標
+  float nextMinoY = 140; //次のブロックの表示するY座標
+  float nextPointInreval = 50; //次のブロックの表示位置の差
+  float nextMinoSize = blockSize-10;
   float arst_y;
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
 
+  Mino dispNextMino[];
+
   public Display(Stage stage) {    
-    ui_img = loadImage("resources/main_ui.png");
+    ui_img = loadImage("resources/TEST.png");
     minoTex = new PImage[7];
     minoTex[0] = loadImage("resources/minoTfront.png");
     minoTex[1] = loadImage("resources/minoIfront.png");
@@ -26,7 +32,13 @@ class Display {
     sSarray_y = stage.stage.length;  //縦配列
 
     arst_y = sSarray_y-stageSize_y-1;   //配列とブロック数の差
+    dispNextMino =new Mino[4];
   }
+
+  public void update() {
+    stage.getNext(dispNextMino);
+  }
+
   public void showGhost() {
   }
 
@@ -34,6 +46,23 @@ class Display {
   }
 
   public void showNext() {
+    translate(nextMinoX,nextMinoY);
+    for (int next = 0; next < 4; next++) {
+      translate(0,nextPointInreval);
+      if(next == 1){
+        nextMinoSize-=5;       //2個前のブロックを小さく
+      }
+      for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+          if (dispNextMino[next].shape[i][j] >= 1) {
+            image(minoTex[dispNextMino[next].id - 1], nextMinoSize* j , nextMinoSize * i, nextMinoSize, nextMinoSize); //<>//
+          }
+        }
+      }
+    }
+    //元に戻す
+    nextMinoSize +=5;
+    translate(-nextMinoX,-nextMinoY+nextPointInreval*(-4));
   }
 
   public void showHold() {
@@ -45,13 +74,13 @@ class Display {
 
   // ステージに設置されているブロックを描画
   public void drawgame(Stage stage) {  //ゲームプレイ画面
-
     for (int i = (int)arst_y; i < sSarray_y; i++) {
       for (int j = 0; j < sSarray_x; j++) {
 
         if (stage.stage[i][j] == 0) {
           fill(255);
           stroke(0);
+          noFill();
           rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
         } else if (stage.stage[i][j] > 0) {
           image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);

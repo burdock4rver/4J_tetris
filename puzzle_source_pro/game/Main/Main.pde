@@ -23,9 +23,11 @@ public void draw() {
   
   input.update(delta_time); 
   stage.update(input, delta_time);
+  disp.update();
 
   disp.drawBackground();
   disp.drawgame(stage);
+  disp.showNext();
   disp.drawFallingMino(stage.mino);
  
   input.clean();

@@ -29,6 +29,40 @@ public abstract class Mino {
       shape = rotate_shape;
       return true;
     }
+    else
+    {
+      for(int mpos = 1;mpos < 3; mpos += 1)
+      {
+        if (checkMino(stage, rotate_shape, mpos, 0)){
+          posx += mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, -mpos, 0)){
+          posx -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, 0,-mpos)){
+          posy -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, mpos,-mpos)){
+          posx += mpos;
+          posy -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, -mpos,-mpos)){
+          posx -= mpos;
+          posy -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        
+      }
+    }
     return false;
   }
   
@@ -38,6 +72,41 @@ public abstract class Mino {
       shape = rotate_shape;
       return true;
     }
+    else
+    {
+      for(int mpos = 1;mpos < 3; mpos += 1)
+      {
+        if (checkMino(stage, rotate_shape, mpos, 0)){
+          posx += mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, -mpos, 0)){
+          posx -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, 0,-mpos)){
+          posy -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, mpos,-mpos)){
+          posx += mpos;
+          posy -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        if (checkMino(stage, rotate_shape, -mpos,-mpos)){
+          posx -= mpos;
+          posy -= mpos;
+          shape = rotate_shape;
+          return true;
+        }
+        
+      }
+    }
+    
     return false;
   }
 

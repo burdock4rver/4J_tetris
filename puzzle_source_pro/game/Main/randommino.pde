@@ -8,7 +8,7 @@ public class RandomMino {
    public void randomMino() {  //  次にくるブロックの生成
     int flag[] = new int[7];
     int rand;
-     for(int i=0;i<7;i++){
+     for(int i = 0;i < 7;i++){
        while(true){
          rand = (int)random(1,8);
          if(flag[rand - 1] != 1){
@@ -34,24 +34,25 @@ public class RandomMino {
         firstFlag = true;
       }else{
       
-        if(q_point == 7){
+        if(q_point == 8){ //<>//
           randomMino();
           for(int i = 0;i < 7;i++){
             nextMino2[i] = nextMino1[i];
           }
-        }
+        }else{
         if(q_point == 0);
           randomMino();
           for(int i = 0;i < 7;i++){
             nextMino2[i+7] = nextMino1[i];
           } 
       }
+      }
     }
     
     public int getNextMino(){
       int next;
       if(q_point == 14)  q_point = 0;
-      if(q_point % 8 == 0) nextMino();
+      if(q_point == 0 || q_point == 8) nextMino();
       next = nextMino2[q_point];
       
       q_point++;
