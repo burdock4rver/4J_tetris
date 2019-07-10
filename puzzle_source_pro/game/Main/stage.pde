@@ -82,12 +82,12 @@ class Stage { //<>//
 
     if (input.state[input.R_TURN]) {        // 右回転
       wasOperate = mino.turnRight(stage);
-      isGround = mino.checkMino(stage, 0, 1);
+      isGround = !mino.checkMino(stage, 0, 1);
     }
 
     if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
-      isGround = mino.checkMino(stage, 0, 1);
+      isGround = !mino.checkMino(stage, 0, 1);
     }
 
     if (input.state[input.HOLD]) {          // ホールド
