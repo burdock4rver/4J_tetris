@@ -1,12 +1,5 @@
 class InputKey extends Input {
 
-  public InputKey() {
-    super();
-    super.state =  new boolean[7];
-    super.keyState = new boolean[7];
-    super.wait = new int[7];
-  }
-
   public void checkInput() {
     if (key == 'd') {
       keyState[R_MOVE] = true;
@@ -49,11 +42,9 @@ class InputKey extends Input {
     }
     if (key == 'l') {
       keyState[R_TURN] = false;
-      super.r_turn_released = true;
     }
     if (key == 'j') {
       keyState[L_TURN] = false;
-      super.l_turn_released = true;
     }
   }
 }
