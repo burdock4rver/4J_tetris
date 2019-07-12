@@ -10,10 +10,10 @@ class Display { //<>// //<>//
   float nextMinoX = 430; //次のブロックの表示するX座標
   float nextMinoY = 140; //次のブロックの表示するY座標
   float nextPointInreval = 50; //次のブロックの表示位置の差
-  float nextMinoSize = blockSize-10;
-  float holdMinoX=15;
-  float holdMinoY=180;
-  float holdMinoSize=blockSize-10;
+  float nextMinoSize = blockSize-10; //ネクストブロックの大きさ
+  float holdMinoX=15;                //ホールド座標X 
+  float holdMinoY=180;               //ホールド座標X
+  float holdMinoSize=blockSize-10;   //
   float arst_y;
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
