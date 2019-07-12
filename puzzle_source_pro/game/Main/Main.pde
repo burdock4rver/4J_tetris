@@ -22,9 +22,10 @@ public void draw() {
   pre_time = ms;
   
   input.update(delta_time); 
+  
   stage.update(input, delta_time);
-  disp.update();
 
+  disp.update();
   disp.drawBackground();
   disp.drawgame(stage);
   disp.showNext();

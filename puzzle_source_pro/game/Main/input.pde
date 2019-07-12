@@ -7,91 +7,114 @@ abstract class Input {
   public final int HOLD   = 4;
   public final int S_DROP = 5;
   public final int H_DROP = 6;
-  public  boolean state[];      // 7種類のキーの状態 ON or OFF
   
-  protected boolean keyState[];   // 押されているキー
-  private int     wait[];       // 7種類のキーの待ち時間
-  private int     input_delay;  // 次の入力を受け付けるまでの時間(ms)
-  private boolean r_turn_released;
-  private boolean l_turn_released;
-  
+  private final int INPUT_DELAY = 200;  // 次の入力を受け付けるまでの時間(ms)
+
+  public boolean state[];         // 7種類のキーの状態 ON or OFF
+
+  protected  boolean keyState[];   // 押されているキー
+  private int wait[];             // 7種類のキーの待ち時間
+  private int waitMove;           // moveとturnは左右でセットなので同じ時間を参照する
+  private int waitTurn;
+
+  // この２つのメソッドをコントローラーに合わせてオーバーライドすればいい
   abstract void checkInput();
-  
   abstract void checkRelease();
-  
-public Input() {
-    input_delay = 200;
-    r_turn_released = true;
-    l_turn_released = true;
-}
-  
+
+  public Input() {
+    state =  new boolean[7];
+    keyState = new boolean[7];
+    wait = new int[7];
+    waitMove = 0;
+    waitTurn = 0;
+  }
+
   // draw()の最初で呼ぶ
   public void update(int delta_time) {
+
+    // 右移動
     if (keyState[R_MOVE]) {
-      
-      if (wait[R_MOVE] >= input_delay) {
+      if (waitMove >= INPUT_DELAY) {
         if (!state[L_MOVE]) {
-          state[R_MOVE] = true;  
+          state[R_MOVE] = true;
         }
-        wait[R_MOVE] = 0;
+        waitMove = 0;
       }
     }
+
+    // 左移動
     if (keyState[L_MOVE]) {
-      if (wait[R_MOVE] >= input_delay) {
+      if (waitMove >= INPUT_DELAY) {
         if (!state[R_MOVE]) {
-          state[L_MOVE] = true;  
+          state[L_MOVE] = true;
         }
-        wait[R_MOVE] = 0;
+        waitMove = 0;
       }
     }
+
+    // 右回転
+    // 連続入力なし
     if (keyState[R_TURN]) {
-      if (wait[R_TURN] >= input_delay) {
-        if (!state[L_TURN] && r_turn_released) {
-          state[R_TURN] = true; 
-          r_turn_released = false;
-        }
+      if (wait[R_TURN] >= INPUT_DELAY && waitTurn >= INPUT_DELAY) {
+        state[R_TURN] = true;
         wait[R_TURN] = 0;
+        waitTurn = 0;
       }
+    } else {
+      wait[R_TURN] = INPUT_DELAY;
     }
+
+    // 左回転
+    // 連続入力なし
     if (keyState[L_TURN]) {
-      if (wait[R_TURN] >= input_delay) {
-        if (!state[R_TURN] && l_turn_released) {
-          state[L_TURN] = true; 
-          l_turn_released = false;
-        }
-        wait[R_TURN] = 0;
+      if (wait[L_TURN] >= INPUT_DELAY && waitTurn >= INPUT_DELAY) {
+        state[L_TURN] = true;
+        wait[L_TURN] = 0;
+        waitTurn = 0;
       }
+    } else {
+      wait[L_TURN] = INPUT_DELAY;
     }
+
+    // ホールド
     if (keyState[HOLD]) {
-      if (wait[HOLD] >= input_delay) {
+      if (wait[HOLD] >= INPUT_DELAY) {
         state[HOLD] = true;
         wait[HOLD] = 0;
       }
     }
+
+    // ソフトドロップ
     if (keyState[S_DROP]) {
       state[S_DROP] = true;
     }
+
+    // ハードドロップ
+    // 連続入力なし
     if (keyState[H_DROP]) {
-      if (wait[H_DROP] >= input_delay) {
+      if (wait[H_DROP] >= INPUT_DELAY) {
         state[H_DROP] = true;
         wait[H_DROP] = 0;
       }
     } else {
-      wait[H_DROP] = input_delay;
+      wait[H_DROP] = INPUT_DELAY;
     }
-    
+
+    // 待ち時間を加算する
     for (int i = 0; i < 7; i++) {
-      if (i == H_DROP) {
+      if (i == H_DROP || i == R_TURN || i == L_TURN) { // 連続入力をしないキーはここで飛ばす
         continue;
       }
       wait[i] += delta_time;
     }
+    waitTurn += delta_time;
+    waitMove += delta_time;
   }
-  
+
   // draw()の最後で呼ぶ
   public void clean() {
     for (int i = 0; i < 7; i++) {
-     state[i] = false;
+      state[i] = false;
     }
   }
 }

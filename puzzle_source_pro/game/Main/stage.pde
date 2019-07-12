@@ -66,6 +66,7 @@ class Stage { //<>// //<>//
       {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}};
   }
 
+  // このメソッドをdraw()で毎フレーム呼ぶ
   public void update(Input input, int delta_time) {
 
     // 操作されたか（カサカサ用）
