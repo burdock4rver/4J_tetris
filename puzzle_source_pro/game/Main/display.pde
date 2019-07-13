@@ -1,8 +1,8 @@
-class Display { //<>// //<>//
+class Display { //<>// //<>// //<>//
 
   int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
-  float blockSize=30;  // ブロックの大きさ
+  float blockSize=30;  // ブロックの大きさ (変更する際はMinoclassのも変更)
   float stagePosition_x = (241)/2;  //プレイ画面の位置
   float stagePosition_y = 503 / 2;
   int sSarray_x;       // 横配列
@@ -15,8 +15,11 @@ class Display { //<>// //<>//
   float holdMinoY=180;               //ホールド座標X
   float holdMinoSize=blockSize-10;   //
   float arst_y;
+  float collectNextX = 20;          //ネクストブロック座標補正
+  float collectNextY = 20;          //ネクストブロック座標補正
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
+
 
   Mino dispNextMino[];
   Mino holdMino;
@@ -61,23 +64,34 @@ class Display { //<>// //<>//
   }
 
   public void showNext() {
-    translate(nextMinoX, nextMinoY);
     for (int next = 0; next < 4; next++) {
       translate(0, nextPointInreval);
-      if (next == 1) {
-        nextMinoSize-=5;       //2個前のブロックを小さく
+
+      translate(dispNextMino[next].nextPointX, dispNextMino[next].nextPointY);
+      if (next >= 1) { //2個前
+        dispNextMino[next].nextBlockSize -=5;       
+        translate(collectNextX, collectNextY);
+      }else{  //1個前
+        
+      
       }
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
           if (dispNextMino[next].shape[i][j] >= 1) {
-            image(minoTex[dispNextMino[next].id - 1], nextMinoSize* j, nextMinoSize * i, nextMinoSize, nextMinoSize);
+            image(minoTex[dispNextMino[next].id - 1], dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize);
           }
         }
       }
+      if (next >= 1){
+      translate(-collectNextX, -collectNextY);
+      dispNextMino[next].nextBlockSize +=5;
+      }
+
+      translate(-dispNextMino[next].nextPointX, -dispNextMino[next].nextPointY);
     }
     //元に戻す
-    nextMinoSize +=5;
-    translate(-nextMinoX, -nextMinoY+nextPointInreval*(-4));
+
+    translate(0, nextPointInreval*(-4));
   }
 
   public void showHold() {

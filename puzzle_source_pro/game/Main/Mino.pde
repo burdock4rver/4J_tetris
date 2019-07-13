@@ -1,6 +1,9 @@
 public abstract class Mino {
+  public final float BLOCK_SIZE = 30;
   private int shape[][];
-
+  public float nextPointX;  //
+  public float nextPointY;  //
+  public float nextBlockSize;
   private PImage texture;
 
   // ミノの左上の座標 stageの配列にそのまま入る
@@ -15,6 +18,7 @@ public abstract class Mino {
     posx = x;
     posy = y;
     ghost_y = 0;
+    nextBlockSize = BLOCK_SIZE - 10;
   }
 
   /*
