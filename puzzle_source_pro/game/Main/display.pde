@@ -12,7 +12,7 @@ class Display { //<>// //<>// //<>//
   float nextPointInreval = 50; //次のブロックの表示位置の差
   float nextMinoSize = blockSize-10; //ネクストブロックの大きさ
   float holdMinoX=15;                //ホールド座標X 
-  float holdMinoY=180;               //ホールド座標X
+  float holdMinoY=180;               //ホールド座標Y
   float holdMinoSize=blockSize-10;   //
   float arst_y;
   float collectNextX = 20;          //ネクストブロック座標補正
@@ -96,16 +96,16 @@ class Display { //<>// //<>// //<>//
 
   public void showHold() {
     if (holdMino != null) {
-      translate(holdMinoX, holdMinoY);
+      translate(holdMino.holdPointX, holdMino.holdPointY);
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
           if (minos[holdMino.id - 1].shape[i][j] >= 1) {
-            image(minoTex[minos[holdMino.id - 1].id - 1], holdMinoSize* j, holdMinoSize * i, holdMinoSize, holdMinoSize);
+            image(minoTex[minos[holdMino.id - 1].id - 1], holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize);
           }
         }
       }
       //元に戻す
-      translate(-holdMinoX, -holdMinoY);
+      translate(-holdMino.holdPointX, -holdMino.holdPointY);
     }
   }
 

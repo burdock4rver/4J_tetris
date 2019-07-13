@@ -4,6 +4,9 @@ public class OMino extends Mino {
     super(x, y);
     super.nextPointX = 430;
     super.nextPointY = 140;
+    super.holdPointX = 0;                //ホールド座標X 
+    super.holdPointY = 193;               //ホールド座標Y
+    super.holdSize = 19.5;
     super.nextBlockSize = 20;
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 

@@ -3,6 +3,9 @@ public abstract class Mino {
   private int shape[][];
   public float nextPointX;  //
   public float nextPointY;  //
+  public float holdPointX;
+  public float holdPointY;
+  public float holdSize;
   public float nextBlockSize;
   private PImage texture;
 
@@ -32,85 +35,81 @@ public abstract class Mino {
     if (checkMino(stage, rotate_shape, 0, 0)) {
       shape = rotate_shape;
       return true;
-    }
-    else
+    } else
     {
-      for(int mpos = 1;mpos < 3; mpos += 1)
+      for (int mpos = 1; mpos < 3; mpos += 1)
       {
-        if (checkMino(stage, rotate_shape, mpos, 0)){
+        if (checkMino(stage, rotate_shape, mpos, 0)) {
           posx += mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, -mpos, 0)){
+        if (checkMino(stage, rotate_shape, -mpos, 0)) {
           posx -= mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, 0,-mpos)){
+        if (checkMino(stage, rotate_shape, 0, -mpos)) {
           posy -= mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, mpos,-mpos)){
+        if (checkMino(stage, rotate_shape, mpos, -mpos)) {
           posx += mpos;
           posy -= mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, -mpos,-mpos)){
+        if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
           posx -= mpos;
           posy -= mpos;
           shape = rotate_shape;
           return true;
         }
-        
       }
     }
     return false;
   }
-  
+
   public boolean turnLeft(int[][] stage) {
     int rotate_shape[][] = rotateLeft();
     if (checkMino(stage, rotate_shape, 0, 0)) {
       shape = rotate_shape;
       return true;
-    }
-    else
+    } else
     {
-      for(int mpos = 1;mpos < 3; mpos += 1)
+      for (int mpos = 1; mpos < 3; mpos += 1)
       {
-        if (checkMino(stage, rotate_shape, mpos, 0)){
+        if (checkMino(stage, rotate_shape, mpos, 0)) {
           posx += mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, -mpos, 0)){
+        if (checkMino(stage, rotate_shape, -mpos, 0)) {
           posx -= mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, 0,-mpos)){
+        if (checkMino(stage, rotate_shape, 0, -mpos)) {
           posy -= mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, mpos,-mpos)){
+        if (checkMino(stage, rotate_shape, mpos, -mpos)) {
           posx += mpos;
           posy -= mpos;
           shape = rotate_shape;
           return true;
         }
-        if (checkMino(stage, rotate_shape, -mpos,-mpos)){
+        if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
           posx -= mpos;
           posy -= mpos;
           shape = rotate_shape;
           return true;
         }
-        
       }
     }
-    
+
     return false;
   }
 
@@ -123,7 +122,7 @@ public abstract class Mino {
           int check_y = y + posy + dy;
           // インデックスがstage[][]からはみ出さないか監視
           if (check_x < 0 || check_x >= stage[0].length || check_y < 0 || check_y > stage.length) {
-            return false; 
+            return false;
           }
           if (stage[check_y][check_x] != 0) {
             return false;
@@ -146,7 +145,7 @@ public abstract class Mino {
     }
     return false;
   }
-  
+
   // 移動出来たらtrue, だめならfalse
   public boolean moveRight(int[][] stage) {
     if (checkMino(stage, 1, 0)) {
@@ -163,7 +162,7 @@ public abstract class Mino {
     }
     return false;
   }
-  
+
   // ゴーストの位置を作成
   public void setGhost(int[][] stage) {
     for (int y = posy; checkMino(stage, 0, y - posy); y++) {
