@@ -57,7 +57,12 @@ class Display { //<>// //<>// //<>//
     holdMino = stage.getHoldMino(holdMino);
   }
 
-  public void showGhost() {
+  public void showGhost(int x,int y,Mino mino) {
+    if (mino.posy < mino.ghost_y) {
+      fill(210, 200);
+      noStroke();
+      rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.ghost_y - arst_y), blockSize, blockSize);
+    }
   }
 
   public void showText() {
@@ -71,9 +76,7 @@ class Display { //<>// //<>// //<>//
       if (next >= 1) { //2個前
         dispNextMino[next].nextBlockSize -=5;       
         translate(collectNextX, collectNextY);
-      }else{  //1個前
-        
-      
+      } else {  //1個前
       }
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
@@ -82,9 +85,9 @@ class Display { //<>// //<>// //<>//
           }
         }
       }
-      if (next >= 1){
-      translate(-collectNextX, -collectNextY);
-      dispNextMino[next].nextBlockSize +=5;
+      if (next >= 1) {
+        translate(-collectNextX, -collectNextY);
+        dispNextMino[next].nextBlockSize +=5;
       }
 
       translate(-dispNextMino[next].nextPointX, -dispNextMino[next].nextPointY);
@@ -136,11 +139,7 @@ class Display { //<>// //<>// //<>//
       for (int x = 0; x < 5; x++) {
         if (mino.shape[y][x] != 0) {
           // ミノの影
-          if (mino.posy < mino.ghost_y) {
-            fill(210, 200);
-            noStroke();
-            rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.ghost_y - arst_y), blockSize, blockSize);
-          }
+          showGhost(x,y,mino);
           // ミノの本体
           image(mino.texture, stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize);
         }
