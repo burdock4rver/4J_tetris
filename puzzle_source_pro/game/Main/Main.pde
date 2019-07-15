@@ -20,18 +20,17 @@ public void draw() {
   int ms = millis();
   delta_time = ms - pre_time;
   pre_time = ms;
-  
+ //update 
   input.update(delta_time); 
-  
   stage.update(input, delta_time);
-
   disp.update();
+  //ゲーム表示
   disp.drawBackground();
   disp.drawgame(stage);
   disp.showNext();
   disp.showHold();
   disp.drawFallingMino(stage.mino);
- 
+ //キーリセット
   input.clean();
 }
 

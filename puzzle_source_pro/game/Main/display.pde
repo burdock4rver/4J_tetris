@@ -7,16 +7,10 @@ class Display { //<>// //<>// //<>//
   float stagePosition_y = 503 / 2;
   int sSarray_x;       // 横配列
   int sSarray_y;       // 縦配列
-  float nextMinoX = 430; //次のブロックの表示するX座標
-  float nextMinoY = 140; //次のブロックの表示するY座標
   float nextPointInreval = 50; //次のブロックの表示位置の差
-  float nextMinoSize = blockSize-10; //ネクストブロックの大きさ
-  float holdMinoX=15;                //ホールド座標X 
-  float holdMinoY=180;               //ホールド座標Y
-  float holdMinoSize=blockSize-10;   //
   float arst_y;
-  float collectNextX = 20;          //ネクストブロック座標補正
-  float collectNextY = 20;          //ネクストブロック座標補正
+  float collectNextX = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
+  float collectNextY = 20;          
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
 
@@ -26,6 +20,7 @@ class Display { //<>// //<>// //<>//
   Mino minos[];
 
   public Display(Stage stage) {    
+    //テクスチャ設定
     ui_img = loadImage("resources/TEST.png");
     minoTex = new PImage[7];
     minoTex[0] = loadImage("resources/minoTfront.png");
@@ -35,7 +30,7 @@ class Display { //<>// //<>// //<>//
     minoTex[4] = loadImage("resources/minoSfront.png");
     minoTex[5] = loadImage("resources/minoZfront.png");
     minoTex[6] = loadImage("resources/minoOfront.png");
-
+    
     minos = new Mino[7];
     minos[0] = new TMino(0, 0);
     minos[1] = new IMino(0, 0);
@@ -53,10 +48,10 @@ class Display { //<>// //<>// //<>//
   }
 
   public void update() {
-    stage.getNext(dispNextMino);
+    stage.getNext(dispNextMino);    
     holdMino = stage.getHoldMino(holdMino);
   }
-
+  //ゴースト絵画
   public void showGhost(int x,int y,Mino mino) {
     if (mino.posy < mino.ghost_y) {
       fill(210, 200);
@@ -67,7 +62,8 @@ class Display { //<>// //<>// //<>//
 
   public void showText() {
   }
-
+  
+  //ネクスト表示
   public void showNext() {
     for (int next = 0; next < 4; next++) {
       translate(0, nextPointInreval);
@@ -96,7 +92,8 @@ class Display { //<>// //<>// //<>//
 
     translate(0, nextPointInreval*(-4));
   }
-
+  
+  //ホールド表示
   public void showHold() {
     if (holdMino != null) {
       translate(holdMino.holdPointX, holdMino.holdPointY);
@@ -112,7 +109,8 @@ class Display { //<>// //<>// //<>//
     }
   }
 
-  public void drawBackground() {  //背景を含むゲーム全体画面
+  //背景表示
+  public void drawBackground() {  
     image(ui_img, 0, 0, width, height);
   }
 

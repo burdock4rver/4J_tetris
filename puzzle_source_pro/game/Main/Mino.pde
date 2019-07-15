@@ -1,19 +1,18 @@
 public abstract class Mino {
-  public final float BLOCK_SIZE = 30;
-  private int shape[][];
-  public float nextPointX;  //
-  public float nextPointY;  //
-  public float holdPointX;
+  private int shape[][];      //ブロックの形
+  public float nextPointX;  //ネクストのブロック座標
+  public float nextPointY;  
+  public float holdPointX;  //ホールドのブロック座標
   public float holdPointY;
   public float holdSize;
-  public float nextBlockSize;
-  private PImage texture;
+  public float nextBlockSize; //ネクストのブロックサイズ
+  private PImage texture;   //ブロックのテクスチャ
 
   // ミノの左上の座標 stageの配列にそのまま入る
   private int posx, posy;
   private int ghost_y;
 
-  private int id;
+  private int id;  //ブロックID
 
   public abstract void showTexture();
 
@@ -21,7 +20,6 @@ public abstract class Mino {
     posx = x;
     posy = y;
     ghost_y = 0;
-    nextBlockSize = BLOCK_SIZE - 10;
   }
 
   /*
@@ -30,7 +28,9 @@ public abstract class Mino {
    各種ミノで実装すること
    posxとposyの変更も忘れずに
    */
-  public boolean turnRight(int[][] stage) {
+
+  //ブロックの回転
+  public boolean turnRight(int[][] stage) {  //
     int rotate_shape[][] = rotateRight();
     if (checkMino(stage, rotate_shape, 0, 0)) {
       shape = rotate_shape;
@@ -137,7 +137,7 @@ public abstract class Mino {
     return checkMino(stage, shape, dx, dy);
   }
 
-  // 落ちれたらtrue、落ちれなかったらfalse
+  // 落ちられたらtrue、落ちれなかったらfalse
   public boolean fall(int[][] stage) {
     if (checkMino(stage, 0, 1)) {
       posy++; 
@@ -146,6 +146,7 @@ public abstract class Mino {
     return false;
   }
 
+  //ブロック移動
   // 移動出来たらtrue, だめならfalse
   public boolean moveRight(int[][] stage) {
     if (checkMino(stage, 1, 0)) {
@@ -155,6 +156,7 @@ public abstract class Mino {
     return false;
   }
 
+  
   public boolean moveLeft(int[][] stage) {
     if (checkMino(stage, -1, 0)) {
       posx--; 

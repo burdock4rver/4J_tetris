@@ -24,7 +24,7 @@ public class OMino extends Mino {
 
   public void turnMino(int turn) {
   }
-
+  //oは回転させない
   public int[][] rotateRight() { 
     return super.shape;
   }

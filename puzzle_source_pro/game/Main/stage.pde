@@ -12,7 +12,7 @@ class Stage { //<>// //<>// //<>// //<>//
   private boolean doneHold;   // ホールドを使ったか
   private int fall_time;     //落下間隔時間
                                 
-  private Mino nextMino[];
+  private Mino nextMino[];  
                                 
   private final int FIRST_X = 3;  // ミノの生成位置
   private final int FIRST_Y = 3;
@@ -28,7 +28,7 @@ class Stage { //<>// //<>// //<>// //<>//
   int[][] stage;
 
   public Stage() {
-    next = new RandomMino();  // ミノ生成マシーン
+    next = new RandomMino();  // ミノ生成
     mino = getNewMino(next.getNextMino());  // 最初のミノを生成
     nextMino =new Mino[4];
     for (int i = 0;i < 4;i++) nextMino[i]=getNewMino(next.getNextMino());  // Nextの4つのミノを生成
@@ -43,7 +43,7 @@ class Stage { //<>// //<>// //<>// //<>//
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
-      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, //5,3
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, //3,3
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, //<=ここからミノ生成 (6,5)を回転軸に ここから下が表示される
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 

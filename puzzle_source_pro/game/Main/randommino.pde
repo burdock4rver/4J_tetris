@@ -20,8 +20,7 @@ public class RandomMino {
      }
     }
     
-    public void nextMino(){
-      
+    public void nextMino(){  //生成したブロックを格納
       if(firstFlag == false){
         randomMino();
         for(int i = 0;i < 7;i++){
@@ -49,7 +48,7 @@ public class RandomMino {
       }
     }
     
-    public int getNextMino(){
+    public int getNextMino(){  //格納したブロックを取り出す(取り出すと次に変わる)
       int next;
       if(q_point == 14)  q_point = 0;
       if(q_point == 0 || q_point == 8) nextMino();
