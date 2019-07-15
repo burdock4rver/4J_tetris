@@ -7,14 +7,19 @@ abstract class Input {
   public final int HOLD   = 4;
   public final int S_DROP = 5;
   public final int H_DROP = 6;
-  
-  private final int INPUT_DELAY = 200;  // 次の入力を受け付けるまでの時間(ms)
 
-  public boolean state[];         // 7種類のキーの状態 ON or OFF
+  private final int INPUT_DELAY = 200;            // 次の入力を受け付けるまでの時間(ms)
+  private final int MOVE_FAST_INPUT_DELAY = 50;   // 左右移動の速いほうの待ち時間
 
-  protected  boolean keyState[];   // 押されているキー
-  private int wait[];             // 7種類のキーの待ち時間
-  private int waitMove;           // moveとturnは左右でセットなので同じ時間を参照する
+  public boolean state[];                          // 7種類のキーの状態 ON or OFF
+  public boolean preStateMoveR;
+  public boolean preStateMoveL;
+
+  public int moveCount;                        // 連続で動いた回数
+
+  protected  boolean keyState[];                   // 押されているキー
+  private int wait[];                              // 7種類のキーの待ち時間
+  private int waitMove;                            // moveとturnは左右でセットなので同じ時間を参照する
   private int waitTurn;
 
   // この２つのメソッドをコントローラーに合わせてオーバーライドすればいい
@@ -27,28 +32,50 @@ abstract class Input {
     wait = new int[7];
     waitMove = 0;
     waitTurn = 0;
+    preStateMoveR = false;
+    preStateMoveL = false;
+    moveCount = 0;
   }
 
   // draw()の最初で呼ぶ
   public void update(int delta_time) {
 
-    // 右移動
-    if (keyState[R_MOVE]) {
-      if (waitMove >= INPUT_DELAY) {
-        if (!state[L_MOVE]) {
-          state[R_MOVE] = true;
-        }
-        waitMove = 0;
-      }
+    // ・　・・・の処理
+    int moveDelay;
+
+    if (moveCount >= 2) {
+      moveDelay = MOVE_FAST_INPUT_DELAY;
+    } else {
+      moveDelay = INPUT_DELAY;
     }
 
-    // 左移動
-    if (keyState[L_MOVE]) {
-      if (waitMove >= INPUT_DELAY) {
-        if (!state[R_MOVE]) {
-          state[L_MOVE] = true;
+    if (!keyState[R_MOVE] && preStateMoveR) {
+      moveCount = 0;
+    }
+    if (!keyState[L_MOVE] && preStateMoveL) {
+      moveCount = 0;
+    }
+
+    preStateMoveR = keyState[R_MOVE];
+    preStateMoveL = keyState[L_MOVE];
+
+    if (waitMove >= moveDelay) {
+      if (!keyState[R_MOVE] || !keyState[L_MOVE]) {
+        // 右移動
+        if (keyState[R_MOVE]) {
+          state[L_MOVE] = false;
+          state[R_MOVE] = true;
+          moveCount++;
+          waitMove = 0;
         }
-        waitMove = 0;
+
+        // 左移動
+        if (keyState[L_MOVE]) {
+          state[R_MOVE] = false;
+          state[L_MOVE] = true;
+          moveCount++;
+          waitMove = 0;
+        }
       }
     }
 
