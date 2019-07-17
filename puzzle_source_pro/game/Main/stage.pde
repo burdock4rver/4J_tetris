@@ -11,9 +11,10 @@ class Stage { //<>// //<>// //<>// //<>//
   private int minoFreeTime;   // 地面に接している間にミノが自由に動ける時間
   private boolean doneHold;   // ホールドを使ったか
   private int fall_time;     //落下間隔時間
-                                
+  private int clearLineNum;
+
   private Mino nextMino[];  
-                                
+
   private final int FIRST_X = 3;  // ミノの生成位置
   private final int FIRST_Y = 3;
   private final int NORMAL_FALL_TIME = 1000; //自然落下間隔時間
@@ -31,13 +32,14 @@ class Stage { //<>// //<>// //<>// //<>//
     next = new RandomMino();  // ミノ生成
     mino = getNewMino(next.getNextMino());  // 最初のミノを生成
     nextMino =new Mino[4];
-    for (int i = 0;i < 4;i++) nextMino[i]=getNewMino(next.getNextMino());  // Nextの4つのミノを生成
+    for (int i = 0; i < 4; i++) nextMino[i]=getNewMino(next.getNextMino());  // Nextの4つのミノを生成
     holdMino = null;
     isGround = false;
     waitFall = 0;
     fall_time = NORMAL_FALL_TIME;
     minoFreeTime = 0;
     lastInputTime = 0;
+    clearLineNum = 0;
     doneHold = false;
     stage = new int[][] { 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
@@ -97,7 +99,7 @@ class Stage { //<>// //<>// //<>// //<>//
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
       if (preIsGround && isGround) {
-         waitFall = 0;
+        waitFall = 0;
       }
     }
 
@@ -112,7 +114,7 @@ class Stage { //<>// //<>// //<>// //<>//
     }
 
     mino.setGhost(stage);    // ゴーストの位置設定
-    
+
     if (input.state[input.H_DROP]) {        // ハードドロップ
       mino.posy = mino.ghost_y;
       minoFreeTime = FREE_TIME;
@@ -140,10 +142,11 @@ class Stage { //<>// //<>// //<>// //<>//
       if (minoFreeTime >= FREE_TIME || lastInputTime >= INPUT_WAIT) {
         // ラインチェックと次のミノの処理
         stageSetMino(mino);      // stage[][]にミノのブロックを反映
-        checkline(mino.posy);    // ラインチェック
-
+        gameOver();
+        clearLineNum += checkline(mino.posy);    // ラインチェック
+        clearLineNum = gameClear(clearLineNum);
         setNextMino();         // 次のミノを取り出す
-        
+
         doneHold = false; 
         isGround = false;
         minoFreeTime = 0;
@@ -187,7 +190,7 @@ class Stage { //<>// //<>// //<>// //<>//
   // 次のミノをminoに代入する
   public void setNextMino() {
     mino = nextMino[0];
-    for (int i = 0;i < 3;i++){
+    for (int i = 0; i < 3; i++) {
       nextMino[i] = nextMino[i + 1];
     }
     nextMino[3] = getNewMino(next.getNextMino());
@@ -210,12 +213,12 @@ class Stage { //<>// //<>// //<>// //<>//
       }
     }
   }
-  
-  public Mino getHoldMino(Mino holdMino2){
-      holdMino2 = holdMino;
-      return holdMino2;
+
+  public Mino getHoldMino(Mino holdMino2) {
+    holdMino2 = holdMino;
+    return holdMino2;
   }
-  
+
   // ミノをstage[][]にセットする
   public void stageSetMino(Mino mino) {
     for (int y = 0; y < 5; y++) {
@@ -229,11 +232,12 @@ class Stage { //<>// //<>// //<>// //<>//
 
   // int cy : ミノの位置  
   // cyを基準にしてブロックを走査
-  public void checkline(int cy) {
+  public int checkline(int cy) {
     int flag = 0;
     int blockCount = 0;    // 1行にあるブロックの数のバッファ
     int clearY = 0;
-    int checknum = 4;     
+    int checknum = 4;    
+    int clear = 0;
 
     for (int i = checknum; i >= 0; i -= 1) {    // 最大4行消えるから?
       flag = 0;
@@ -250,6 +254,7 @@ class Stage { //<>// //<>// //<>// //<>//
         }
       }
       if (flag == 0 && blockCount == 10) {
+        clear += 1;
         for (int j = 1; j <= 10; j += 1) {
           stage[clearY][j] = 0;
         }
@@ -263,19 +268,85 @@ class Stage { //<>// //<>// //<>// //<>//
 
       blockCount = 0;
     }
+    return clear;
   }
 
   public void addScore() {
   }
 
-  public void gameClear() {
+  public int gameClear(int clear) {
+    if (clear >= 10)
+    {
+      println("clear");
+      for (int y = 0; y < 23; y += 1)
+      {
+        for (int x = 1; x <= 10; x+= 1)
+        {  
+          stage[y][x] = 0;
+        }
+      }
+      holdMino = null;
+      doneHold = false;
+      return 0;
+    }
+    return clear;
   }
 
   public void gameOver() {
+    boolean gameOverFlag = false;
+    //画面外にミノがあるか探す
+    for (int y = 0; y < 4; y += 1)
+    {
+      for (int x = 1; x <= 10; x += 1)
+      {  
+        if (stage[y][x] != 0)
+        {
+          gameOverFlag = true;
+          break;
+        }
+      }
+    }
+    //ミノが生成される場所にミノがあるか探す
+    if (gameOverFlag == false)
+    {
+      for (int x = 4; x <= 6; x+= 1)
+      {  
+
+        if (stage[6][x] != 0&&nextMino[0].id == 1)
+        {
+          gameOverFlag = true;
+          break;
+        }
+        if (stage[5][x] != 0||stage[4][x] != 0)
+        {
+          gameOverFlag = true;
+          break;
+        }
+      }
+      if (stage[5][7] != 0 && nextMino[0].id == 2)
+      {
+        gameOverFlag = true;
+      }
+    }
+    //処理内容　盤面削除､ホールド初期化
+    if (gameOverFlag == true)
+    {
+      for (int y = 0; y < 23; y += 1)
+      {
+        for (int x = 1; x <= 10; x+= 1)
+        {  
+          stage[y][x] = 0;
+        }
+      }
+      holdMino = null;
+      doneHold = false;
+    }
   }
 
+
+
   public void getNext(Mino dispNextMino[]) {
-    for(int i = 0;i < 4;i++)  {
+    for (int i = 0; i < 4; i++) {
       dispNextMino[i] = nextMino[i];
     }
   }

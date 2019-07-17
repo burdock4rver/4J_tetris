@@ -109,7 +109,7 @@ class Display { //<>// //<>// //<>//
     }
   }
 
-  //背景表示
+  //背景
   public void drawBackground() {  
     image(ui_img, 0, 0, width, height);
   }
