@@ -12,6 +12,15 @@ class Stage { //<>// //<>// //<>// //<>//
   private boolean doneHold;   // ホールドを使ったか
   private int fall_time;     //落下間隔時間
   private int clearLineNum;
+  private int renCount;
+  private int lastline;
+  
+  private boolean line1;  //スコア関連フラグ
+  private boolean line2;
+  private boolean line3;
+  private boolean line4;
+  
+  private int oneLineScore = 10; //加算するスコア(変えてください)
 
   private Mino nextMino[];  
 
@@ -41,6 +50,14 @@ class Stage { //<>// //<>// //<>// //<>//
     lastInputTime = 0;
     clearLineNum = 0;
     doneHold = false;
+    
+    line1 = false;
+    line2 = false;
+    line3 = false;
+    line4 = false;
+    renCount = 0;
+    lastline = 0;
+    
     stage = new int[][] { 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
@@ -145,6 +162,9 @@ class Stage { //<>// //<>// //<>// //<>//
         gameOver();
         clearLineNum += checkline(mino.posy);    // ラインチェック
         clearLineNum = gameClear(clearLineNum);
+        renCount(clearLineNum);
+        addScore(renCount);            // 得点か三
+        println(score);
         setNextMino();         // 次のミノを取り出す
 
         doneHold = false; 
@@ -268,10 +288,35 @@ class Stage { //<>// //<>// //<>// //<>//
 
       blockCount = 0;
     }
+    if(clear == 1)
+      line1 = true;
+    else if(clear == 2)
+      line2 = true;
+    else if(clear == 3)
+      line3 = true;
+    else if(clear == 4)
+      line4 = true;
     return clear;
   }
 
-  public void addScore() {
+  public void addScore(int ren) {//得点か三 値は適当に決めたので変更してください
+    if(line1 == true)
+    {
+      score += (int)(oneLineScore*(1+0.1*ren)); 
+    }
+    else if(line2 == true)
+    {
+      score += (int)(oneLineScore*(1.2+0.1*ren)); 
+    }
+    else if(line3 == true)
+    {
+      score += (int)(oneLineScore*(1.3+0.1*ren)); 
+    }
+    else if(line4 == true)
+    {
+      score += (int)(oneLineScore*(1.4+0.1*ren)); 
+    }
+    downFlag();
   }
 
   public int gameClear(int clear) {
@@ -287,6 +332,8 @@ class Stage { //<>// //<>// //<>// //<>//
       }
       holdMino = null;
       doneHold = false;
+      renCount = 0;
+      lastline = 0;
       return 0;
     }
     return clear;
@@ -340,6 +387,8 @@ class Stage { //<>// //<>// //<>// //<>//
       }
       holdMino = null;
       doneHold = false;
+      renCount = 0;
+      lastline = 0;
     }
   }
 
@@ -351,7 +400,18 @@ class Stage { //<>// //<>// //<>// //<>//
     }
   }
 
-  public void renCount() {
+  public void renCount(int count) {
+    if(lastline != count )
+    {
+      renCount += 1;
+    }
+    else
+    {
+      renCount = 0;
+      
+    }
+    lastline = count;
+    println(renCount);
   }
 
   /**
@@ -360,6 +420,12 @@ class Stage { //<>// //<>// //<>// //<>//
    *
    **/
   public void addLine() {
+  }
+  public void downFlag(){
+    line1 = false;
+    line2 = false;
+    line3 = false;
+    line4 = false;
   }
 
   public void getScore(int score) {
