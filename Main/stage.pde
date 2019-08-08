@@ -162,8 +162,9 @@ class Stage { //<>// //<>// //<>// //<>//
         gameOver();
         clearLineNum += checkline(mino.posy);    // ラインチェック
         clearLineNum = gameClear(clearLineNum);
-        renCount(clearLineNum);
+        
         addScore(renCount);            // 得点か三
+        renCount(clearLineNum);        // れん
         println(score);
         setNextMino();         // 次のミノを取り出す
 
@@ -299,7 +300,12 @@ class Stage { //<>// //<>// //<>// //<>//
     return clear;
   }
 
-  public void addScore(int ren) {//得点か三 値は適当に決めたので変更してください
+  public void addScore(int renNum) {//得点か三 値は適当に決めたので変更してください
+    int ren = 0;
+    if(renNum>=2)
+    {
+      ren = renNum-1;
+    }
     if(line1 == true)
     {
       score += (int)(oneLineScore*(1+0.1*ren)); 
@@ -334,6 +340,7 @@ class Stage { //<>// //<>// //<>// //<>//
       doneHold = false;
       renCount = 0;
       lastline = 0;
+      score = 0;
       return 0;
     }
     return clear;
@@ -389,6 +396,7 @@ class Stage { //<>// //<>// //<>// //<>//
       doneHold = false;
       renCount = 0;
       lastline = 0;
+      score = 0;
     }
   }
 
@@ -400,7 +408,7 @@ class Stage { //<>// //<>// //<>// //<>//
     }
   }
 
-  public void renCount(int count) {
+  public void renCount(int count) {// れん加算
     if(lastline != count )
     {
       renCount += 1;
