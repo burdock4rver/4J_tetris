@@ -30,6 +30,7 @@ class Stage { //<>// //<>// //<>// //<>//
   private final int SOFT_FALL_TIME = 40;  //強制落下間隔時間
   private final int FREE_TIME = 4000;   // 接地後に最大何ms動かせるか
   private final int INPUT_WAIT = 1000;  // 最後の入力から何ms待つか(カサカサ)
+  private final int CLEAR_LINE_NUM = 20;
 
   RandomMino next;
   private Mino mino;
@@ -326,7 +327,7 @@ class Stage { //<>// //<>// //<>// //<>//
   }
 
   public int gameClear(int clear) {
-    if (clear >= 10)
+    if (clear >= CLEAR_LINE_NUM)
     {
       println("clear");
       for (int y = 0; y < 23; y += 1)
