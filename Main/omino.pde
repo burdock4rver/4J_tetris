@@ -21,6 +21,8 @@ public class OMino extends Mino {
 
   public void showTexture() {
   }
+  
+  public void superSpin(){}
 
   public void turnMino(int turn) {
   }

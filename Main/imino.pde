@@ -10,7 +10,7 @@ public class IMino extends Mino {
     super.nextBlockSize = 18;
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
-      {0, 0, 0, 0, 0}, 
+      {0, 0, 0 , 0, 0}, 
       {0, 2, 2, 2, 2}, 
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
@@ -23,4 +23,7 @@ public class IMino extends Mino {
 
   public void turnMino(int turn) {
   }
+  
+  public void superSpin(){}
+  
 }

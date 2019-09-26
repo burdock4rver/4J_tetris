@@ -9,7 +9,7 @@ abstract class Input {
   public final int H_DROP = 6;
 
   private final int INPUT_DELAY = 200;            // 次の入力を受け付けるまでの時間(ms)
-  private final int MOVE_FAST_INPUT_DELAY = 50;   // 左右移動の速いほうの待ち時間
+  private final int MOVE_FAST_INPUT_DELAY = 20;   // 左右移動の速いほうの待ち時間
 
   public boolean state[];                          // 7種類のキーの状態 ON or OFF
   public boolean preStateMoveR;

@@ -13,7 +13,8 @@ class Display { //<>// //<>// //<>//
   float collectNextY = 20;          
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
-
+  String score = String.valueOf(stage.score);//スコア
+  int scoreLength = score.length();
 
   Mino dispNextMino[];
   Mino holdMino;
@@ -50,6 +51,7 @@ class Display { //<>// //<>// //<>//
   public void update() {
     stage.getNext(dispNextMino);    
     holdMino = stage.getHoldMino(holdMino);
+    score = String.valueOf(stage.score);
   }
   //ゴースト絵画
   public void showGhost(int x,int y,Mino mino) {
@@ -60,8 +62,7 @@ class Display { //<>// //<>// //<>//
     }
   }
 
-  public void showText() {
-  }
+
   
   //ネクスト表示
   public void showNext() {
@@ -143,5 +144,16 @@ class Display { //<>// //<>// //<>//
         }
       }
     }
+  }
+  
+  //scoreを絵画
+  public void drawScore(Stage stage){
+    textSize(35);
+    fill(0);
+    text(score, 380, 117);
+  }
+  
+    //Tetrisなどの文字を絵画
+  public void showText() {
   }
 }

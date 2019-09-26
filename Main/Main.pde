@@ -9,6 +9,7 @@ public void setup() {
   
   size(540, 960);
   
+  setupFont();
   stage = new Stage();
   disp = new Display(stage);
   input = new InputKey();
@@ -30,8 +31,16 @@ public void draw() {
   disp.showNext();
   disp.showHold();
   disp.drawFallingMino(stage.mino);
+    disp.drawScore(stage);
  //キーリセット
   input.clean();
+}
+
+public void setupFont(){
+  PFont font;
+  font = loadFont("ModiThorson-48.vlw");
+  textFont(font, 48);
+  textAlign(RIGHT);
 }
 
 public void keyPressed() {

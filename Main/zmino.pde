@@ -18,6 +18,8 @@ public class ZMino extends Mino {
     super.texture = loadImage("resources/minoZfront.png");
     super.id = 6;
   }
+  
+  public void superSpin(){}
 
   public void showTexture() {
   }

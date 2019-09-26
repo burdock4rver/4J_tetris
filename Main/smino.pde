@@ -19,6 +19,8 @@ public class SMino extends Mino {
     super.id = 5;
   }
 
+  public void superSpin(){}
+  
   public void showTexture() {
   }
 

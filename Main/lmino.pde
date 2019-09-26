@@ -24,4 +24,6 @@ public class LMino extends Mino {
 
   public void turnMino(int turn) {
   }
+  
+  public void superSpin(){}
 }

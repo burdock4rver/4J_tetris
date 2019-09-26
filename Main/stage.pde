@@ -400,7 +400,7 @@ class Stage { //<>// //<>// //<>// //<>//
       score = 0;
     }
   }
-
+  
 
 
   public void getNext(Mino dispNextMino[]) {
