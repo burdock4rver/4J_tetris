@@ -14,7 +14,6 @@ class Display { //<>// //<>// //<>//
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
   String score = String.valueOf(stage.score);//スコア
-  int scoreLength = score.length();
 
   Mino dispNextMino[];
   Mino holdMino;
@@ -145,12 +144,16 @@ class Display { //<>// //<>// //<>//
       }
     }
   }
+  //スタート画面の表示
+  public boolean startScreen(){
+    return false;
+  }
   
   //scoreを絵画
   public void drawScore(Stage stage){
     textSize(35);
     fill(0);
-    text(score, 380, 117);
+    text(score, 390, 117);
   }
   
     //Tetrisなどの文字を絵画

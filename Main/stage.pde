@@ -30,12 +30,11 @@ class Stage { //<>// //<>// //<>// //<>//
   private final int SOFT_FALL_TIME = 40;  //強制落下間隔時間
   private final int FREE_TIME = 4000;   // 接地後に最大何ms動かせるか
   private final int INPUT_WAIT = 1000;  // 最後の入力から何ms待つか(カサカサ)
-  private final int CLEAR_LINE_NUM = 20;
+  private final int CLEAR_LINE_NUM = 150;
 
   RandomMino next;
   private Mino mino;
   private Mino holdMino;
-
   int[][] stage;
 
   public Stage() {

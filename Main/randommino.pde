@@ -1,11 +1,11 @@
 public class RandomMino {
 
-  int nextMino1[] = new int[7];
-  int nextMino2[] = new int[14];
-  boolean firstFlag = false;
-  int q_point = 0;
+  private int nextMino1[] = new int[7];
+  private int nextMino2[] = new int[14];
+  private boolean firstFlag = false;
+  private int q_point = 0;
 
-  public void randomMino() {  //  次にくるブロックの生成
+  private void randomMino() {  //  次にくるブロックの生成
     int flag[] = new int[7];
     int rand;
     for (int i = 0; i < 7; i++) {
@@ -20,7 +20,7 @@ public class RandomMino {
     }
   }
 
-  public void nextMino() {  //生成したブロックを格納
+  private void nextMino() {  //生成したブロックを格納
     if (firstFlag == false) {
       randomMino();
       for (int i = 0; i < 7; i++) {
