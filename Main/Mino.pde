@@ -32,55 +32,62 @@ public abstract class Mino {
   //ブロックの回転
   public boolean turnRight(int[][] stage) {  //
     int rotate_shape[][] = rotateRight();
-    if (checkMino(stage, rotate_shape, 0, 0)) {
-      shape = rotate_shape;
-      return true;
-    } else
+    boolean SspinFlag = false;
+    if(id == 1){
+      SspinFlag = superTSpin(stage,rotate_shape,posx,posy,false);
+    }
+    if (SspinFlag == false)
     {
-      for (int mpos = 1; mpos < 3; mpos += 1)
+      if (checkMino(stage, rotate_shape, 0, 0)) {
+        shape = rotate_shape;
+        return true;
+      } else
       {
-        /*tuika*/
-        if (checkMino(stage, rotate_shape, -mpos, mpos)) {
-          posx -= mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
+        for (int mpos = 1; mpos < 3; mpos += 1)
+        {
+          /*tuika*/
+          if (checkMino(stage, rotate_shape, -mpos, mpos)) {
+            posx -= mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, mpos)) {
+            posx += mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          //tuikaowari
+          else if (checkMino(stage, rotate_shape, mpos, 0)) {
+            posx += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, -mpos, 0)) {
+            posx -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, 0, -mpos)) {
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
+            posx += mpos;
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
+            posx -= mpos;
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          
         }
-        else if (checkMino(stage, rotate_shape, mpos, mpos)) {
-          posx += mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        //tuikaowari
-        else if (checkMino(stage, rotate_shape, mpos, 0)) {
-          posx += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, 0)) {
-          posx -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, 0, -mpos)) {
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
-          posx += mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
-          posx -= mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        
       }
     }
     return false;
@@ -88,66 +95,73 @@ public abstract class Mino {
 
   public boolean turnLeft(int[][] stage) {
     int rotate_shape[][] = rotateLeft();
-    if (checkMino(stage, rotate_shape, 0, 0)) {
-      shape = rotate_shape;
-      return true;
-    } else
+    boolean SspinFlag = false;
+    if(id == 1){
+      SspinFlag = superTSpin(stage,rotate_shape,posx,posy,true);
+    }
+    if (SspinFlag == false)
     {
-      for (int mpos = 1; mpos < 3; mpos += 1)
+      if (checkMino(stage, rotate_shape, 0, 0)) {
+        shape = rotate_shape;
+        return true;
+      } else
       {
-        /*tuika*/
-        if (checkMino(stage, rotate_shape, -mpos, mpos)) {
-          posx -= mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, mpos)) {
-          posx += mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        //tuikaowari
-        else if (checkMino(stage, rotate_shape, mpos, 0)) {
-          posx += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, 0)) {
-          posx -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, 0, -mpos)) {
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
-          posx += mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
-          posx -= mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        /*tuika*/
-        else if (checkMino(stage, rotate_shape, -mpos, mpos)) {
-          posx -= mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, mpos)) {
-          posx += mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
+        for (int mpos = 1; mpos < 3; mpos += 1)
+        {
+          /*tuika*/
+          if (checkMino(stage, rotate_shape, -mpos, mpos)) {
+            posx -= mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, mpos)) {
+            posx += mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          //tuikaowari
+          else if (checkMino(stage, rotate_shape, mpos, 0)) {
+            posx += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, -mpos, 0)) {
+            posx -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, 0, -mpos)) {
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
+            posx += mpos;
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
+            posx -= mpos;
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          /*tuika*/
+          else if (checkMino(stage, rotate_shape, -mpos, mpos)) {
+            posx -= mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, mpos)) {
+            posx += mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
         }
       }
     }
@@ -243,5 +257,9 @@ public abstract class Mino {
     }
 
     return rotation;
+  }
+  
+  public boolean superTSpin(int[][] stage,int[][] rotate_shape,int posx,int posy,boolean RLFlag){
+    return false;
   }
 }
