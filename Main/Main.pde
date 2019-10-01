@@ -37,8 +37,11 @@ public void draw() {
   
   //ゲーム表示
   if(screenNum == 0){  //スタート画面
-    if(disp.startScreen()) screenNum++;
+  
+    if(disp.startScreen(stage)) screenNum++;
+    
   }else if(screenNum == 1){  //ゲーム画面
+  
   disp.drawBackground();
   disp.drawgame(stage);
   disp.showNext();

@@ -13,7 +13,7 @@ class Display { //<>// //<>// //<>//
   float collectNextY = 20;          
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
-  String score = String.valueOf(stage.score);//スコア
+  String score = String.valueOf(stage.getScore());//スコア
 
   Mino dispNextMino[];
   Mino holdMino;
@@ -23,13 +23,6 @@ class Display { //<>// //<>// //<>//
     //テクスチャ設定
     ui_img = loadImage("resources/TEST.png");
     minoTex = new PImage[7];
-    minoTex[0] = loadImage("resources/minoTfront.png");
-    minoTex[1] = loadImage("resources/minoIfront.png");
-    minoTex[2] = loadImage("resources/minoJfront.png");
-    minoTex[3] = loadImage("resources/minoLfront.png");
-    minoTex[4] = loadImage("resources/minoSfront.png");
-    minoTex[5] = loadImage("resources/minoZfront.png");
-    minoTex[6] = loadImage("resources/minoOfront.png");
     
     minos = new Mino[7];
     minos[0] = new TMino(0, 0);
@@ -39,6 +32,10 @@ class Display { //<>// //<>// //<>//
     minos[4] = new SMino(0, 0);
     minos[5] = new ZMino(0, 0);
     minos[6] = new OMino(0, 0);
+    
+    for(int i = 0; i < 7; i++){
+      minoTex[i] = minos[i].texture;
+    }
 
     sSarray_x = stage.stage[0].length;    //横配列
     sSarray_y = stage.stage.length;  //縦配列
@@ -121,7 +118,7 @@ class Display { //<>// //<>// //<>//
 
         if (stage.stage[i][j] == 0) {
           fill(255);
-          stroke(0);
+          stroke(150);
           noFill();
           rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
         } else if (stage.stage[i][j] > 0) {
@@ -144,8 +141,10 @@ class Display { //<>// //<>// //<>//
       }
     }
   }
+  
   //スタート画面の表示
-  public boolean startScreen(){
+  public boolean startScreen(Stage stage){
+    //ここにスタート画面を表示するコードを書く終了したらtrueにする
     return false;
   }
   

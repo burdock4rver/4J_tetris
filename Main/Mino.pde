@@ -248,7 +248,7 @@ public abstract class Mino {
 
   public int[][] rotateLeft() { 
     int[][] rotation = new int[5][5];
-
+    
     // 回転行列
     for (int y = 0; y < 5; y++) {
       for (int x = 0; x < 5; x++) {

@@ -14,6 +14,7 @@ class Stage { //<>// //<>// //<>// //<>//
   private int clearLineNum;
   private int renCount;
   private int lastline;
+  private boolean allClearFlag;
   
   private boolean line1;  //スコア関連フラグ
   private boolean line2;
@@ -42,6 +43,7 @@ class Stage { //<>// //<>// //<>// //<>//
     mino = getNewMino(next.getNextMino());  // 最初のミノを生成
     nextMino =new Mino[4];
     for (int i = 0; i < 4; i++) nextMino[i]=getNewMino(next.getNextMino());  // Nextの4つのミノを生成
+    allClearFlag = false;
     holdMino = null;
     isGround = false;
     waitFall = 0;
@@ -77,11 +79,11 @@ class Stage { //<>// //<>// //<>// //<>//
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
-      {-1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
-      {-1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, -1}, 
-      {-1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, -1}, 
-      {-1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}};
   }
 
@@ -162,6 +164,8 @@ class Stage { //<>// //<>// //<>// //<>//
         gameOver();
         clearLineNum += checkline(mino.posy);    // ラインチェック
         clearLineNum = gameClear(clearLineNum);
+        allClearFlag = checkAllClear();
+        if(allClearFlag == true) println("ALL CLEAR");
         
         addScore(renCount);            // 得点か三
         renCount(clearLineNum);        // れん
@@ -424,7 +428,7 @@ class Stage { //<>// //<>// //<>// //<>//
 
   /**
    * 
-   * せり上がり
+   * せり上がりs 
    *
    **/
   public void addLine() {
@@ -435,7 +439,17 @@ class Stage { //<>// //<>// //<>// //<>//
     line3 = false;
     line4 = false;
   }
-
-  public void getScore(int score) {
+  
+  public boolean checkAllClear(){  
+    for(int i = 1;i < 11; i++){
+      if(stage[22][i] >= 1) return false;
+    }
+    return true;
   }
+
+  public int getScore() {
+    return score;
+  }
+  
+  
 }
