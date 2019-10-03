@@ -9,7 +9,7 @@ AudioPlayer bgm;  //テトリスBGM
 
 public void setup() {
   
-  size(540, 960);
+  size(480, 848);
   
   setupFonts();
   stage = new Stage();

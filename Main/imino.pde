@@ -2,12 +2,12 @@ public class IMino extends Mino {
 
   public IMino(int x, int y) {
     super(x, y);
-    super.nextPointX = 430;
+    super.nextPointX = 385;
     super.nextPointY = 140;
-    super.holdPointX = 15;                //ホールド座標X 
-    super.holdPointY = 190;               //ホールド座標Y
+    super.holdPointX = 6;                //ホールド座標X 
+    super.holdPointY = 185;               //ホールド座標Y
     super.holdSize = 15;
-    super.nextBlockSize = 18;
+    super.nextBlockSize = 15;
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0 , 0, 0}, 

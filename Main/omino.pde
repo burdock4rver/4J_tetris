@@ -2,12 +2,12 @@ public class OMino extends Mino {
 
   public OMino(int x, int y) {
     super(x, y);
-    super.nextPointX = 430;
+    super.nextPointX = 385;
     super.nextPointY = 140;
-    super.holdPointX = 0;                //ホールド座標X 
+    super.holdPointX = 8;                //ホールド座標X 
     super.holdPointY = 193;               //ホールド座標Y
-    super.holdSize = 19.5;
-    super.nextBlockSize = 20;
+    super.holdSize = 14.5;
+    super.nextBlockSize = 15;
     super.shape = new int[][] {
       {0, 0, 0, 0, 0}, 
       {0, 0, 7, 7, 0}, 

@@ -2,12 +2,12 @@ class Display { //<>// //<>// //<>//
 
   int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
-  float blockSize=30;  // ブロックの大きさ (変更する際はMinoclassのも変更)
-  float stagePosition_x = (241)/2;  //プレイ画面の位置
-  float stagePosition_y = 503 / 2;
+  float blockSize=25;  // ブロックの大きさ (変更する際はMinoclassのも変更)
+  float stagePosition_x = (229)/2;  //プレイ画面の位置
+  float stagePosition_y = 373 / 2;
   int sSarray_x;       // 横配列
   int sSarray_y;       // 縦配列
-  float nextPointInreval = 50; //次のブロックの表示位置の差
+  float nextPointInreval = 45; //次のブロックの表示位置の差
   float arst_y;
   float collectNextX = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
   float collectNextY = 20;          
@@ -21,7 +21,7 @@ class Display { //<>// //<>// //<>//
 
   public Display(Stage stage) {    
     //テクスチャ設定
-    ui_img = loadImage("resources/TEST.png");
+    ui_img = loadImage("resources/MAIN.png");
     minoTex = new PImage[7];
     
     minos = new Mino[7];
@@ -152,7 +152,7 @@ class Display { //<>// //<>// //<>//
   public void drawScore(Stage stage){
     textSize(35);
     fill(0);
-    text(score, 390, 117);
+    text(score, 350, 139);
   }
   
     //Tetrisなどの文字を絵画
