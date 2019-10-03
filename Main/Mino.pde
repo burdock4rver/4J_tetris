@@ -43,51 +43,7 @@ public abstract class Mino {
         return true;
       } else
       {
-        for (int mpos = 1; mpos < 3; mpos += 1)
-        {
-          /*tuika*/
-          if (checkMino(stage, rotate_shape, -mpos, mpos)) {
-            posx -= mpos;
-            posy += mpos;
-            shape = rotate_shape;
-            return true;
-          }
-          else if (checkMino(stage, rotate_shape, mpos, mpos)) {
-            posx += mpos;
-            posy += mpos;
-            shape = rotate_shape;
-            return true;
-          }
-          //tuikaowari
-          else if (checkMino(stage, rotate_shape, mpos, 0)) {
-            posx += mpos;
-            shape = rotate_shape;
-            return true;
-          }
-          else if (checkMino(stage, rotate_shape, -mpos, 0)) {
-            posx -= mpos;
-            shape = rotate_shape;
-            return true;
-          }
-          else if (checkMino(stage, rotate_shape, 0, -mpos)) {
-            posy -= mpos;
-            shape = rotate_shape;
-            return true;
-          }
-          else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
-            posx += mpos;
-            posy -= mpos;
-            shape = rotate_shape;
-            return true;
-          }
-          else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
-            posx -= mpos;
-            posy -= mpos;
-            shape = rotate_shape;
-            return true;
-          }
-          
-        }
+        return turnCheck(stage,rotate_shape);
       }
     }
     return false;
@@ -106,9 +62,17 @@ public abstract class Mino {
         return true;
       } else
       {
-        for (int mpos = 1; mpos < 3; mpos += 1)
+       return turnCheck(stage,rotate_shape);
+      }
+    }
+
+    return false;
+  }
+  //回転判定部分(まとめただけ)
+  public boolean turnCheck(int[][] stage,int[][] rotate_shape)
+  {
+    for (int mpos = 1; mpos < 3; mpos += 1)
         {
-          /*tuika*/
           if (checkMino(stage, rotate_shape, -mpos, mpos)) {
             posx -= mpos;
             posy += mpos;
@@ -121,7 +85,6 @@ public abstract class Mino {
             shape = rotate_shape;
             return true;
           }
-          //tuikaowari
           else if (checkMino(stage, rotate_shape, mpos, 0)) {
             posx += mpos;
             shape = rotate_shape;
@@ -163,12 +126,8 @@ public abstract class Mino {
             return true;
           }
         }
-      }
-    }
-
-    return false;
+        return false;
   }
-
   // 現在の位置から+(dx, dy)ずれた位置にミノが存在できるかを判定する
   public boolean checkMino(int[][] stage, int[][] shape, int dx, int dy) {
     for (int y = 0; y < 5; y++) {
