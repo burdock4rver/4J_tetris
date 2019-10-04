@@ -169,7 +169,6 @@ class Stage { //<>// //<>// //<>// //<>//
         
         addScore(renCount);            // 得点か三
         renCount(clearLineNum);        // れん
-        println(score);
         setNextMino();         // 次のミノを取り出す
 
         doneHold = false; 
@@ -423,7 +422,8 @@ class Stage { //<>// //<>// //<>// //<>//
       
     }
     lastline = count;
-    println(renCount);
+    if(renCount != 0)
+    println("ren:"+renCount);
   }
 
   /**
