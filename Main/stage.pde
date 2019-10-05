@@ -6,6 +6,8 @@ class Stage { //<>// //<>// //<>// //<>//
 
   private int waitFall;       
   private int lastInputTime;  // 最後の入力からの経過時間
+  private int gameTime;    //ゲームの残り時間(秒)
+  private int gameLimitTime; //リミットタイム
 
   private boolean isGround;   // ミノが接地しているか
   private int minoFreeTime;   // 地面に接している間にミノが自由に動ける時間
@@ -15,11 +17,13 @@ class Stage { //<>// //<>// //<>// //<>//
   private int renCount;
   private int lastline;
   private boolean allClearFlag;
+  private boolean firstGroundFlag;
   
   private boolean line1;  //スコア関連フラグ
   private boolean line2;
   private boolean line3;
   private boolean line4;
+  private boolean tetrisFlag;
   
   private int oneLineScore = 10; //加算するスコア(変えてください)
 
@@ -44,6 +48,7 @@ class Stage { //<>// //<>// //<>// //<>//
     nextMino =new Mino[4];
     for (int i = 0; i < 4; i++) nextMino[i]=getNewMino(next.getNextMino());  // Nextの4つのミノを生成
     allClearFlag = false;
+    firstGroundFlag = false;
     holdMino = null;
     isGround = false;
     waitFall = 0;
@@ -51,12 +56,15 @@ class Stage { //<>// //<>// //<>// //<>//
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;
+    gameLimitTime = 300;
+    gameTime = 0;
     doneHold = false;
     
     line1 = false;
     line2 = false;
     line3 = false;
     line4 = false;
+    tetrisFlag = false;
     renCount = 0;
     lastline = 0;
     
@@ -90,6 +98,8 @@ class Stage { //<>// //<>// //<>// //<>//
   // このメソッドをdraw()で毎フレーム呼ぶ
   public void update(Input input, int delta_time) {
 
+    decrementTime();//時間を減らす
+    
     // 操作されたか（カサカサ用）
     boolean wasOperate = false;
 
@@ -164,6 +174,7 @@ class Stage { //<>// //<>// //<>// //<>//
         gameOver();
         clearLineNum += checkline(mino.posy);    // ラインチェック
         clearLineNum = gameClear(clearLineNum);
+        firstGroundFlag = true;
         allClearFlag = checkAllClear();
         if(allClearFlag == true) println("ALL CLEAR");
         
@@ -324,6 +335,7 @@ class Stage { //<>// //<>// //<>// //<>//
     else if(line4 == true)
     {
       score += (int)(oneLineScore*(1.4+0.1*ren)); 
+      tetrisFlag = true;
     }
     downFlag();
   }
@@ -441,6 +453,7 @@ class Stage { //<>// //<>// //<>// //<>//
   }
   
   public boolean checkAllClear(){  
+    if (!firstGroundFlag) return false; 
     for(int i = 1;i < 11; i++){
       if(stage[22][i] >= 1) return false;
     }
@@ -451,5 +464,22 @@ class Stage { //<>// //<>// //<>// //<>//
     return score;
   }
   
+    public int getTime(){
+    return gameTime;
+  }
+  
+  public void decrementTime(){
+    int ms = millis()/1000;
+    gameTime = gameLimitTime - ms;
+    if(gameTime <= 0) println("finish"); 
+  }
+  
+  public boolean checkTetris(){
+    if(tetrisFlag == true) {
+      tetrisFlag = false;
+      return true;
+    }
+    return false;
+  }
   
 }

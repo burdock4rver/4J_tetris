@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>//
 
   int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
@@ -13,7 +13,13 @@ class Display { //<>// //<>// //<>//
   float collectNextY = 20;          
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
-  String score = String.valueOf(stage.getScore());//スコア
+  String score;//スコア
+  
+  boolean tetris_flag = false;
+  int tetris_disp_start_time = 0;
+  
+  boolean allClearFlag = false;
+  int allClear_disp_start_time = 0;
 
   Mino dispNextMino[];
   Mino holdMino;
@@ -42,6 +48,7 @@ class Display { //<>// //<>// //<>//
 
     arst_y = sSarray_y-stageSize_y-1;   //配列とブロック数の差
     dispNextMino =new Mino[4];
+    score = String.valueOf(stage.getScore());
   }
 
   public void update() {
@@ -118,7 +125,8 @@ class Display { //<>// //<>// //<>//
 
         if (stage.stage[i][j] == 0) {
           fill(255);
-          stroke(150);
+          noStroke();
+          //stroke(150);
           noFill();
           rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
         } else if (stage.stage[i][j] > 0) {
@@ -156,6 +164,41 @@ class Display { //<>// //<>// //<>//
   }
   
     //Tetrisなどの文字を絵画
-  public void showText() {
+  public void dispText(Stage stage) {
+    if (stage.checkTetris()) {
+       tetris_disp_start_time = millis();
+       tetris_flag = true;
+    }
+    
+    if (stage.checkAllClear()) {
+       allClear_disp_start_time = millis();
+       allClearFlag = true;
+    }
+    
+    if ((millis() - tetris_disp_start_time <= 3000) & tetris_flag) {
+       //println("tetris" + (millis() - tetris_disp_start_time)); 
+       fill(255);
+       text("TETRIS", 280, 250);
+    }
+    
+    if ((millis() - allClear_disp_start_time <= 3000) & allClearFlag) {
+       println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
+       fill(255);
+       text("ALL CLEAR", 310, 250);
+    }
+
+       
+  }
+  
+  public void dispTime(Stage stage){
+    int time = stage.getTime();
+    String min = String.valueOf(time / 60);
+    String sec = String.valueOf(time % 60);
+    if(sec.length() == 1) sec = "0" + sec; 
+    String gametime = min + " : " + sec;
+    //println(gametime);
+    textSize(18);
+    fill(0);
+    text(gametime, 85, 365);
   }
 }

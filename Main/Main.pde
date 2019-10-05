@@ -1,4 +1,4 @@
-Display disp;
+Display disp; //<>//
 Stage stage;
 Input input;
 Sound sound;
@@ -29,11 +29,7 @@ public void draw() {
   int screenNum = 1;
  //update 
   input.update(delta_time); 
-  stage.update(input, delta_time);
   disp.update();
-  //音楽(BGM)
-  if(!bgm.isPlaying()) bgm.rewind();//bgmループさせる
-  bgm.play();
   
   //ゲーム表示
   if(screenNum == 0){  //スタート画面
@@ -41,13 +37,19 @@ public void draw() {
     if(disp.startScreen(stage)) screenNum++;
     
   }else if(screenNum == 1){  //ゲーム画面
+    stage.update(input, delta_time);
+  //音楽(BGM)
+    if(!bgm.isPlaying()) bgm.rewind();//bgmループさせる
+    bgm.play();
   
-  disp.drawBackground();
-  disp.drawgame(stage);
-  disp.showNext();
-  disp.showHold();
-  disp.drawFallingMino(stage.mino);
-  disp.drawScore(stage);
+    disp.drawBackground();
+    disp.drawgame(stage);
+    disp.showNext();
+    disp.showHold();
+    disp.drawFallingMino(stage.mino);
+    disp.drawScore(stage);
+    disp.dispTime(stage);
+    disp.dispText(stage);
 
 }
  //キーリセット
