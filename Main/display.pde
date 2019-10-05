@@ -177,17 +177,26 @@ class Display { //<>// //<>// //<>// //<>//
     
     if ((millis() - tetris_disp_start_time <= 3000) & tetris_flag) {
        //println("tetris" + (millis() - tetris_disp_start_time)); 
+       textSize(25);
        fill(255);
-       text("TETRIS", 280, 250);
+       text("TETRIS", 300, 250);
     }
     
     if ((millis() - allClear_disp_start_time <= 3000) & allClearFlag) {
        println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
+       textSize(25);
        fill(255);
        text("ALL CLEAR", 310, 250);
     }
 
        
+  }
+  
+  public void dispLevel(Stage stage){
+    int level = stage.getLevel();
+    textSize(55);
+    fill(255);
+    text(level, 330, 755);
   }
   
   public void dispTime(Stage stage){

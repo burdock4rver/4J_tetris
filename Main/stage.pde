@@ -8,11 +8,13 @@ class Stage { //<>// //<>// //<>// //<>//
   private int lastInputTime;  // 最後の入力からの経過時間
   private int gameTime;    //ゲームの残り時間(秒)
   private int gameLimitTime; //リミットタイム
+  private int level;
 
   private boolean isGround;   // ミノが接地しているか
   private int minoFreeTime;   // 地面に接している間にミノが自由に動ける時間
   private boolean doneHold;   // ホールドを使ったか
   private int fall_time;     //落下間隔時間
+  private int levelfall_time; //レベルによる落下速度変更
   private int clearLineNum;
   private int renCount;
   private int lastline;
@@ -53,11 +55,13 @@ class Stage { //<>// //<>// //<>// //<>//
     isGround = false;
     waitFall = 0;
     fall_time = NORMAL_FALL_TIME;
+    levelfall_time = 0;
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;
     gameLimitTime = 300;
     gameTime = 0;
+    level = 1;
     doneHold = false;
     
     line1 = false;
@@ -137,9 +141,9 @@ class Stage { //<>// //<>// //<>// //<>//
     }
 
     if (input.state[input.S_DROP]) {        // ソフトドロップ
-      fall_time = SOFT_FALL_TIME;
+      fall_time = SOFT_FALL_TIME - ((level - 1) * 200);
     } else {
-      fall_time = NORMAL_FALL_TIME;
+      fall_time = NORMAL_FALL_TIME - ((level - 1) * 200);
     }
 
     mino.setGhost(stage);    // ゴーストの位置設定
@@ -181,6 +185,7 @@ class Stage { //<>// //<>// //<>// //<>//
         addScore(renCount);            // 得点か三
         renCount(clearLineNum);        // れん
         setNextMino();         // 次のミノを取り出す
+        levelUp();
 
         doneHold = false; 
         isGround = false;
@@ -468,7 +473,7 @@ class Stage { //<>// //<>// //<>// //<>//
     return gameTime;
   }
   
-  public void decrementTime(){
+  private void decrementTime(){
     int ms = millis()/1000;
     gameTime = gameLimitTime - ms;
     if(gameTime <= 0) println("finish"); 
@@ -480,6 +485,25 @@ class Stage { //<>// //<>// //<>// //<>//
       return true;
     }
     return false;
+  }
+  
+  private void levelUp(){
+    if (score < 10) level = 1;
+    else if (score < 20) level = 2;
+    else if (score < 30) level = 3;
+    else if (score < 50) level = 4;
+    else if (score < 100) level = 5;
+    else if (score < 150) level = 6;
+    else if (score < 180) level = 7;
+    else if (score < 200) level = 8;
+    else if (score < 250) level = 9;
+    else if (score < 290) level = 10;
+    
+    println(level);
+  }
+  
+  public int getLevel(){
+    return level;
   }
   
 }

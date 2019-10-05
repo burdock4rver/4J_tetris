@@ -50,6 +50,7 @@ public void draw() {
     disp.drawScore(stage);
     disp.dispTime(stage);
     disp.dispText(stage);
+    disp.dispLevel(stage);
 
 }
  //キーリセット
