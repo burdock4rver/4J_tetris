@@ -15,7 +15,7 @@ public class Sound{
     
     
   private void setupSounds(){
-    bgm = minim.loadFile("sounds/tetris.mp3"); //<>//
+    bgm = minim.loadFile("sounds/BGM.mp3"); //<>//
   }
 
   public AudioPlayer getSounds(String sound){
