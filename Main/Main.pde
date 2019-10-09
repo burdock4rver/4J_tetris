@@ -2,6 +2,7 @@ Display disp;
 Stage stage;
 Input input;
 Sound sound;
+// yesyesyes
 
 int pre_time;
 int delta_time;  // 前フレームからの経過時間を持つ
