@@ -37,59 +37,71 @@ public class TMino extends Mino {
     */
     int sx = posx; //この左上の座標と比較
     int sy = posy + 1;
+    int rex,rey,spx,spy;
+    boolean rFlag = true ,sFlag = true;
+    boolean conR = true,conS = true;
      //入るかチェック
      if (RLFlag == true)
      {
        sx += 1;
+       spx = sx;
+       spy = sy;
+       sx -= 1;
+       sy -= 2;
+       rex = sx;
+       rey = sy;
        for(int j = 0;j < 5;j += 1)
        {
-         if(j+sy > 23)break;
+         if(j+spy > 23)conS = false;
+         if(j+rey > 23)conR = false;
            for(int i = 0;i < 5;i += 1)
            {
-             if(i+sx >= 12)break;
-               if(tSpinTriple[j][i] != -2){ //-2の時はどちらでもいいので判定しない
-                  if(stage[j+sy][i+sx] == -1)break;
-                  if(tSpinTriple[j][i] == 1){
-                     //ブロック1以上かをチェック
-                     if(stage[j+sy][i+sx] <= 0)
-                     return false;
-                   }else if(tSpinTriple[j][i] == 0){
-                     //ブロックがないかをチェック
-                     if(stage[j+sy][i+sx] != 0)
-                     return false;
-                   }
-               }
-  
+             if(i+spx >= 12)conS = false;
+             if(i+rex >= 12)conR = false;
+             
+             
+             if(conS == true && sFlag == true)
+             sFlag = chechkSpin_L(stage,i,j,spx,spy);
+             if(conR == true && rFlag == true)
+             rFlag = chechkSpin_R(stage,i,j,rex,rey);
+             if(rFlag == false && sFlag == false)return false;
            }
+           conS = true;
+           conR = true;
        }
+       
      }
      else if (RLFlag == false)
      {
        sx -= 1;
+       spx = sx;
+       spy = sy;
+       sx += 1;
+       sy -= 2;
+       rex = sx;
+       rey = sy;
+       
+       if(rex == -1)rex = 0;
        for(int j = 0;j < 5;j += 1)
        {
-         if(j+sy > 23)break;
+         if(j+spy > 23)conS = false;
+         if(j+rey > 23)conR = false;
            for(int i = 0;i < 5;i += 1)
            {
-             if(i+sx >= 12)break;
-              if(tSpinTriple[j][4-i] != -2){ //-2の時はどちらでもいいので判定しない
-                  if(stage[j+sy][i+sx] == -1)break;
-                  if(tSpinTriple[j][4-i] == 1){
-                     //ブロック1以上かをチェック
-                     if(stage[j+sy][i+sx] <= 0)
-                     return false;
-                   }else if(tSpinTriple[j][4-i] == 0){
-                     //ブロックがないかをチェック
-                     if(stage[j+sy][i+sx] != 0)
-                     return false;
-                   }
-               }
+             if(i+spx >= 12)conS = false;
+             if(i+rex >= 12)conR = false;
+             if(conS == true && sFlag == true)
+             sFlag = chechkSpin_R(stage,i,j,spx,spy);
+             if(conR == true && rFlag == true)
+             rFlag = chechkSpin_L(stage,i,j,rex,rey);
+             if(rFlag == false && sFlag == false)return false;
            }
+         conS = true;
+         conR = true;
        }
      }
     //はめ込みをする
     //左回転させ下に2右に1ずらすなどをして
-    
     if (checkMino(stage, rotate_shape, 1, 2) && RLFlag == true) {
       super.posx += 1;
       super.posy += 2;
@@ -102,6 +114,20 @@ public class TMino extends Mino {
       super.shape = rotate_shape;
       return true;
     }
+    else if(rFlag == true && RLFlag == true)
+    {
+      super.posx += 1;
+      super.posy -= 2;
+      super.shape = rotate_shape;
+      return true;
+    }
+    else if(rFlag == true && RLFlag == false)
+    {
+      super.posx -= 1;
+      super.posy -= 2;
+      super.shape = rotate_shape;
+      return true;
+    }
     
     //戻りや向きが逆のパターンはのちにする
     return false;
@@ -111,5 +137,43 @@ public class TMino extends Mino {
   }
 
   public void turnMino(int turn) {
+  }
+  
+  public boolean chechkSpin_R(int[][] stage,int i,int j,int sx,int sy)
+  {
+    
+     if(tSpinTriple[j][4-i] != -2){ //-2の時はどちらでもいいので判定しない
+                  if(stage[j+sy][i+sx] == -1)return true;
+                  if(tSpinTriple[j][4-i] == 1){
+                     //ブロック1以上かをチェック
+                     if(stage[j+sy][i+sx] <= 0)
+                     return false;
+                   }else if(tSpinTriple[j][4-i] == 0){
+                     //ブロックがないかをチェック
+                     if(stage[j+sy][i+sx] != 0)
+                     return false;
+                   }
+               }
+          return true;
+  }
+  public boolean chechkSpin_L(int[][] stage,int i,int j,int sx,int sy)
+  {
+    
+    if(tSpinTriple[j][i] != -2){ //-2の時はどちらでもいいので判定しない
+    print((j+sy));
+    println((i+sx));
+                  if(stage[j+sy][i+sx] == -1)return true;
+                  
+                  if(tSpinTriple[j][i] == 1){
+                     //ブロック1以上かをチェック
+                     if(stage[j+sy][i+sx] <= 0)
+                     return false;
+                   }else if(tSpinTriple[j][i] == 0){
+                     //ブロックがないかをチェック
+                     if(stage[j+sy][i+sx] != 0)
+                     return false;
+                   }
+               }
+       return true;
   }
 }

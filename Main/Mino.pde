@@ -33,40 +33,38 @@ public abstract class Mino {
   public boolean turnRight(int[][] stage) {  //
     int rotate_shape[][] = rotateRight();
     boolean SspinFlag = false;
-    if(id == 1){
-      SspinFlag = superTSpin(stage,rotate_shape,posx,posy,false);
-    }
-    if (SspinFlag == false)
-    {
+    
       if (checkMino(stage, rotate_shape, 0, 0)) {
         shape = rotate_shape;
         return true;
       } else
       {
+        if(id == 1){
+        SspinFlag = superTSpin(stage,rotate_shape,posx,posy,false);
+        }
+        if(SspinFlag == true)return true;
         return turnCheck(stage,rotate_shape);
       }
-    }
-    return false;
+    
   }
 
   public boolean turnLeft(int[][] stage) {
     int rotate_shape[][] = rotateLeft();
     boolean SspinFlag = false;
-    if(id == 1){
-      SspinFlag = superTSpin(stage,rotate_shape,posx,posy,true);
-    }
-    if (SspinFlag == false)
-    {
-      if (checkMino(stage, rotate_shape, 0, 0)) {
+    
+    if (checkMino(stage, rotate_shape, 0, 0)) {
         shape = rotate_shape;
         return true;
-      } else
-      {
-       return turnCheck(stage,rotate_shape);
-      }
+     } else
+     {
+      if(id == 1){
+        SspinFlag = superTSpin(stage,rotate_shape,posx,posy,true);
+      }  
+      if(SspinFlag == true)return true;
+     return turnCheck(stage,rotate_shape);
     }
+    
 
-    return false;
   }
   //回転判定部分(まとめただけ)
   public boolean turnCheck(int[][] stage,int[][] rotate_shape)
@@ -112,7 +110,6 @@ public abstract class Mino {
             shape = rotate_shape;
             return true;
           }
-          /*tuika*/
           else if (checkMino(stage, rotate_shape, -mpos, mpos)) {
             posx -= mpos;
             posy += mpos;
