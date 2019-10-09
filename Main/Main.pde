@@ -6,17 +6,17 @@ Sound sound;
 int pre_time;
 int delta_time;  // 前フレームからの経過時間を持つ
 AudioPlayer bgm;  //テトリスBGM
+AudioPlayer se;
 
 public void setup() {
   
   size(540, 960);
   
   setupFonts();
-  stage = new Stage();
-  disp = new Display(stage);
-  input = new InputKey();
   sound = new Sound();
-  bgm = sound.getSounds("BGM"); //<>//
+  stage = new Stage(sound);
+  disp = new Display(stage);
+  input = new InputKey(); //<>//
   pre_time = 0;
 }
 
@@ -32,8 +32,7 @@ public void draw() {
   stage.update(input, delta_time);
   disp.update();
   //音楽(BGM)
-  if(!bgm.isPlaying()) bgm.rewind();//bgmループさせる
-  bgm.play();
+  sound.playBGM();
   
   //ゲーム表示
   if(screenNum == 0){  //スタート画面
