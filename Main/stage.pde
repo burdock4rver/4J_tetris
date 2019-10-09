@@ -320,7 +320,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>//
     return clear;
   }
 
-  public void addScore(int renNum) {//得点か三 値は適当に決めたので変更してください
+  public void addScore(int renNum) {//得点加算 値は適当に決めたので変更してください
     int ren = 0;
     if(renNum>=2)
     {

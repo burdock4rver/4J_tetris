@@ -6,7 +6,15 @@ public class TMino extends Mino {
     {-2,1 ,0,-2,-2},
     {-2,0 ,0,-2,-2},
     {-2,-2,0,-2,-2}};
-    
+  
+  //private int tSpinFlag[][] = {
+  //  {0,0,0,0,0},
+  //  {0,0,0,0,0},
+  //  {0,0,0,0,0},
+  //  {0,0,0,0,0},
+  //  {0,0,0,0,0},
+  //};
+  
   public TMino(int x, int y) {
     super(x, y);
     super.nextPointX = 390;
@@ -20,7 +28,8 @@ public class TMino extends Mino {
       {0, 0, 1, 0, 0}, 
       {0, 1, 1, 1, 0}, 
       {0, 0, 0, 0, 0}, 
-      {0, 0, 0, 0, 0}};
+      {0, 0, 0, 0, 0}
+    };
 
     super.texture = loadImage("resources/minoTfront.png");
     super.id = 1;
