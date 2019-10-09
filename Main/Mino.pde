@@ -32,129 +32,99 @@ public abstract class Mino {
   //ブロックの回転
   public boolean turnRight(int[][] stage) {  //
     int rotate_shape[][] = rotateRight();
-    if (checkMino(stage, rotate_shape, 0, 0)) {
-      shape = rotate_shape;
-      return true;
-    } else
-    {
-      for (int mpos = 1; mpos < 3; mpos += 1)
+    boolean SspinFlag = false;
+    
+      if (checkMino(stage, rotate_shape, 0, 0)) {
+        shape = rotate_shape;
+        return true;
+      } else
       {
-        /*tuika*/
-        if (checkMino(stage, rotate_shape, -mpos, mpos)) {
-          posx -= mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
+        if(id == 1){
+        SspinFlag = superTSpin(stage,rotate_shape,posx,posy,false);
         }
-        else if (checkMino(stage, rotate_shape, mpos, mpos)) {
-          posx += mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        //tuikaowari
-        else if (checkMino(stage, rotate_shape, mpos, 0)) {
-          posx += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, 0)) {
-          posx -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, 0, -mpos)) {
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
-          posx += mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
-          posx -= mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        
+        if(SspinFlag == true)return true;
+        return turnCheck(stage,rotate_shape);
       }
-    }
-    return false;
+    
   }
 
   public boolean turnLeft(int[][] stage) {
     int rotate_shape[][] = rotateLeft();
+    boolean SspinFlag = false;
+    
     if (checkMino(stage, rotate_shape, 0, 0)) {
-      shape = rotate_shape;
-      return true;
-    } else
-    {
-      for (int mpos = 1; mpos < 3; mpos += 1)
-      {
-        /*tuika*/
-        if (checkMino(stage, rotate_shape, -mpos, mpos)) {
-          posx -= mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, mpos)) {
-          posx += mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        //tuikaowari
-        else if (checkMino(stage, rotate_shape, mpos, 0)) {
-          posx += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, 0)) {
-          posx -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, 0, -mpos)) {
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
-          posx += mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
-          posx -= mpos;
-          posy -= mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        /*tuika*/
-        else if (checkMino(stage, rotate_shape, -mpos, mpos)) {
-          posx -= mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-        else if (checkMino(stage, rotate_shape, mpos, mpos)) {
-          posx += mpos;
-          posy += mpos;
-          shape = rotate_shape;
-          return true;
-        }
-      }
+        shape = rotate_shape;
+        return true;
+     } else
+     {
+      if(id == 1){
+        SspinFlag = superTSpin(stage,rotate_shape,posx,posy,true);
+      }  
+      if(SspinFlag == true)return true;
+     return turnCheck(stage,rotate_shape);
     }
+    
 
-    return false;
   }
-
+  //回転判定部分(まとめただけ)
+  public boolean turnCheck(int[][] stage,int[][] rotate_shape)
+  {
+    for (int mpos = 1; mpos < 3; mpos += 1)
+        {
+          if (checkMino(stage, rotate_shape, -mpos, mpos)) {
+            posx -= mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, mpos)) {
+            posx += mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, 0)) {
+            posx += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, -mpos, 0)) {
+            posx -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, 0, -mpos)) {
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, -mpos)) {
+            posx += mpos;
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, -mpos, -mpos)) {
+            posx -= mpos;
+            posy -= mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, -mpos, mpos)) {
+            posx -= mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+          else if (checkMino(stage, rotate_shape, mpos, mpos)) {
+            posx += mpos;
+            posy += mpos;
+            shape = rotate_shape;
+            return true;
+          }
+        }
+        return false;
+  }
   // 現在の位置から+(dx, dy)ずれた位置にミノが存在できるかを判定する
   public boolean checkMino(int[][] stage, int[][] shape, int dx, int dy) {
     for (int y = 0; y < 5; y++) {
@@ -234,7 +204,7 @@ public abstract class Mino {
 
   public int[][] rotateLeft() { 
     int[][] rotation = new int[5][5];
-
+    
     // 回転行列
     for (int y = 0; y < 5; y++) {
       for (int x = 0; x < 5; x++) {
@@ -243,5 +213,9 @@ public abstract class Mino {
     }
 
     return rotation;
+  }
+  
+  public boolean superTSpin(int[][] stage,int[][] rotate_shape,int posx,int posy,boolean RLFlag){
+    return false;
   }
 }
