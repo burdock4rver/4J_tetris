@@ -12,11 +12,10 @@ public void setup() {
   size(480, 848);
   
   setupFonts();
-  stage = new Stage();
+  sound = new Sound();
+  stage = new Stage(Sound sound);
   disp = new Display(stage);
   input = new InputKey();
-  sound = new Sound();
-  bgm = sound.getSounds("BGM"); //<>//
   pre_time = 0;
 }
 
@@ -30,7 +29,8 @@ public void draw() {
  //update 
   input.update(delta_time); 
   disp.update();
-  
+  sound.playBGM
+
   //ゲーム表示
   if(screenNum == 0){  //スタート画面
   
