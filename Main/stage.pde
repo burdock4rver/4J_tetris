@@ -14,6 +14,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
   private int minoFreeTime;   // 地面に接している間にミノが自由に動ける時間
   private boolean doneHold;   // ホールドを使ったか
   private int fall_time;     //落下間隔時間
+  private boolean fallMinoFlag;
   private int levelfall_time; //レベルによる落下速度変更
   private int clearLineNum;
   private int renCount;
@@ -66,6 +67,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     gameTime = 0;
     level = 1;
     doneHold = false;
+    fallMinoFlag = false;
     
     line1 = false;
     line2 = false;
@@ -114,17 +116,17 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {        // 右移動
       wasOperate = mino.moveRight(stage);
-      sound.playSE("soft");
+      if(wasOperate)sound.playSE("soft");
     }
 
     if (input.state[input.L_MOVE]) {        // 左移動
       wasOperate = mino.moveLeft(stage);
-      sound.playSE("soft");
+      if(wasOperate)sound.playSE("soft");
     }
 
     if (input.state[input.R_TURN]) {        // 右回転
       wasOperate = mino.turnRight(stage);
-      sound.playSE("soft");
+      if(wasOperate)sound.playSE("soft");
       // 浮かび上がったときの処理
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
@@ -135,7 +137,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
     if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
-      sound.playSE("soft");
+      if(wasOperate)sound.playSE("soft");
       // 浮かび上がったときの処理
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
@@ -149,10 +151,10 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     }
 
     if (input.state[input.S_DROP]) {        // ソフトドロップ
-      fall_time = SOFT_FALL_TIME - ((level - 1) * 200);
-      sound.playSE("soft");
+      fall_time = SOFT_FALL_TIME - ((level - 1) * 100);
+      fallMinoFlag = true;
     } else {
-      fall_time = NORMAL_FALL_TIME - ((level - 1) * 200);
+      fall_time = NORMAL_FALL_TIME - ((level - 1) * 100);
     }
 
     mino.setGhost(stage);    // ゴーストの位置設定
@@ -165,10 +167,17 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
     // ミノ落下
     waitFall += delta_time;
+    
     if (waitFall >= fall_time) {
       isGround = !mino.fall(stage);  // 落下と接地判定
       waitFall = 0;
+      if (fallMinoFlag == true && !isGround) {
+        sound.playSE("soft");
+        fallMinoFlag = false;
+      }
     }
+    
+
 
     // カサカサとミノ設置
     if (isGround) {
@@ -200,13 +209,14 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         else if (line3) ;
         else if (line2) sound.playSE("twoLine");
         else if (line1) sound.playSE("aline");
-        else sound.playSE("drop");
+       // else sound.playSE("drop");
 
         doneHold = false; 
         isGround = false;
         minoFreeTime = 0;
         lastInputTime = 0;
         waitFall = 0;
+        downFlag();
       }
     }
   }
@@ -357,7 +367,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
       score += (int)(oneLineScore*(1.4+0.1*ren)); 
       tetrisFlag = true;
     }
-    downFlag();
+    
   }
 
   public int gameClear(int clear) {
@@ -504,15 +514,15 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
   
   private void levelUp(){
     if (score < 10) level = 1;
-    else if (score < 20) level = 2;
-    else if (score < 30) level = 3;
-    else if (score < 50) level = 4;
-    else if (score < 100) level = 5;
-    else if (score < 150) level = 6;
-    else if (score < 180) level = 7;
-    else if (score < 200) level = 8;
-    else if (score < 250) level = 9;
-    else if (score < 290) level = 10;
+    else if (score < 40) level = 2;
+    else if (score < 80) level = 3;
+    else if (score < 120) level = 4;
+    else if (score < 160) level = 5;
+    else if (score < 200) level = 6;
+    else if (score < 240) level = 7;
+    else if (score < 280) level = 8;
+    else if (score < 320) level = 9;
+    else if (score < 360) level = 10;
     
     println(level);
   }
