@@ -8,16 +8,16 @@ int delta_time;  // 前フレームからの経過時間を持つ
 AudioPlayer bgm;  //テトリスBGM
 
 public void setup() {
-  
+
   size(480, 848);
-  
+
   setupFonts();
   sound = new Sound();
-  stage = new Stage(Sound sound);
+  stage = new Stage(sound);
   disp = new Display(stage);
   input = new InputKey();
   pre_time = 0;
-}
+} //<>//
 
 public void draw() {
   // 時間計測
@@ -26,22 +26,18 @@ public void draw() {
   pre_time = ms;
   //画面の状態
   int screenNum = 1;
- //update 
+  //update 
   input.update(delta_time); 
   disp.update();
-  sound.playBGM
+  sound.playBGM();
 
-  //ゲーム表示
-  if(screenNum == 0){  //スタート画面
-  
-    if(disp.startScreen(stage)) screenNum++;
-    
-  }else if(screenNum == 1){  //ゲーム画面
+    //ゲーム表示
+    if (screenNum == 0) {  //スタート画面
+
+    if (disp.startScreen(stage)) screenNum++;
+  } else if (screenNum == 1) {  //ゲーム画面
     stage.update(input, delta_time);
-  //音楽(BGM)
-    if(!bgm.isPlaying()) bgm.rewind();//bgmループさせる
-    bgm.play();
-  
+
     disp.drawBackground();
     disp.drawgame(stage);
     disp.showNext();
@@ -51,13 +47,12 @@ public void draw() {
     disp.dispTime(stage);
     disp.dispText(stage);
     disp.dispLevel(stage);
-
-}
- //キーリセット
+  }
+  //キーリセット
   input.clean();
 }
 
-private void setupFonts(){
+private void setupFonts() {
   PFont font;
   font = loadFont("ModiThorson-48.vlw");
   textFont(font, 48);
@@ -65,7 +60,7 @@ private void setupFonts(){
 }
 
 public void keyPressed() {
-  input.checkInput(); 
+  input.checkInput();
 }
 
 public void keyReleased() {
