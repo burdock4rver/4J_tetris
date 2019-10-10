@@ -35,14 +35,6 @@ public class Sound{
     preSE = tetris;
   }
 
-  public AudioPlayer getSounds(String sound){
-      switch(sound){
-        case "BGM": return bgm;
-        case "tetris": ;
-      }
-      return null;
-  }
-  
   public void playBGM() {
     if(!bgm.isPlaying()) bgm.rewind();
     bgm.play();
