@@ -43,8 +43,11 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
   private Mino mino;
   private Mino holdMino;
   int[][] stage;
+  private Sound sound;
 
-  public Stage() {
+  public Stage(Sound sound) {
+    this.sound = sound;
+
     next = new RandomMino();  // ミノ生成
     mino = getNewMino(next.getNextMino());  // 最初のミノを生成
     nextMino =new Mino[4];
@@ -111,14 +114,17 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {        // 右移動
       wasOperate = mino.moveRight(stage);
+      sound.playSE("soft");
     }
 
     if (input.state[input.L_MOVE]) {        // 左移動
       wasOperate = mino.moveLeft(stage);
+      sound.playSE("soft");
     }
 
     if (input.state[input.R_TURN]) {        // 右回転
       wasOperate = mino.turnRight(stage);
+      sound.playSE("soft");
       // 浮かび上がったときの処理
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
@@ -129,6 +135,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
     if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
+      sound.playSE("soft");
       // 浮かび上がったときの処理
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
@@ -143,6 +150,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
     if (input.state[input.S_DROP]) {        // ソフトドロップ
       fall_time = SOFT_FALL_TIME - ((level - 1) * 200);
+      sound.playSE("soft");
     } else {
       fall_time = NORMAL_FALL_TIME - ((level - 1) * 200);
     }
@@ -187,6 +195,12 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         renCount(clearLineNum);        // れん
         setNextMino();         // 次のミノを取り出す
         levelUp();
+
+        if(line4) sound.playSE("tetris");
+        else if (line3) ;
+        else if (line2) sound.playSE("twoLine");
+        else if (line1) sound.playSE("aline");
+        else sound.playSE("drop");
 
         doneHold = false; 
         isGround = false;
