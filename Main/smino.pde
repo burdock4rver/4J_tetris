@@ -15,7 +15,7 @@ public class SMino extends Mino {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
 
-    super.texture = loadImage("resources/minoSfront.png");
+    //super.texture = loadImage("resources/minoSfront.png");
     super.id = 5;
   }
 

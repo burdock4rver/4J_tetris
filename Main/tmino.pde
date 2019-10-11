@@ -31,7 +31,7 @@ public class TMino extends Mino {
       {0, 0, 0, 0, 0}
     };
 
-    super.texture = loadImage("resources/minoTfront.png");
+    //super.texture = loadImage("resources/minoTfront.png");
     super.id = 1;
   }
   

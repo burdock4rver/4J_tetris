@@ -15,7 +15,7 @@ public class LMino extends Mino {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
 
-    super.texture = loadImage("resources/minoLfront.png");
+    //super.texture = loadImage("resources/minoLfront.png");
     super.id = 4;
   }
 

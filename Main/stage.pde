@@ -209,7 +209,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         else if (line3) ;
         else if (line2) sound.playSE("twoLine");
         else if (line1) sound.playSE("aline");
-       // else sound.playSE("drop");
+         else sound.playSE("drop");
 
         doneHold = false; 
         isGround = false;
