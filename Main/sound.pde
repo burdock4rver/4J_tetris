@@ -8,7 +8,7 @@ Minim minim = new Minim(this);
 
 final int TITLESCENE = 0;
 final int GAMESCENE  = 1;
-final int RSULTSCENE = 2;
+final int RESULTSCENE = 2;
   
 public class Sound{
   private AudioPlayer bgm;  //テトリスBGM
@@ -18,27 +18,24 @@ public class Sound{
   
   private AudioPlayer sounds[];
   
-  Sound(){
-    setupSounds();
+  Sound(int sceneNum){
+    setupSounds(sceneNum);
   }
   
-  public void switchScene(int scene) {
-    switch(scene) {
-      case TITLESCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
-      case GAMESCENE : bgm = minim.loadFile("sounds/BGM.mp3"); break;
-      case RSULTSCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
-    }
-  }
-
-  private void setupSounds(){
+  private void setupSounds(int secneNum){
     //bgm    = minim.loadFile("sounds/BGM.ogg"); //<>// //<>//
     //tetris = minim.loadFile("sounds/tetris1.ogg");
     //aline  = minim.loadFile("sounds/aLine.ogg");
     //twoLine  = minim.loadFile("sounds/twoLine.ogg");
     //drop   = minim.loadFile("sounds/drop.ogg");
     //soft   = minim.loadFile("sounds/soft.ogg");
+    switch(secneNum) {
+      case TITLESCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
+      case GAMESCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
+      case RESULTSCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
+    }
     
-    tetris = minim.loadFile("sounds/tetris1.mp3");
+    tetris = minim.loadFile("sounds/tetris1.mp3"); //<>//
     aline  = minim.loadFile("sounds/aLine.mp3");
     twoLine  = minim.loadFile("sounds/twoLine.mp3");
     drop   = minim.loadFile("sounds/drop.mp3");
@@ -55,13 +52,18 @@ public class Sound{
     preSE = tetris;
   }
 
-  public void titleBGM() {
-    
-  }
-
   public void playBGM() {
     if(!bgm.isPlaying()) bgm.rewind();
     bgm.play();
+  }
+  
+  public void stopAllSounds() {
+    bgm.close();
+    tetris.close();
+    aline.close();
+    twoLine.close();
+    drop.close();
+    soft.close();
   }
   
   public void playSE(String soundName) {

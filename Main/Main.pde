@@ -1,5 +1,4 @@
  //<>//
-Sound sound;
 Scene nowScene;
 
 
@@ -8,19 +7,8 @@ public void setup() {
   size(480, 848);
 
   setupFonts();
-  sound = new Sound();
-
-  switchScene(GAMESCENE);
+  nowScene = new TitleScene();
 } //<>//
- //<>//
-public void switchScene (int scene) {
-  sound.switchScene(scene);
-  switch(scene) {
-    //case TITLESCENE : nowScene = new TitleScene();  break;
-    case GAMESCENE  : nowScene = new GameScene(sound);   break; //<>//
-    //case RESULTSCENE: nowScene = new ResultScene(); break;
-  }
-}
 
 public void draw() {
   nowScene.update();
@@ -35,6 +23,7 @@ private void setupFonts() {
 
 public void keyPressed() {
   nowScene.keyPressed();
+  if(key == 'n') nowScene = nowScene.getNextScene();
 }
 
 public void keyReleased() {

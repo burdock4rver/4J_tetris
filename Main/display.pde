@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>//
 
   final int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
   final int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
@@ -56,7 +56,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     score = String.valueOf(stage.getScore());
   }
 
-  public void update() { //<>//
+  public void update() {
     stage.getNext(dispNextMino);
     holdMino = stage.getHoldMino(holdMino);
     score = String.valueOf(stage.score);

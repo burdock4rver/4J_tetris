@@ -8,16 +8,15 @@ class GameScene extends Scene {
   int delta_time;  // 前フレームからの経過時間を持つ
   AudioPlayer bgm;  //テトリスBGM
 
-  public GameScene(Sound sound) { //<>//
+  public GameScene() { //<>// //<>//
     super();
-    size(480, 848);
     
-    this.sound = sound;
+    sound = new Sound(GAMESCENE);
     stage = new Stage(sound);
     disp = new Display(stage);
     input = new InputKey();
     pre_time = 0; //<>//
-  } //<>//
+  } //<>// //<>//
 
   public void update() {
     super.update();
@@ -59,5 +58,10 @@ class GameScene extends Scene {
 
   public void keyReleased() {
     input.checkRelease();
+  }
+
+  public Scene getNextScene() {
+    sound.stopAllSounds();
+    return new ResultScene();
   }
 }
