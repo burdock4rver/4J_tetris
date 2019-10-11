@@ -5,6 +5,10 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 Minim minim = new Minim(this);
+
+final int TITLESCENE = 0;
+final int GAMESCENE  = 1;
+final int RSULTSCENE = 2;
   
 public class Sound{
   private AudioPlayer bgm;  //テトリスBGM
@@ -17,8 +21,15 @@ public class Sound{
   Sound(){
     setupSounds();
   }
-    
-    
+  
+  public void switchScene(int scene) {
+    switch(scene) {
+      case TITLESCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
+      case GAMESCENE : bgm = minim.loadFile("sounds/BGM.mp3"); break;
+      case RSULTSCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
+    }
+  }
+
   private void setupSounds(){
     //bgm    = minim.loadFile("sounds/BGM.ogg"); //<>// //<>//
     //tetris = minim.loadFile("sounds/tetris1.ogg");
@@ -27,7 +38,6 @@ public class Sound{
     //drop   = minim.loadFile("sounds/drop.ogg");
     //soft   = minim.loadFile("sounds/soft.ogg");
     
-    bgm    = minim.loadFile("sounds/BGM.mp3");
     tetris = minim.loadFile("sounds/tetris1.mp3");
     aline  = minim.loadFile("sounds/aLine.mp3");
     twoLine  = minim.loadFile("sounds/twoLine.mp3");
@@ -43,6 +53,10 @@ public class Sound{
     };
     
     preSE = tetris;
+  }
+
+  public void titleBGM() {
+    
   }
 
   public void playBGM() {

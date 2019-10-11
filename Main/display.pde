@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   final int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
   final int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
@@ -15,6 +15,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>//
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
   String score;//スコア
+  Stage stage;
   final color MINO_COLOR = #D6FFFC;
   
   
@@ -30,6 +31,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>//
 
   public Display(Stage stage) {    
     //テクスチャ設定
+    this.stage = stage;
     ui_img = loadImage("resources/MAIN_TEST.png");
     minoTex = new PImage[7];
     
@@ -54,8 +56,8 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>//
     score = String.valueOf(stage.getScore());
   }
 
-  public void update() {
-    stage.getNext(dispNextMino);    
+  public void update() { //<>//
+    stage.getNext(dispNextMino);
     holdMino = stage.getHoldMino(holdMino);
     score = String.valueOf(stage.score);
   }
