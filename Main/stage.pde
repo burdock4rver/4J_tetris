@@ -522,7 +522,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     else if (score < 240) level = 7;
     else if (score < 280) level = 8;
     else if (score < 320) level = 9;
-    else if (score < 360) level = 10;
     
     println(level);
   }

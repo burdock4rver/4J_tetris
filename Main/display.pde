@@ -15,6 +15,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
   String score;//スコア
+  final color MINO_COLOR = #00FCFC;
   
   
   boolean tetris_flag = false;
@@ -84,7 +85,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
           if (dispNextMino[next].shape[i][j] >= 1) {
-            stroke(240,255,255,255);
+            stroke(MINO_COLOR);
             fill(255,100);
             rect(dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize, blockRadius);
             //image(minoTex[dispNextMino[next].id - 1], dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize);
@@ -110,7 +111,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
           if (minos[holdMino.id - 1].shape[i][j] >= 1) {
-            stroke(240,255,255,255);
+            stroke(MINO_COLOR);
             fill(255,100);
             rect(holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize, blockRadius);
             //image(minoTex[minos[holdMino.id - 1].id - 1], holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize);
@@ -156,7 +157,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
           //stroke(150);
           //rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
         } else if (stage.stage[i][j] > 0) {
-          stroke(240,255,255,255);
+          stroke(MINO_COLOR);
           rect(stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize, blockRadius);
           //image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);
         }
@@ -172,7 +173,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
           // ミノの影
           showGhost(x,y,mino);
           // ミノの本体
-            stroke(240,255,255,255);
+            stroke(MINO_COLOR);
             fill(0,50);
             rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize, blockRadius);
           //image(mino.texture, stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize);
