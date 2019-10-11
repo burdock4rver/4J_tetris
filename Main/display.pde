@@ -1,21 +1,21 @@
-class Display { //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>//
 
-  int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
-  int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
-  float blockSize=25;  // ブロックの大きさ (変更する際はMinoclassのも変更)
-  float blockRadius = 5;
-  float stagePosition_x = (229)/2;  //プレイ画面の位置
-  float stagePosition_y = 373 / 2;
+  final int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
+  final int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
+  final float blockSize=25;  // ブロックの大きさ (変更する際はMinoclassのも変更)
+  final float blockRadius = 5;
+  final float stagePosition_x = (229)/2;  //プレイ画面の位置
+  final float stagePosition_y = 373 / 2;
   int sSarray_x;       // 横配列
   int sSarray_y;       // 縦配列
-  float nextPointInreval = 45; //次のブロックの表示位置の差
+  final float nextPointInreval = 45; //次のブロックの表示位置の差
   float arst_y;
-  float collectNextX = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
-  float collectNextY = 20;          
+  final float collectNextX = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
+  final float collectNextY = 20;          
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
   String score;//スコア
-  final color MINO_COLOR = #00FCFC;
+  final color MINO_COLOR = #D6FFFC;
   
   
   boolean tetris_flag = false;
