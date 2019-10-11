@@ -191,11 +191,18 @@ public abstract class Mino {
    */
   public int[][] rotateRight() { 
     int[][] rotation = new int[5][5];
-
-    // 回転行列
-    for (int y = 0; y < 5; y++) {
-      for (int x = 0; x < 5; x++) {
-        rotation[y][x] = shape[-(x - 2) + 2][y];
+        // 回転行列(Iminoだけ特殊にする)
+    if(id == 2){
+       for (int y = 1; y < 5; y++) {
+          for (int x = 1; x < 5; x++) {
+            rotation[y][x] = shape[-(x - 2) + 3][y];
+          }
+       }
+    }else{
+      for (int y = 0; y < 5; y++) {
+        for (int x = 0; x < 5; x++) {
+          rotation[y][x] = shape[-(x - 2) + 2][y];
+        }
       }
     }
 
@@ -206,9 +213,17 @@ public abstract class Mino {
     int[][] rotation = new int[5][5];
     
     // 回転行列
-    for (int y = 0; y < 5; y++) {
-      for (int x = 0; x < 5; x++) {
-        rotation[y][x] = shape[x][-(y - 2) + 2];
+    if(id == 2){
+      for (int y = 1; y < 5; y++) {
+        for (int x = 1; x < 5; x++) {
+          rotation[y][x] = shape[x][-(y - 2) + 3];
+        }
+      }
+    }else{
+      for (int y = 0; y < 5; y++) {
+        for (int x = 0; x < 5; x++) {
+          rotation[y][x] = shape[x][-(y - 2) + 2];
+        }
       }
     }
 

@@ -3,6 +3,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
   int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
   int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
   float blockSize=25;  // ブロックの大きさ (変更する際はMinoclassのも変更)
+  float blockRadius = 5;
   float stagePosition_x = (229)/2;  //プレイ画面の位置
   float stagePosition_y = 373 / 2;
   int sSarray_x;       // 横配列
@@ -14,6 +15,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
   String score;//スコア
+  
   
   boolean tetris_flag = false;
   int tetris_disp_start_time = 0;
@@ -27,7 +29,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
 
   public Display(Stage stage) {    
     //テクスチャ設定
-    ui_img = loadImage("resources/MAIN.png");
+    ui_img = loadImage("resources/MAIN_TEST.png");
     minoTex = new PImage[7];
     
     minos = new Mino[7];
@@ -59,8 +61,9 @@ class Display { //<>// //<>// //<>// //<>// //<>//
   //ゴースト絵画
   public void showGhost(int x,int y,Mino mino) {
     if (mino.posy < mino.ghost_y) {
-      fill(210, 200);
+      fill(210, 100);
       noStroke();
+      //filter(BL
       rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.ghost_y - arst_y), blockSize, blockSize);
     }
   }
@@ -81,7 +84,10 @@ class Display { //<>// //<>// //<>// //<>// //<>//
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
           if (dispNextMino[next].shape[i][j] >= 1) {
-            image(minoTex[dispNextMino[next].id - 1], dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize);
+            stroke(240,255,255,255);
+            fill(255,100);
+            rect(dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize, blockRadius);
+            //image(minoTex[dispNextMino[next].id - 1], dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize);
           }
         }
       }
@@ -104,7 +110,10 @@ class Display { //<>// //<>// //<>// //<>// //<>//
       for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
           if (minos[holdMino.id - 1].shape[i][j] >= 1) {
-            image(minoTex[minos[holdMino.id - 1].id - 1], holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize);
+            stroke(240,255,255,255);
+            fill(255,100);
+            rect(holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize, blockRadius);
+            //image(minoTex[minos[holdMino.id - 1].id - 1], holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize);
           }
         }
       }
@@ -118,19 +127,38 @@ class Display { //<>// //<>// //<>// //<>// //<>//
     image(ui_img, 0, 0, width, height);
   }
 
-  // ステージに設置されているブロックを描画
+  //// ステージに設置されているブロックを描画
+  //public void drawgame(Stage stage) {  //ゲームプレイ画面
+  //  for (int i = (int)arst_y; i < sSarray_y; i++) {
+  //    for (int j = 0; j < sSarray_x; j++) {
+
+  //      if (stage.stage[i][j] == 0) {
+  //        fill(255);
+  //        noStroke();
+  //        //stroke(150);
+  //        noFill();
+  //        rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
+  //      } else if (stage.stage[i][j] > 0) {
+  //        image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);
+  //      }
+  //    }
+  //  }
+  //}
+  
+    // ステージに設置されているブロックを描画
   public void drawgame(Stage stage) {  //ゲームプレイ画面
     for (int i = (int)arst_y; i < sSarray_y; i++) {
       for (int j = 0; j < sSarray_x; j++) {
 
         if (stage.stage[i][j] == 0) {
-          fill(255);
+          fill(200,200,255,50);
           noStroke();
           //stroke(150);
-          noFill();
-          rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
+          //rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
         } else if (stage.stage[i][j] > 0) {
-          image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);
+          stroke(240,255,255,255);
+          rect(stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize, blockRadius);
+          //image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);
         }
       }
     }
@@ -144,7 +172,10 @@ class Display { //<>// //<>// //<>// //<>// //<>//
           // ミノの影
           showGhost(x,y,mino);
           // ミノの本体
-          image(mino.texture, stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize);
+            stroke(240,255,255,255);
+            fill(0,50);
+            rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize, blockRadius);
+          //image(mino.texture, stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize);
         }
       }
     }
@@ -159,7 +190,7 @@ class Display { //<>// //<>// //<>// //<>// //<>//
   //scoreを絵画
   public void drawScore(Stage stage){
     textSize(35);
-    fill(0);
+    fill(34,181,115);
     text(score, 350, 139);
   }
   
@@ -193,8 +224,8 @@ class Display { //<>// //<>// //<>// //<>// //<>//
   public void dispLevel(Stage stage){
     int level = stage.getLevel();
     textSize(55);
-    fill(255);
-    text(level, 330, 755);
+    fill(34,181,115);
+    text(level, 325, 755);
   }
   
   public void dispTime(Stage stage){
@@ -204,8 +235,8 @@ class Display { //<>// //<>// //<>// //<>// //<>//
     if(sec.length() == 1) sec = "0" + sec; 
     String gametime = min + " : " + sec;
     //println(gametime);
-    textSize(18);
-    fill(0);
-    text(gametime, 85, 365);
+    textSize(16);
+    fill(34,181,115);
+    text(gametime, 79, 365);
   }
 }
