@@ -15,6 +15,8 @@ class Display { //<>// //<>// //<>// //<>// //<>//
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
   String score;//スコア
+
+  // I'm koide
   
   
   boolean tetris_flag = false;
