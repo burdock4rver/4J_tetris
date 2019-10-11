@@ -20,12 +20,12 @@ public class Sound{
     
     
   private void setupSounds(){
-    bgm    = minim.loadFile("sounds/BGM.mp3"); //<>//
-    tetris = minim.loadFile("sounds/tetris1.mp3");
-    aline  = minim.loadFile("sounds/aLine.mp3");
-    twoLine  = minim.loadFile("sounds/twoLine.mp3");
-    drop   = minim.loadFile("sounds/drop.mp3");
-    soft   = minim.loadFile("sounds/soft.mp3");
+    bgm    = minim.loadFile("sounds/BGM.ogg"); //<>//
+    tetris = minim.loadFile("sounds/tetris1.ogg");
+    aline  = minim.loadFile("sounds/aLine.ogg");
+    twoLine  = minim.loadFile("sounds/twoLine.ogg");
+    drop   = minim.loadFile("sounds/drop.ogg");
+    soft   = minim.loadFile("sounds/soft.ogg");
     sounds = new AudioPlayer[] {
       tetris,
       aline,
