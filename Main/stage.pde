@@ -205,7 +205,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         setNextMino();         // 次のミノを取り出す
         levelUp();
 
-        if(line4) ;//sound.playSE("tetris");
+        if(line4) sound.playSE("tetris");
         else if (line3) ;
         else if (line2) sound.playSE("twoLine");
         else if (line1) sound.playSE("aline");
