@@ -116,17 +116,17 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {        // 右移動
       wasOperate = mino.moveRight(stage);
-      if(wasOperate)sound.playSE("soft");
+      if(wasOperate)sound.playSE();
     }
 
     if (input.state[input.L_MOVE]) {        // 左移動
       wasOperate = mino.moveLeft(stage);
-      if(wasOperate)sound.playSE("soft");
+      if(wasOperate)sound.playSE();
     }
 
     if (input.state[input.R_TURN]) {        // 右回転
       wasOperate = mino.turnRight(stage);
-      if(wasOperate)sound.playSE("soft");
+      if(wasOperate)sound.playSE();
       // 浮かび上がったときの処理
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
@@ -137,7 +137,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
     if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
-      if(wasOperate)sound.playSE("soft");
+      if(wasOperate)sound.playSE();
       // 浮かび上がったときの処理
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
@@ -172,7 +172,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
       isGround = !mino.fall(stage);  // 落下と接地判定
       waitFall = 0;
       if (fallMinoFlag == true && !isGround) {
-        sound.playSE("soft");
+        sound.playSE();
         fallMinoFlag = false;
       }
     }
@@ -207,8 +207,8 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
         if(line4) ;//sound.playSE("tetris");
         else if (line3) ;
-        //else if (line2) sound.playSE("twoLine");
-        //else if (line1) sound.playSE("aline");
+        else if (line2) sound.playSE("twoLine");
+        else if (line1) sound.playSE("aline");
         else sound.playSE("drop");
 
         doneHold = false; 
