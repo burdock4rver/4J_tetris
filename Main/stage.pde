@@ -27,6 +27,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
   private boolean line3;
   private boolean line4;
   private boolean tetrisFlag;
+  private boolean tSpin1Flag;
+  private boolean tSpin2Flag;
+  private boolean tSpin3Flag;
   
   private int oneLineScore = 10; //加算するスコア(変えてください)
 
@@ -74,6 +77,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     line3 = false;
     line4 = false;
     tetrisFlag = false;
+    tSpin1Flag = false;
+    tSpin2Flag = false;
+    tSpin3Flag = false;
     renCount = 0;
     lastline = 0;
     
@@ -199,7 +205,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         firstGroundFlag = true;
         allClearFlag = checkAllClear();
         if(allClearFlag == true) println("ALL CLEAR");
-        
+
         addScore(renCount);            // 得点か三
         renCount(clearLineNum);        // れん
         setNextMino();         // 次のミノを取り出す
@@ -207,9 +213,12 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
         if(line4) sound.playSE("tetris");
         else if (line3) ;
-        else if (line2) sound.playSE("twoLine");
+        else if (line2) {
+          if()
+          sound.playSE("twoLine");
+        }
         else if (line1) sound.playSE("aline");
-         else sound.playSE("drop");
+        else sound.playSE("drop");
 
         doneHold = false; 
         isGround = false;
