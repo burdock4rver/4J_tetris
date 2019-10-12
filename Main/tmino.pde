@@ -33,19 +33,14 @@ public class TMino extends Mino {
     return true;
   }
   
-  // Xの位置にもともとあったブロックの数が5以上ならばTspinFlagをたてる
-  // その後ラインの数を見てトリプル、ダブル、シングル、ノーマルを判定する
-  //private int tSpinFlag[][] = {
-  //  {0,0,X,0,0},
-  //  {0,X,1,X,0},
-  //  {X,1,1,X,0},
-  //  {0,X,1,X,0},
-  //  {0,0,X,0,0}
-  //};
+
+
   public boolean checkBlockR(int[][] stage,int [][] rotateShape,int posx,int posy)
   {
     return true;
   }
+  
+    
   
   public boolean superTSpin(int[][] stage,int[][] rotate_shape,int posx,int posy,boolean RLFlag){
     /*

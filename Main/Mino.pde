@@ -12,7 +12,7 @@ public abstract class Mino {
   private int posx, posy;
   private int ghost_y;
 
-  private int id;  //ブロックID
+  public int id;  //ブロックID
 
   public abstract void showTexture();
 
@@ -233,4 +233,7 @@ public abstract class Mino {
   public boolean superTSpin(int[][] stage,int[][] rotate_shape,int posx,int posy,boolean RLFlag){
     return false;
   }
+  
+  
+  
 }

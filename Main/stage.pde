@@ -1,4 +1,4 @@
-class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
+class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   private int score;
 
@@ -27,9 +27,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
   private boolean line3;
   private boolean line4;
   private boolean tetrisFlag;
-  private boolean tSpin1Flag;
-  private boolean tSpin2Flag;
-  private boolean tSpin3Flag;
+  private boolean tSpinFlag;
   
   private int oneLineScore = 10; //加算するスコア(変えてください)
 
@@ -77,9 +75,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     line3 = false;
     line4 = false;
     tetrisFlag = false;
-    tSpin1Flag = false;
-    tSpin2Flag = false;
-    tSpin3Flag = false;
+    tSpinFlag = false;
     renCount = 0;
     lastline = 0;
     
@@ -197,6 +193,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
       // ミノの位置が決まった
       if (minoFreeTime >= FREE_TIME || lastInputTime >= INPUT_WAIT) {
+        tSpinFlag = checkTSpin(stage,mino.posx,mino.posy,mino.shape);
         // ラインチェックと次のミノの処理
         stageSetMino(mino);      // stage[][]にミノのブロックを反映
         gameOver();
@@ -214,7 +211,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         if(line4) sound.playSE("tetris");
         else if (line3) ;
         else if (line2) {
-          if()
           sound.playSE("twoLine");
         }
         else if (line1) sound.playSE("aline");
@@ -517,6 +513,57 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
     if(tetrisFlag == true) {
       tetrisFlag = false;
       return true;
+    }
+    return false;
+  }
+  
+  public boolean checkTSpin(int[][] stage,int posx,int posy,int[][] mino){
+    if(this.mino.id != 1) return false;
+    int count = 0;
+    if(stage[posy+1][posx+1] != 0)  count++;
+    if(stage[posy+1][posx+3] != 0)  count++;
+    if(stage[posy+3][posx+1] != 0)  count++;
+    if(stage[posy+3][posx+3] != 0)  count++;
+    int tRo = 0;
+    /*
+    tRo
+    1 up
+    2 right
+    3 down
+    4 left
+    */
+    //Tmino direction
+    if(mino[3][2] == 0 )tRo = 1; //<>//
+    else if(mino[2][1] == 0 )tRo = 2; //
+    else if(mino[2][3] == 0 )tRo = 3; //
+    else if(mino[1][2] == 0 )tRo = 4;
+    if(tRo==1) //<>//
+    {
+       if(count >= 3) { //<>//
+         println("Tspin"); //<>//
+         return true; //<>//
+       }
+    }
+    else if(tRo==2) //<>//
+    {
+      if(count >= 4) { //<>//
+        println("Tspin"); //<>//
+        return true; //<>//
+      } 
+    }
+    else if(tRo==3) //<>//
+    {
+      if(count >= 4) { //<>//
+        println("Tspin"); //<>//
+        return true; //<>//
+      } 
+    }
+    else if(tRo==4) //<>//
+    {
+      if(count >= 3) { //<>//
+        println("Tspin"); //<>//
+        return true; //<>//
+      } 
     }
     return false;
   }
