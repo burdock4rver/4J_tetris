@@ -217,6 +217,8 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         lastInputTime = 0;
         waitFall = 0;
         downFlag();
+
+        System.gc();
       }
     }
   }
