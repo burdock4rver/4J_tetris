@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   final int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
   final int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
@@ -24,6 +24,11 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>//
   
   boolean allClearFlag = false;
   int allClear_disp_start_time = 0;
+  
+  boolean tSpinFlag = false;
+  int tSpin_disp_start_time = 0;
+  
+  int tLine = 0;
 
   Mino dispNextMino[];
   Mino holdMino;
@@ -199,6 +204,8 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>//
   
     //Tetrisなどの文字を絵画
   public void dispText(Stage stage) {
+    int tempTLine = 0;
+    
     if (stage.checkTetris()) {
       tetris_disp_start_time = millis();
       tetris_flag = true;
@@ -208,6 +215,16 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>//
       allClear_disp_start_time = millis();
       allClearFlag = true;
     }
+    
+    if (stage.checkTSpinFlag()){
+      tSpin_disp_start_time = millis();
+      tSpinFlag = true;
+    }
+    
+    if((tempTLine = stage.getClearLine()) != 0){
+      tLine = tempTLine; //<>//
+    }
+    
     
     if ((millis() - tetris_disp_start_time <= 3000) & tetris_flag) {
        //println("tetris" + (millis() - tetris_disp_start_time)); 
@@ -222,6 +239,21 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>//
       fill(255);
       text("ALL CLEAR", 310, 250);
     }
+    
+    if((millis() - tSpin_disp_start_time <= 3000) & tSpinFlag){
+        textSize(25);
+        fill(255);
+        text("Tspin", 300, 250);
+        switch(tLine){
+          case 1:  text("Sinle", 310, 280); break;
+          case 2:  text("Double", 310, 280); break;
+          case 3:  text("Triple", 310, 280); break;
+        }
+    }
+    
+  }
+  
+  private void collectText(int[] numText,int num){
   }
   
   public void dispLevel(Stage stage){

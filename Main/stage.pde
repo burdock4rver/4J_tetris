@@ -1,8 +1,6 @@
-class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   private int score;
-
-  private int time=1;
 
   private int waitFall;       
   private int lastInputTime;  // 最後の入力からの経過時間
@@ -17,7 +15,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   private boolean doneHold;   // ホールドを使ったか
   private int fall_time;     //落下間隔時間
   private boolean fallMinoFlag;
-  private int levelfall_time; //レベルによる落下速度変更
   private int clearLineNum;
   private int renCount;
   private int lastline;
@@ -30,6 +27,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   private boolean line4;
   private boolean tetrisFlag;
   private boolean tSpinFlag;
+  private int dispClearLine;
   
   private int oneLineScore = 10; //加算するスコア(変えてください)
 
@@ -66,7 +64,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;
-    gameLimitTime = 10;
+    gameLimitTime = 360;
     gameTime = 0;
     startTime = millis();
     level = 1;
@@ -82,6 +80,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     tSpinFlag = false;
     renCount = 0;
     lastline = 0;
+    dispClearLine = 0;
     
     stage = new int[][] { 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
@@ -203,6 +202,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         gameOver();
         clearLineNum += checkline(mino.posy);    // ラインチェック
         clearLineNum = gameClear(clearLineNum);
+        //onDispFlag();
         firstGroundFlag = true;
         allClearFlag = checkAllClear();
         if(allClearFlag == true) println("ALL CLEAR");
@@ -353,6 +353,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       line3 = true;
     else if(clear == 4)
       line4 = true;
+      
+      onDispFlag();
+      
     return clear;
   }
 
@@ -377,7 +380,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     else if(line4 == true)
     {
       score += (int)(oneLineScore*(1.4+0.1*ren)); 
-      tetrisFlag = true;
     }
   }
 
@@ -526,50 +528,57 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   public boolean checkTSpin(int[][] stage,int posx,int posy,int[][] mino){
     if(this.mino.id != 1) return false;
     int count = 0;
-    if(stage[posy+1][posx+1] != 0)  count++;
-    if(stage[posy+1][posx+3] != 0)  count++;
-    if(stage[posy+3][posx+1] != 0)  count++;
-    if(stage[posy+3][posx+3] != 0)  count++;
+    
+    boolean CP1 = false;
+    boolean CP2 = false; 
+    boolean CP3 = false;
+    boolean CP4 = false;
+    if(stage[posy+1][posx+1] != 0) CP1 = true;//LEFTUP
+    if(stage[posy+1][posx+3] != 0) CP2 = true;//RIGHTUP
+    if(stage[posy+3][posx+1] != 0) CP3 = true;//LEFTDOWN
+    if(stage[posy+3][posx+3] != 0) CP4 = true;//RIGHTDOWN
+    
+    //if(stage[posy+1][posx+1] != 0)  count++;
+    //if(stage[posy+1][posx+3] != 0)  count++;
+    //if(stage[posy+3][posx+1] != 0)  count++;
+    //if(stage[posy+3][posx+3] != 0)  count++;
     int tRo = 0;
-    /*
-    tRo
-    1 up
-    2 right
-    3 down
-    4 left
-    */
     //Tmino direction
-    if(mino[3][2] == 0 )tRo = 1; //<>//
-    else if(mino[2][1] == 0 )tRo = 2; //
-    else if(mino[2][3] == 0 )tRo = 3; //
-    else if(mino[1][2] == 0 )tRo = 4;
-    if(tRo==1) //<>//
-    {
-       if(count >= 3) { //<>//
-         println("Tspin"); //<>//
-         return true; //<>//
-       }
-    }
-    else if(tRo==2) //<>//
-    {
-      if(count >= 4) { //<>//
-        println("Tspin"); //<>//
-        return true; //<>//
-      } 
-    }
-    else if(tRo==3) //<>//
-    {
-      if(count >= 4) { //<>//
-        println("Tspin"); //<>//
-        return true; //<>//
-      } 
-    }
-    else if(tRo==4) //<>//
-    {
-      if(count >= 3) { //<>//
-        println("Tspin"); //<>//
-        return true; //<>//
-      } 
+    if(mino[3][2] == 0 )tRo = 1; //UP
+    else if(mino[2][1] == 0 )tRo = 2; //RIGHT
+    else if(mino[2][3] == 0 )tRo = 3; //LEFT
+    else if(mino[1][2] == 0 )tRo = 4;  //DOWN
+    if(CP3 &&CP4){
+      if(tRo==1) //<>//
+      {
+         if(CP1 || CP2) { //<>//
+           if((stage[posy+2][posx+0] != 0) && (stage[posy+2][posx+4] != 0)){
+             println("Tspin"); //<>//
+             return true; //<>//
+           }
+         }
+      }
+      else if(tRo==2) //<>//
+      {
+        if(CP2) { //<>//
+          println("Tspin"); //<>//
+          return true; //<>//
+        } 
+      }
+      else if(tRo==3) //<>//
+      {
+        if(CP1) { //<>//
+          println("Tspin"); //<>//
+          return true; //<>//
+        } 
+      }
+      else if(tRo==4) //<>//
+      {
+        if(CP1 || CP2) { //<>//
+          println("Tspin"); //<>//
+          return true; //<>//
+        } 
+      }
     }
     return false;
   }
@@ -592,4 +601,25 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     return level;
   }
   
+  public boolean checkTSpinFlag(){
+    if(tSpinFlag == true) {
+      tSpinFlag = false;
+      return true;
+    }
+    return false;
+  }
+  
+  public int getClearLine(){
+    int line;
+    line = dispClearLine;
+    dispClearLine = 0;
+    return line;
+  }
+  
+  public void onDispFlag(){
+    if(line1 == true) dispClearLine = 1;
+    if(line2 == true) dispClearLine = 2;
+    if(line3 == true) dispClearLine = 3;
+    if(line4 == true) tetrisFlag = true;
+  }
 }
