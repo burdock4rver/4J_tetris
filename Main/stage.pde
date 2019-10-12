@@ -60,7 +60,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     isGround = false;
     waitFall = 0;
     fall_time = NORMAL_FALL_TIME;
-    levelfall_time = 0;
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;

@@ -1,24 +1,24 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
-  final int stageSize_y=19;  // 縦ブロック数(ゲーム高さ) //*
-  final int stageSize_x=10;  // 横ブロック数(ゲーム幅) //*
-  final float blockSize=25;  // ブロックの大きさ (変更する際はMinoclassのも変更)
-  final float blockRadius = 5;
-  final float stagePosition_x = (229)/2;  //プレイ画面の位置
-  final float stagePosition_y = 373 / 2;
+
   int sSarray_x;       // 横配列
   int sSarray_y;       // 縦配列
-  final float nextPointInreval = 45; //次のブロックの表示位置の差
   float arst_y;
-  final float collectNextX = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
-  final float collectNextY = 20;          
   PImage ui_img;       // 画面背景
   PImage minoTex[];    // ステージに設置されたミノ描画用のテクスチャ
   String score;//スコア
-  Stage stage;
-  final color MINO_COLOR = #D6FFFC;
   
-  
+  private final int STAGESIZE_Y=19;  // 縦ブロック数(ゲーム高さ) //*
+  private final int STAGESIZE_X=10;  // 横ブロック数(ゲーム幅) //*
+  private final float BLOCKSIZE=25;  // ブロックの大きさ (変更する際はMinoclassのも変更)
+  private final float BLOCKRADIUS = 5;
+  private final float STAGEPOSITION_X = (229)/2;  //プレイ画面の位置
+  private final float STAGEPOSITION_Y = 373 / 2;
+  private final float NEXTPOINTINREVAL = 45; //次のブロックの表示位置の差
+  private final float COLLECTNEXT_X = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
+  private final float COLLECTNEXT_Y = 20;          
+  private final color MINO_COLOR = #D6FFFC;
+
   boolean tetris_flag = false;
   int tetris_disp_start_time = 0;
   
@@ -30,6 +30,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   
   int tLine = 0;
 
+  Stage stage;
   Mino dispNextMino[];
   Mino holdMino;
   Mino minos[];
@@ -56,7 +57,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     sSarray_x = stage.stage[0].length;    //横配列
     sSarray_y = stage.stage.length;  //縦配列
 
-    arst_y = sSarray_y-stageSize_y-1;   //配列とブロック数の差
+    arst_y = sSarray_y-STAGESIZE_Y-1;   //配列とブロック数の差
     dispNextMino =new Mino[4];
     score = String.valueOf(stage.getScore());
   }
@@ -72,7 +73,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       fill(210, 100);
       noStroke();
       //filter(BL
-      rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.ghost_y - arst_y), blockSize, blockSize);
+      rect(STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.ghost_y - arst_y), BLOCKSIZE, BLOCKSIZE);
     }
   }
 
@@ -81,12 +82,12 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   //ネクスト表示
   public void showNext() {
     for (int next = 0; next < 4; next++) {
-      translate(0, nextPointInreval);
+      translate(0, NEXTPOINTINREVAL);
 
       translate(dispNextMino[next].nextPointX, dispNextMino[next].nextPointY);
       if (next >= 1) { //2個前
         dispNextMino[next].nextBlockSize -=5;       
-        translate(collectNextX, collectNextY);
+        translate(COLLECTNEXT_X, COLLECTNEXT_Y);
       } else {  //1個前
       }
       for (int i = 0; i < 5; i++) {
@@ -94,13 +95,13 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
           if (dispNextMino[next].shape[i][j] >= 1) {
             stroke(MINO_COLOR);
             fill(255,100);
-            rect(dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize, blockRadius);
+            rect(dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize, BLOCKRADIUS);
             //image(minoTex[dispNextMino[next].id - 1], dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize);
           }
         }
       }
       if (next >= 1) {
-        translate(-collectNextX, -collectNextY);
+        translate(-COLLECTNEXT_X, -COLLECTNEXT_Y);
         dispNextMino[next].nextBlockSize +=5;
       }
 
@@ -108,7 +109,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     }
     //元に戻す
 
-    translate(0, nextPointInreval*(-4));
+    translate(0, NEXTPOINTINREVAL*(-4));
   }
   
   //ホールド表示
@@ -120,7 +121,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
           if (minos[holdMino.id - 1].shape[i][j] >= 1) {
             stroke(MINO_COLOR);
             fill(255,100);
-            rect(holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize, blockRadius);
+            rect(holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize, BLOCKRADIUS);
             //image(minoTex[minos[holdMino.id - 1].id - 1], holdMino.holdSize* j, holdMino.holdSize * i, holdMino.holdSize, holdMino.holdSize);
           }
         }
@@ -135,24 +136,6 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     image(ui_img, 0, 0, width, height);
   }
 
-  //// ステージに設置されているブロックを描画
-  //public void drawgame(Stage stage) {  //ゲームプレイ画面
-  //  for (int i = (int)arst_y; i < sSarray_y; i++) {
-  //    for (int j = 0; j < sSarray_x; j++) {
-
-  //      if (stage.stage[i][j] == 0) {
-  //        fill(255);
-  //        noStroke();
-  //        //stroke(150);
-  //        noFill();
-  //        rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
-  //      } else if (stage.stage[i][j] > 0) {
-  //        image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);
-  //      }
-  //    }
-  //  }
-  //}
-  
     // ステージに設置されているブロックを描画
   public void drawgame(Stage stage) {  //ゲームプレイ画面
     for (int i = (int)arst_y; i < sSarray_y; i++) {
@@ -162,11 +145,11 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
           fill(200,200,255,50);
           noStroke();
           //stroke(150);
-          //rect(stagePosition_x-blockSize+blockSize*j, stagePosition_y+blockSize*(i-arst_y), blockSize, blockSize);
+          //rect(STAGEPOSITION_X-BLOCKSIZE+BLOCKSIZE*j, STAGEPOSITION_Y+BLOCKSIZE*(i-arst_y), BLOCKSIZE, BLOCKSIZE);
         } else if (stage.stage[i][j] > 0) {
           stroke(MINO_COLOR);
-          rect(stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize, blockRadius);
-          //image(minoTex[stage.stage[i][j] - 1], stagePosition_x + blockSize * (j - 1), stagePosition_y + blockSize * (i-arst_y), blockSize, blockSize);
+          rect(STAGEPOSITION_X + BLOCKSIZE * (j - 1), STAGEPOSITION_Y + BLOCKSIZE * (i-arst_y), BLOCKSIZE, BLOCKSIZE, BLOCKRADIUS);
+          //image(minoTex[stage.stage[i][j] - 1], STAGEPOSITION_X + BLOCKSIZE * (j - 1), STAGEPOSITION_Y + BLOCKSIZE * (i-arst_y), BLOCKSIZE, BLOCKSIZE);
         }
       }
     }
@@ -182,8 +165,8 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
           // ミノの本体
             stroke(MINO_COLOR);
             fill(0,50);
-            rect(stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize, blockRadius);
-          //image(mino.texture, stagePosition_x + blockSize * (x + mino.posx - 1), stagePosition_y + blockSize * (y + mino.posy - arst_y), blockSize, blockSize);
+            rect(STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.posy - arst_y), BLOCKSIZE, BLOCKSIZE, BLOCKRADIUS);
+          //image(mino.texture, STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.posy - arst_y), BLOCKSIZE, BLOCKSIZE);
         }
       }
     }
@@ -239,7 +222,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       fill(255);
       text("ALL CLEAR", 310, 250);
     }
-    
+     //<>//
     if((millis() - tSpin_disp_start_time <= 3000) & tSpinFlag){
         textSize(25);
         fill(255);
@@ -251,9 +234,6 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         }
     }
     
-  }
-  
-  private void collectText(int[] numText,int num){
   }
   
   public void dispLevel(Stage stage){
