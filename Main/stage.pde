@@ -66,7 +66,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;
-    gameLimitTime = 10;
+    gameLimitTime = 300;
     gameTime = 0;
     startTime = millis();
     level = 1;
@@ -212,12 +212,19 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         setNextMino();         // 次のミノを取り出す
         levelUp();
 
-        if(line4) sound.playSE("tetris");
-        else if (line3) ;
-        else if (line2) {
-          sound.playSE("twoLine");
+        if (line4) sound.playSE("tetris");
+        else if (line3) {
+          if (tSpinFlag) sound.playSE("tSpin3");
+          else sound.playSE("twoLine");
         }
-        else if (line1) sound.playSE("aline");
+        else if (line2) {
+          if (tSpinFlag) sound.playSE("tSpin2");
+          else sound.playSE("twoLine");
+        }
+        else if (line1) {
+          if (tSpinFlag) sound.playSE("tSpin1");
+          else sound.playSE("aline");
+        }
         else sound.playSE("drop");
 
         doneHold = false; 
