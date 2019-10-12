@@ -8,7 +8,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   private int lastInputTime;  // 最後の入力からの経過時間
   private int gameTime;    //ゲームの残り時間(秒)
   private int gameLimitTime; //リミットタイム
+  private int startTime;     // ゲーム開始時の時間
   private int level;
+  private boolean gameFinishFlag;
 
   private boolean isGround;   // ミノが接地しているか
   private int minoFreeTime;   // 地面に接している間にミノが自由に動ける時間
@@ -64,9 +66,11 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;
-    gameLimitTime = 300;
+    gameLimitTime = 10;
     gameTime = 0;
+    startTime = millis();
     level = 1;
+    gameFinishFlag = false;
     doneHold = false;
     fallMinoFlag = false;
     
@@ -108,7 +112,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   }
 
   // このメソッドをdraw()で毎フレーム呼ぶ
-  public void update(Input input, int delta_time) {
+  public boolean update(Input input, int delta_time) {
 
     decrementTime();//時間を減らす
     
@@ -224,6 +228,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         downFlag();
       }
     }
+
+    if (gameFinishFlag) sound.stopAllSounds();
+    return gameFinishFlag;
   }
 
   // 新しいミノのインスタンスを返す
@@ -372,7 +379,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       score += (int)(oneLineScore*(1.4+0.1*ren)); 
       tetrisFlag = true;
     }
-    
   }
 
   public int gameClear(int clear) {
@@ -504,9 +510,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   }
   
   private void decrementTime(){
-    int ms = millis()/1000;
+    int ms = (millis() - startTime) / 1000;
     gameTime = gameLimitTime - ms;
-    if(gameTime <= 0) println("finish"); 
+    if(gameTime <= 0) gameFinishFlag = true;
   }
   
   public boolean checkTetris(){

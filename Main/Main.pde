@@ -1,4 +1,4 @@
- //<>//
+ //<>// //<>//
 Scene nowScene;
 
 
@@ -8,14 +8,15 @@ public void setup() {
 
   setupFonts();
   nowScene = new TitleScene();
-} //<>//
+} //<>// //<>//
 
 public void draw() {
   nowScene.update();
+  if (nowScene.isFinish()) goNextScene();
 }
 
 private void setupFonts() {
-  PFont font;
+  PFont font; //<>//
   font = loadFont("ModiThorson-48.vlw"); //<>//
   textFont(font, 48);
   textAlign(RIGHT);
@@ -23,9 +24,20 @@ private void setupFonts() {
 
 public void keyPressed() {
   nowScene.keyPressed();
-  if(key == 'n') nowScene = nowScene.getNextScene();
 }
 
 public void keyReleased() {
   nowScene.keyReleased();
+}
+
+public void goNextScene() {
+  switch (nowScene.getClass().getName()) {
+    case "Main$TitleScene": nowScene = new CountdownScene(); break;
+    case "Main$CountdownScene": nowScene = new GameScene(); break;
+    case "Main$GameScene": nowScene = new ResultScene(); break;
+    case "Main$ResultScene": nowScene = new TitleScene(); break;
+    default :
+      println(""+nowScene.getClass().getName());
+    break;	
+  }
 }

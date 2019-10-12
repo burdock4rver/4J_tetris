@@ -8,8 +8,8 @@ class TitleScene extends Scene {
   }
   public void keyReleased() {
     super.keyReleased();
+    if(key == 'n') finishFlag = true;
   }
-  public Scene getNextScene() {
-    return new GameScene();
-  }
+
+  public boolean isFinish() { return finishFlag; }
 }
