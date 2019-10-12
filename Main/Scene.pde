@@ -1,14 +1,17 @@
 class Scene {
   Sound sound;
   boolean finishFlag;
-  protected int startTime;
-  protected int elapsedTime;
+  private int startTimeMS;
+  protected int elapsedTimeS;
+  protected int elapsedTimeMS;
   Scene() {
     finishFlag = false;
-    startTime = millis() / 1000;
+    elapsedTimeMS = 0;
+    startTimeMS = millis();
   }
   public void update() {
-    elapsedTime = startTime - (millis() / 1000);
+    elapsedTimeMS = millis() - startTimeMS;
+    elapsedTimeS = elapsedTimeMS / 1000;
   }
   public void keyPressed() {}
   public void keyReleased() {}

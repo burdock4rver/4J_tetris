@@ -1,9 +1,7 @@
 class CountdownScene extends Scene {
   final private int count;
-  private int startTime;
 
-  private int s;
-  private int preS;
+  private int preTime;
 
   private int text_size;
 
@@ -11,9 +9,7 @@ class CountdownScene extends Scene {
     super();
     background(0, 255);
     count = 3;
-    startTime = millis();
-    s = 0;
-    preS = -1;
+    preTime = -1;
     text_size = 70;
   }
   public void update() {
@@ -22,17 +18,16 @@ class CountdownScene extends Scene {
   }
 
   public void countdown() {
-    s = (millis() - startTime) / 1000;
-    if (s == preS) return ;
-    if(s == count) {
+    if (elapsedTimeS == preTime) return ;
+    if (elapsedTimeS == count) {
       finishFlag = true;
       return;
     }
     background(0,255);
     textSize(100);
     fill(#D0FFFF);
-    text(count - s, width/2 + text_size/2, height/2 + text_size/2);
-    preS = s;
+    text(count - elapsedTimeS, width/2 + text_size/2, height/2 + text_size/2);
+    preTime = elapsedTimeS;
   }
 
   public void keyPressed() {}

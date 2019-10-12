@@ -21,9 +21,8 @@ class GameScene extends Scene {
   public void update() {
     super.update();
     // 時間計測
-    int ms = millis();
-    delta_time = ms - pre_time;
-    pre_time = ms;
+    delta_time = elapsedTimeMS - pre_time;
+    pre_time = elapsedTimeMS;
     //画面の状態
     int screenNum = 1;
     //update 
