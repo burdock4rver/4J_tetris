@@ -36,7 +36,7 @@ class GameScene extends Scene {
 
       if (disp.startScreen(stage)) screenNum++;
     } else if (screenNum == 1) {  //ゲーム画面
-      stage.update(input, delta_time);
+      if (stage.update(input, delta_time)) finishFlag = true;
 
       disp.drawBackground();
       disp.drawgame(stage);
@@ -60,8 +60,5 @@ class GameScene extends Scene {
     input.checkRelease();
   }
 
-  public Scene getNextScene() {
-    sound.stopAllSounds();
-    return new ResultScene();
-  }
+  public boolean isFinish() { return finishFlag; }
 }

@@ -4,9 +4,9 @@ class ResultScene extends Scene {
   }
   public void update() {}
   public void keyPressed() {}
-  public void keyReleased() {}
-  
-  public Scene getNextScene() {
-    return new TitleScene();
+  public void keyReleased() {
+    if (key == 'n') finishFlag = true;
   }
+  
+  public boolean isFinish() { return finishFlag; }
 }

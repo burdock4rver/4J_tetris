@@ -1,10 +1,11 @@
 class Scene {
   Sound sound;
-  Scene nextScene;
+  boolean finishFlag;
+  Scene() {
+    finishFlag = false;
+  }
   public void update() {}
   public void keyPressed() {}
   public void keyReleased() {}
-  public Scene getNextScene() {
-    return nextScene;
-  }
+  public boolean isFinish() { return finishFlag; }
 }
