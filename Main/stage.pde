@@ -16,7 +16,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   private int fall_time;     //落下間隔時間
   private boolean fallMinoFlag;
   private int clearLineNum;
-  private int renCount;
+  private int lenCount;
   private int lastline;
   private boolean allClearFlag;
   private boolean firstGroundFlag;
@@ -77,7 +77,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     line4 = false;
     tetrisFlag = false;
     tSpinFlag = false;
-    renCount = 0;
+    lenCount = 0;
     lastline = 0;
     dispClearLine = 0;
     
@@ -206,8 +206,8 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         allClearFlag = checkAllClear();
         if(allClearFlag == true) println("ALL CLEAR");
 
-        addScore(renCount);            // 得点か三
-        renCount(clearLineNum);        // れん
+        addScore(lenCount);            // 得点か三
+        lenCount(clearLineNum);        // れん
         setNextMino();         // 次のミノを取り出す
         levelUp();
 
@@ -358,27 +358,27 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     return clear;
   }
 
-  public void addScore(int renNum) {//得点加算 値は適当に決めたので変更してください
-    int ren = 0;
-    if(renNum>=2)
+  public void addScore(int lenNum) {//得点加算 値は適当に決めたので変更してください
+    int len = 0;
+    if(lenNum>=2)
     {
-      ren = renNum-1;
+      len = lenNum-1;
     }
     if(line1 == true)
     {
-      score += (int)(oneLineScore*(1+0.1*ren)); 
+      score += (int)(oneLineScore*(1+0.1*len)); 
     }
     else if(line2 == true)
     {
-      score += (int)(oneLineScore*(1.2+0.1*ren)); 
+      score += (int)(oneLineScore*(1.2+0.1*len)); 
     }
     else if(line3 == true)
     {
-      score += (int)(oneLineScore*(1.3+0.1*ren)); 
+      score += (int)(oneLineScore*(1.3+0.1*len)); 
     }
     else if(line4 == true)
     {
-      score += (int)(oneLineScore*(1.4+0.1*ren)); 
+      score += (int)(oneLineScore*(1.4+0.1*len)); 
     }
   }
 
@@ -395,7 +395,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       }
       holdMino = null;
       doneHold = false;
-      renCount = 0;
+      lenCount = 0;
       lastline = 0;
       score = 0;
       return 0;
@@ -451,7 +451,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       }
       holdMino = null;
       doneHold = false;
-      renCount = 0;
+      lenCount = 0;
       lastline = 0;
       score = 0;
     }
@@ -465,19 +465,19 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     }
   }
 
-  public void renCount(int count) {// れん加算
+  public void lenCount(int count) {// れん加算
     if(lastline != count )
     {
-      renCount += 1;
+      lenCount += 1;
     }
     else
     {
-      renCount = 0;
+      lenCount = 0;
       
     }
     lastline = count;
-    if(renCount != 0)
-    println("ren:"+renCount);
+    if(lenCount != 0)
+    println("len:"+lenCount);
   }
 
   /**
@@ -613,6 +613,10 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     line = dispClearLine;
     dispClearLine = 0;
     return line;
+  }
+  
+  public int getLenCount(){
+    return lenCount;
   }
   
   public void onDispFlag(){

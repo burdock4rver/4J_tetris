@@ -29,6 +29,10 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   int tSpin_disp_start_time = 0;
   
   int tLine = 0;
+  
+  boolean lenFlag = false;
+  int len_disp_start_time = 0;
+  int len = 0;
 
   Stage stage;
   Mino dispNextMino[];
@@ -188,6 +192,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //Tetrisなどの文字を絵画
   public void dispText(Stage stage) {
     int tempTLine = 0;
+    int tempLen = 0;
     
     if (stage.checkTetris()) {
       tetris_disp_start_time = millis();
@@ -204,6 +209,12 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       tSpinFlag = true;
     }
     
+    if ((tempLen = stage.getLenCount()) != len){
+      len = tempLen;
+      if (len != 0 || len != 1) len_disp_start_time = millis();
+      //lenFlag = true;
+    }
+    
     if((tempTLine = stage.getClearLine()) != 0){
       tLine = tempTLine; //<>//
     }
@@ -217,10 +228,18 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     }
     
     if ((millis() - allClear_disp_start_time <= 3000) & allClearFlag) {
-      println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
+      //println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
       textSize(25);
       fill(255);
       text("ALL CLEAR", 310, 250);
+    }
+    
+    if ((millis() - len_disp_start_time <= 3000)) {
+      //println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
+      textSize(25);
+      fill(255);
+      if (!(len >= 0 && len <= 1))  text("Len", 310, 250);
+      if (!(len >= 0 && len <= 1))  text(len - 1, 310, 280);
     }
      //<>//
     if((millis() - tSpin_disp_start_time <= 3000) & tSpinFlag){
@@ -232,6 +251,8 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
           case 2:  text("Double", 310, 280); break;
           case 3:  text("Triple", 310, 280); break;
         }
+    }else if(tLine != 0){
+      tLine = 0;
     }
     
   }
