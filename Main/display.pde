@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
 
   int sSarray_x;       // 横配列
@@ -31,6 +31,10 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   int tSpin_disp_start_time = 0;
   
   int tLine = 0;
+  
+  boolean lenFlag = false;
+  int len_disp_start_time = 0;
+  int len = 0;
 
   Stage stage;
   Mino dispNextMino[];
@@ -190,6 +194,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //Tetrisなどの文字を絵画
   public void dispText(Stage stage) {
     int tempTLine = 0;
+    int tempLen = 0;
     
     if (stage.checkTetris()) {
       tetris_disp_start_time = millis();
@@ -206,21 +211,36 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       tSpinFlag = true;
     }
     
-    if((tempTLine = stage.getClearLine()) != 0){
-      tLine = tempTLine; //<>//
+    if ((tempLen = stage.getLenCount()) != len){
+      len = tempLen;
+      if (len != 0 || len != 1) len_disp_start_time = millis();
+      //lenFlag = true;
     }
     
-    if (/*(millis() - tetris_disp_start_time <= 3000) & */tetris_flag) {
+    if((tempTLine = stage.getClearLine()) != 0){
+      tLine = tempTLine; //<>// //<>//
+    }
+    
+    if (tetris_flag) {
       tetris_flag = false;
       t_a_s_text.add(0, new ViewedText("TETRIS"));
     }
     
-    if (/*(millis() - allClear_disp_start_time <= 3000) & */allClearFlag) {
+    if (allClearFlag) {
       allClearFlag = false;
       t_a_s_text.add(0, new ViewedText("ALL CLEAR"));
     }
+
+    if ((millis() - len_disp_start_time <= 3000)) {
+      //println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
+      textSize(25);
+      fill(255);
+      if (!(len >= 0 && len <= 1))  text("Len", 310, 250);
+      if (!(len >= 0 && len <= 1))  text(len - 1, 310, 280);
+    }
+
      //<>//
-    if(/*(millis() - tSpin_disp_start_time <= 3000) & */tSpinFlag){
+    if(tSpinFlag){
       t_a_s_text.add(0, new ViewedText("Tspin")); 
       switch(tLine){
         case 1:
