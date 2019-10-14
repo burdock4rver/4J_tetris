@@ -228,6 +228,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     lenCount(clearLineNum);        // れん
     setNextMino();         // 次のミノを取り出す
     levelUp();
+    
 
     if(line4) sound.playSE("tetris");
     else if (line3) {
