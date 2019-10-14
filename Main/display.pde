@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
 
   int sSarray_x;       // 横配列
@@ -216,7 +216,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     }
     
     if((tempTLine = stage.getClearLine()) != 0){
-      tLine = tempTLine; //<>//
+      tLine = tempTLine; //<>// //<>//
     }
     
     
@@ -241,7 +241,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       if (!(len >= 0 && len <= 1))  text("Len", 310, 250);
       if (!(len >= 0 && len <= 1))  text(len - 1, 310, 280);
     }
-     //<>//
+     //<>// //<>//
     if((millis() - tSpin_disp_start_time <= 3000) & tSpinFlag){
         textSize(25);
         fill(255);

@@ -1,4 +1,4 @@
-class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   private int score;
 
@@ -117,6 +117,52 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     // 操作されたか（カサカサ用）
     boolean wasOperate = false;
 
+    move(input,wasOperate);  
+    
+    rotation(input, wasOperate);
+
+    if (input.state[input.HOLD]) {          // ホールド
+      hold();
+    }
+
+    mino.setGhost(stage);    // ゴーストの位置設定
+
+    // Down Mino //
+    waitFall += delta_time;
+    
+    if (waitFall >= fall_time) {
+      isGround = !mino.fall(stage);  // 落下と接地判定
+      waitFall = 0;
+      if (fallMinoFlag == true && !isGround) {
+        sound.playSE("soft");
+        fallMinoFlag = false;
+      }
+    }
+    //
+
+    // "kasakasa" and check ground Mino //
+    if (isGround) {
+      minoFreeTime += delta_time;
+
+      if (wasOperate) {
+        lastInputTime = 0;
+      } else {
+        lastInputTime += delta_time;
+      }
+    //
+
+      // ミノの位置が決まった
+      if (minoFreeTime >= FREE_TIME || lastInputTime >= INPUT_WAIT) {
+        ground();
+      }
+    }
+
+    if (gameFinishFlag) sound.stopAllSounds();
+    return gameFinishFlag;
+  }
+
+  private void move(Input input,boolean wasOperate){
+        
     // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {        // 右移動
       wasOperate = mino.moveRight(stage);
@@ -127,17 +173,33 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       wasOperate = mino.moveLeft(stage);
       if(wasOperate)sound.playSE("soft");
     }
-
-    if (input.state[input.R_TURN]) {        // 右回転
-      wasOperate = mino.turnRight(stage);
-      if(wasOperate)sound.playSE("soft");
-      // 浮かび上がったときの処理
-      boolean preIsGround = isGround;
-      isGround = !mino.checkMino(stage, 0, 1);
-      if (preIsGround && isGround) {
-        waitFall = 0;
-      }
+    
+    if (input.state[input.H_DROP]) {        // ハードドロップ
+      mino.posy = mino.ghost_y;
+      minoFreeTime = FREE_TIME;
+      isGround = true;
     }
+    
+    if (input.state[input.S_DROP]) {        // ソフトドロップ
+      fall_time = SOFT_FALL_TIME - ((level - 1) * 100);
+      fallMinoFlag = true;
+    } else {
+      fall_time = NORMAL_FALL_TIME - ((level - 1) * 100);
+    }
+  }
+  
+  private void rotation(Input input,boolean wasOperate){
+    
+      if (input.state[input.R_TURN]) {        // 右回転
+        wasOperate = mino.turnRight(stage);
+        if(wasOperate)sound.playSE("soft");
+        // 浮かび上がったときの処理
+        boolean preIsGround = isGround;
+        isGround = !mino.checkMino(stage, 0, 1);
+        if (preIsGround && isGround) {
+          waitFall = 0;
+        }
+      }
 
     if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
@@ -149,89 +211,38 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         waitFall = 0;
       }
     }
-
-    if (input.state[input.HOLD]) {          // ホールド
-      hold();
-    }
-
-    if (input.state[input.S_DROP]) {        // ソフトドロップ
-      fall_time = SOFT_FALL_TIME - ((level - 1) * 100);
-      fallMinoFlag = true;
-    } else {
-      fall_time = NORMAL_FALL_TIME - ((level - 1) * 100);
-    }
-
-    mino.setGhost(stage);    // ゴーストの位置設定
-
-    if (input.state[input.H_DROP]) {        // ハードドロップ
-      mino.posy = mino.ghost_y;
-      minoFreeTime = FREE_TIME;
-      isGround = true;
-    }
-
-    // ミノ落下
-    waitFall += delta_time;
-    
-    if (waitFall >= fall_time) {
-      isGround = !mino.fall(stage);  // 落下と接地判定
-      waitFall = 0;
-      if (fallMinoFlag == true && !isGround) {
-        sound.playSE("soft");
-        fallMinoFlag = false;
-      }
-    }
-    
-
-
-    // カサカサとミノ設置
-    if (isGround) {
-      minoFreeTime += delta_time;
-
-      if (wasOperate) {
-        lastInputTime = 0;
-      } else {
-        lastInputTime += delta_time;
-      }
-
-      // ミノの位置が決まった
-      if (minoFreeTime >= FREE_TIME || lastInputTime >= INPUT_WAIT) {
-        tSpinFlag = checkTSpin(stage,mino.posx,mino.posy,mino.shape);
-        // ラインチェックと次のミノの処理
-        stageSetMino(mino);      // stage[][]にミノのブロックを反映
-        gameOver();
-        clearLineNum += checkline(mino.posy);    // ラインチェック
-        clearLineNum = gameClear(clearLineNum);
-        //onDispFlag();
-        firstGroundFlag = true;
-        allClearFlag = checkAllClear();
-        if(allClearFlag == true) println("ALL CLEAR");
-
-        addScore(lenCount);            // 得点か三
-        lenCount(clearLineNum);        // れん
-        setNextMino();         // 次のミノを取り出す
-        levelUp();
-
-        if(line4) sound.playSE("tetris");
-        else if (line3) ;
-        else if (line2) {
-          sound.playSE("twoLine");
-        }
-        else if (line1) sound.playSE("aline");
-        else sound.playSE("drop");
-
-        doneHold = false; 
-        isGround = false;
-        minoFreeTime = 0;
-        lastInputTime = 0;
-        waitFall = 0;
-        downFlag();
-      }
-    }
-
-    if (gameFinishFlag) sound.stopAllSounds();
-    return gameFinishFlag;
   }
-
+  
+  private void ground(){
+    tSpinFlag = checkTSpin(stage,mino.posx,mino.posy,mino.shape);
+    // ラインチェックと次のミノの処理
+    stageSetMino(mino);      // stage[][]にミノのブロックを反映
+    gameOver();
+    clearLineNum += checkline(mino.posy);    // ラインチェック
+    clearLineNum = gameClear(clearLineNum);
+    //onDispFlag();
+    firstGroundFlag = true;
+    allClearFlag = checkAllClear();
+    if(allClearFlag == true) println("ALL CLEAR");
+    addScore(lenCount);            // 得点か三
+    lenCount(clearLineNum);        // れん
+    setNextMino();         // 次のミノを取り出す
+    levelUp();
+    if(line4) sound.playSE("tetris");
+    else if (line3) ;
+    else if (line2) {
+        sound.playSE("twoLine");
+    }
+    else if (line1) sound.playSE("aline");
+    else sound.playSE("drop");
+    doneHold = false; 
+    isGround = false;
+    minoFreeTime = 0;
+    lastInputTime = 0;
+    waitFall = 0;
+    downFlag();
+  }
+  
   // 新しいミノのインスタンスを返す
   // idは17の間
   private Mino getNewMino(int id) {
@@ -526,7 +537,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   
   public boolean checkTSpin(int[][] stage,int posx,int posy,int[][] mino){
     if(this.mino.id != 1) return false;
-    int count = 0;
     
     boolean CP1 = false;
     boolean CP2 = false; 
@@ -537,10 +547,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     if(stage[posy+3][posx+1] != 0) CP3 = true;//LEFTDOWN
     if(stage[posy+3][posx+3] != 0) CP4 = true;//RIGHTDOWN
     
-    //if(stage[posy+1][posx+1] != 0)  count++;
-    //if(stage[posy+1][posx+3] != 0)  count++;
-    //if(stage[posy+3][posx+1] != 0)  count++;
-    //if(stage[posy+3][posx+3] != 0)  count++;
     int tRo = 0;
     //Tmino direction
     if(mino[3][2] == 0 )tRo = 1; //UP
@@ -554,34 +560,34 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
            if((stage[posy+2][posx+0] != 0) && (stage[posy+2][posx+4] != 0)){
              println("Tspin"); //<>//
              return true; //<>//
-           }
+           } //<>//
          }
-      }
+      } //<>//
       else if(tRo==2) //<>//
-      {
-        if(CP2) { //<>//
+      { //<>//
+        if(CP2) { //<>// //<>//
           println("Tspin"); //<>//
           return true; //<>//
         } 
-      }
+      } //<>//
       else if(tRo==3) //<>//
-      {
-        if(CP1) { //<>//
-          println("Tspin"); //<>//
+      { //<>//
+        if(CP1) { //<>// //<>//
+          println("Tspin"); //<>// //<>//
           return true; //<>//
         } 
-      }
+      } //<>//
       else if(tRo==4) //<>//
-      {
-        if(CP1 || CP2) { //<>//
-          println("Tspin"); //<>//
+      { //<>//
+        if(CP1 || CP2) { //<>// //<>//
+          println("Tspin"); //<>// //<>//
           return true; //<>//
         } 
-      }
+      } //<>//
     }
-    return false;
-  }
-  
+    return false; //<>//
+  } //<>//
+   //<>//
   private void levelUp(){
     if (score < 10) level = 1;
     else if (score < 40) level = 2;
@@ -619,7 +625,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     return lenCount;
   }
   
-  public void onDispFlag(){
+  private void onDispFlag(){
     if(line1 == true) dispClearLine = 1;
     if(line2 == true) dispClearLine = 2;
     if(line3 == true) dispClearLine = 3;
