@@ -19,6 +19,8 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   private final float COLLECTNEXT_Y = 20;          
   private final color MINO_COLOR = #D6FFFC;
 
+  private ArrayList<ViewedText> t_a_s_text = new ArrayList();
+
   boolean tetris_flag = false;
   int tetris_disp_start_time = 0;
   
@@ -208,32 +210,50 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       tLine = tempTLine; //<>//
     }
     
-    
-    if ((millis() - tetris_disp_start_time <= 3000) & tetris_flag) {
-       //println("tetris" + (millis() - tetris_disp_start_time)); 
-      textSize(25);
-      fill(255);
-      text("TETRIS", 300, 250);
+    if (/*(millis() - tetris_disp_start_time <= 3000) & */tetris_flag) {
+      tetris_flag = false;
+      t_a_s_text.add(0, new ViewedText("TETRIS"));
     }
     
-    if ((millis() - allClear_disp_start_time <= 3000) & allClearFlag) {
-      println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
-      textSize(25);
-      fill(255);
-      text("ALL CLEAR", 310, 250);
+    if (/*(millis() - allClear_disp_start_time <= 3000) & */allClearFlag) {
+      allClearFlag = false;
+      t_a_s_text.add(0, new ViewedText("ALL CLEAR"));
     }
      //<>//
-    if((millis() - tSpin_disp_start_time <= 3000) & tSpinFlag){
-        textSize(25);
-        fill(255);
-        text("Tspin", 300, 250);
-        switch(tLine){
-          case 1:  text("Sinle", 310, 280); break;
-          case 2:  text("Double", 310, 280); break;
-          case 3:  text("Triple", 310, 280); break;
-        }
+    if(/*(millis() - tSpin_disp_start_time <= 3000) & */tSpinFlag){
+      t_a_s_text.add(0, new ViewedText("Tspin")); 
+      switch(tLine){
+        case 1:
+          t_a_s_text.add(1, new ViewedText("Single"));
+          break;
+        case 2:
+          t_a_s_text.add(1, new ViewedText("Double"));
+          break;
+        case 3:
+          t_a_s_text.add(1, new ViewedText("Triple"));
+          break;
+      }
+      tSpinFlag = false;
     }
-    
+
+    for (int i = 0; i < t_a_s_text.size(); ++i) {
+      if (t_a_s_text.get(i).isFinish()) {
+        if (t_a_s_text.get(i).getText() == "Tspin") {
+          t_a_s_text.remove(i+1);
+        }
+        t_a_s_text.remove(i);
+      }
+    }
+
+    textView();
+  }
+
+  private void textView() {
+    for (int i = 0; i < t_a_s_text.size(); i++) {
+      textSize(25);
+      fill(255);
+      text(t_a_s_text.get(i).getText(), 300, 250 + 30 * i);
+    }
   }
   
   public void dispLevel(Stage stage){
