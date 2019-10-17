@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
 
   int sSarray_x;       // 横配列
@@ -203,7 +203,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       tetris_flag = true;
     }
     
-    if (stage.checkAllClear()) {
+    if (stage.getAllClearFlag()) {
       allClear_disp_start_time = millis();
       allClearFlag = true;
     }
@@ -220,7 +220,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     }
     
     if((tempTLine = stage.getClearLine()) != 0){
-      tLine = tempTLine; //<>// //<>//
+      tLine = tempTLine; //<>// //<>// //<>//
     } else tLine = 0;
     
     if (tetris_flag) {
@@ -241,7 +241,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       if (!(len >= 0 && len <= 1))  text(len - 1, 310, 280);
     }
 
-     //<>//
+     //<>// //<>//
     if(tSpinFlag){
       t_a_s_text.add(0, new ViewedText("Tspin")); 
       switch(tLine){

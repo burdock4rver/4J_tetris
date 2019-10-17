@@ -19,6 +19,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   private int lenCount;
   private int lastline;
   private boolean allClearFlag;
+  private boolean dispAllClearFlag;
   private boolean firstGroundFlag;
   
   private boolean line1;  //スコア関連フラグ
@@ -29,7 +30,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   private boolean tSpinFlag;
   private int dispClearLine;
   
-  private int oneLineScore = 10; //加算するスコア(変えてください)
+  private int oneLineScore = 100; //加算するスコア(変えてください)
 
   private Mino nextMino[];  
 
@@ -55,6 +56,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     nextMino =new Mino[4];
     for (int i = 0; i < 4; i++) nextMino[i]=getNewMino(next.getNextMino());  // Nextの4つのミノを生成
     allClearFlag = false;
+    dispAllClearFlag = false;
     firstGroundFlag = false;
     holdMino = null;
     isGround = false;
@@ -117,9 +119,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     // 操作されたか（カサカサ用）
     boolean wasOperate = false;
 
-    move(input,wasOperate);  
+    wasOperate = move(input,wasOperate);  
     
-    rotation(input, wasOperate);
+    wasOperate = rotation(input, wasOperate);
 
     if (input.state[input.HOLD]) {          // ホールド
       hold();
@@ -161,8 +163,8 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     return gameFinishFlag;
   }
 
-  private void move(Input input,boolean wasOperate){
-        
+  private boolean move(Input input,boolean wasOp){
+    boolean wasOperate = wasOp;
     // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {        // 右移動
       wasOperate = mino.moveRight(stage);
@@ -186,10 +188,11 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     } else {
       fall_time = NORMAL_FALL_TIME - ((level - 1) * 100);
     }
+    return wasOperate;
   }
   
-  private void rotation(Input input,boolean wasOperate){
-    
+  private boolean rotation(Input input,boolean wasOp){
+    boolean wasOperate = wasOp;
       if (input.state[input.R_TURN]) {        // 右回転
         wasOperate = mino.turnRight(stage);
         if(wasOperate)sound.playSE("soft");
@@ -211,6 +214,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         waitFall = 0;
       }
     }
+    return wasOperate;
   }
   
   private void ground(){
@@ -223,7 +227,8 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     //onDispFlag();
     firstGroundFlag = true;
     allClearFlag = checkAllClear();
-    if(allClearFlag == true) println("ALL CLEAR");
+    if(allClearFlag == true) dispAllClearFlag = true;
+    
     addScore(lenCount);            // 得点か三
     lenCount(clearLineNum);        // れん
     setNextMino();         // 次のミノを取り出す
@@ -381,26 +386,38 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   public void addScore(int lenNum) {//得点加算 値は適当に決めたので変更してください
     int len = 0;
+    int lenBonus = 0;
+    byte tSpinBonus = 1;
     if(lenNum>=2)
     {
       len = lenNum-1;
     }
+    
+    if(tSpinFlag)  tSpinBonus = 2;
+    if (len == 0)          lenBonus = 0;
+    else if(len < 4)       lenBonus = 50;
+    else if(len < 8)       lenBonus = 100;
+    else if(len < 12)      lenBonus = 150;
+    else if(len < 16)      lenBonus = 200;
+    else                   lenBonus = 250;
     if(line1 == true)
     {
-      score += (int)(oneLineScore*(1+0.1*len)); 
+      score += (int)(oneLineScore * tSpinBonus + lenBonus); 
     }
     else if(line2 == true)
     {
-      score += (int)(oneLineScore*(1.2+0.1*len)); 
+      score += (int)(oneLineScore * tSpinBonus* 2 +lenBonus); 
     }
     else if(line3 == true)
     {
-      score += (int)(oneLineScore*(1.3+0.1*len)); 
+      score += (int)(oneLineScore * tSpinBonus * 3 + lenBonus); 
     }
     else if(line4 == true)
     {
-      score += (int)(oneLineScore*(1.4+0.1*len)); 
+      score += (int)(oneLineScore* 4 + lenBonus); 
     }
+    
+    if(allClearFlag) score+=1000;
   }
 
   public int gameClear(int clear) {
@@ -513,6 +530,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     line2 = false;
     line3 = false;
     line4 = false;
+    allClearFlag = false;
   }
   
   public boolean checkAllClear(){  
@@ -623,6 +641,15 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     }
     return false;
   }
+  
+  public boolean getAllClearFlag(){
+    if(dispAllClearFlag){
+     dispAllClearFlag = false;
+     return true;
+    }
+    return false;
+  }
+  
   
   public int getClearLine(){
     int line;
