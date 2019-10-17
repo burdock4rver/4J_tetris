@@ -58,6 +58,7 @@ public class Sound{
     preSE = tetris;
   }
 
+  /* BGMを再生する関数 */
   public void playBGM() {
     if(!bgm.isPlaying()) bgm.rewind();
     bgm.play();
@@ -71,7 +72,8 @@ public class Sound{
     drop.close();
     soft.close();
   }
-  
+
+  /* SEを再生する関数 呼び出しは文字列型を引数に */
   public void playSE(String soundName) {
     switch(soundName) {
       case "tetris": tetris.play(); nowSE = tetris; break;
