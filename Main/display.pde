@@ -263,7 +263,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
     for (int i = 0; i < t_a_s_text.size(); ++i) {
       if (t_a_s_text.get(i).isFinish()) {
-        if (t_a_s_text.get(i).getText() == "Tspin") {
+        if (t_a_s_text.get(i).getText() == "Tspin" && tLine != 0) {
           t_a_s_text.remove(i+1);
         }
         t_a_s_text.remove(i);
