@@ -44,7 +44,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   public Display(Stage stage) {    
     //テクスチャ設定
     this.stage = stage;
-    ui_img = loadImage("resources/MAIN_TEST.png");
+    ui_img = loadImage("resources/MAIN_TEST6.png");
     minoTex = new PImage[7];
     
     minos = new Mino[7];
@@ -87,11 +87,13 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   
   //ネクスト表示
   public void showNext() {
+    float collectRadius = 1;
     for (int next = 0; next < 4; next++) {
       translate(0, NEXTPOINTINREVAL);
 
       translate(dispNextMino[next].nextPointX, dispNextMino[next].nextPointY);
       if (next >= 1) { //2個前
+        collectRadius = 1.5;
         dispNextMino[next].nextBlockSize -=5;       
         translate(COLLECTNEXT_X, COLLECTNEXT_Y);
       } else {  //1個前
@@ -101,7 +103,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
           if (dispNextMino[next].shape[i][j] >= 1) {
             stroke(MINO_COLOR);
             fill(255,100);
-            rect(dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize, BLOCKRADIUS);
+            rect(dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize, BLOCKRADIUS / collectRadius);
             //image(minoTex[dispNextMino[next].id - 1], dispNextMino[next].nextBlockSize* j, dispNextMino[next].nextBlockSize * i, dispNextMino[next].nextBlockSize, dispNextMino[next].nextBlockSize);
           }
         }
