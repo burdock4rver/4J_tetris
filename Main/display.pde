@@ -219,7 +219,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     
     if((tempTLine = stage.getClearLine()) != 0){
       tLine = tempTLine; //<>// //<>//
-    }
+    } else tLine = 0;
     
     if (tetris_flag) {
       tetris_flag = false;
@@ -252,6 +252,9 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
         case 3:
           t_a_s_text.add(1, new ViewedText("Triple"));
           break;
+        default :
+          
+        break;	
       }
       tSpinFlag = false;
     }
