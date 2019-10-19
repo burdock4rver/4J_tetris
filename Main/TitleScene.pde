@@ -15,9 +15,12 @@ class TitleScene extends Scene {
   PImage how;
   PImage test;
 
+  //Imageview view;
+
   final private int HOW_TO_PLAY = 2;
 
   public TitleScene() {
+    //view = new Imageview();
     super();
     //Input.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
     Input_title.setInputInterface(new KeyboardInput()); // キーボード
@@ -86,21 +89,24 @@ class TitleScene extends Scene {
     }
     oval(width/2, 492, 210, 30);
   
+    image(start, width / 2, 394);
+    image(how, width / 2, 493);  
+
     switch(nowImage){
       case HOW_TO_PLAY :
         image(test, width / 2, 428);
+        //view.HowToPlay();
         break;
       default :
         state = -1;
         break;	
     }
-  
-    image(start, width / 2, 394);
-    image(how, width / 2, 493);  
   }
+  
   public void keyPressed() {
     super.keyPressed();
   }
+
   public void keyReleased() {
     super.keyReleased();
     if(key == 'z') imageChange(select);
@@ -117,6 +123,7 @@ class TitleScene extends Scene {
   private void imageChange(int imageNum) {
     nowImage = (nowImage == 0) ? imageNum : 0;
     if (select == 1) finishFlag = true;
+    //if (select == 1 && !view.getView) finishFlag = true ;
   }
 
   public boolean isFinish() { return finishFlag; }
