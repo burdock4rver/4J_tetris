@@ -1,5 +1,5 @@
 class GameScene extends Scene {
-  Display disp; //<>// //<>// //<>//
+  Display disp;   
   Stage stage;
   Input input;
   Sound sound;
@@ -8,15 +8,15 @@ class GameScene extends Scene {
   int delta_time;  // 前フレームからの経過時間を持つ
   AudioPlayer bgm;  //テトリスBGM
 
-  public GameScene() { //<>// //<>// //<>//
+  public GameScene() {   
     super();
     
     sound = new Sound(GAMESCENE);
     stage = new Stage(sound);
     disp = new Display(stage);
     input = new InputKey();
-    pre_time = 0; //<>// //<>//
-  } //<>// //<>// //<>//
+    pre_time = 0;  
+  }   
 
   public void update() {
     super.update();

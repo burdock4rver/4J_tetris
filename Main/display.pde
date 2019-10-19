@@ -1,5 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
-
+class Display {
 
   int sSarray_x;       // 横配列
   int sSarray_y;       // 縦配列
@@ -44,7 +43,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
   public Display(Stage stage) {    
     //テクスチャ設定
     this.stage = stage;
-    ui_img = loadImage("resources/main.png");
+    ui_img = loadImage("resources/MAIN.png");
     minoTex = new PImage[7];
     
     minos = new Mino[7];
@@ -221,7 +220,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     }
     
     if((tempTLine = stage.getClearLine()) != 0){
-      tLine = tempTLine; //<>// //<>// //<>// //<>//
+      tLine = tempTLine;    
     } else tLine = 0;
     
     if (tetris_flag) {
@@ -242,7 +241,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
       if (!(len >= 0 && len <= 1))  text(len - 1, 310, 280);
     }
 
-     //<>// //<>// //<>//
+       
     if(tSpinFlag){
       t_a_s_text.add(0, new ViewedText("Tspin")); 
       switch(tLine){
