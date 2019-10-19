@@ -1,3 +1,5 @@
+Display disp;
+
 class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
 
   private int score;
@@ -195,6 +197,9 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         stageSetMino(mino);      // stage[][]にミノのブロックを反映
         gameOver();
         clearLineNum += checkline(mino.posy);    // ラインチェック
+
+        lineEffect(mino.posy,clearLineNum);  //ラインが消えるときのエフェクト
+
         clearLineNum = gameClear(clearLineNum);
         firstGroundFlag = true;
         allClearFlag = checkAllClear();
@@ -219,6 +224,26 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>//
         downFlag();
       }
     }
+  }
+
+  private lineEffect(int py,int lineNum) {//effectは使用する画像,pyはminoのposy,lineNumはcleaLineNum
+    if(lineNum==1)
+    {//内部処理はてきとうなので指定している範囲で処理を行う,image内の範囲が消える範囲
+      //image("effect1", disp.stagePosition_x, disp.stagePosition_y+(py+1)*disp.blockSize, disp.blockSize*disp.stageSize_x, disp.bockSize*lineNum);
+    }
+    else if(lineNum==2)
+    {
+      //image("effect2", disp.stagePosition_x, disp.stagePosition_y+(py+1)*disp.blockSize, disp.blockSize*disp.stageSize_x, disp.bockSize*lineNum);
+    }
+    else if(lineNum==3)
+    {
+      //image("effect3", disp.stagePosition_x, disp.stagePosition_y+(py+1)*disp.blockSize, disp.blockSize*disp.stageSize_x, disp.bockSize*lineNum);
+    }
+    else if(lineNum==4)
+    {
+      //image("effect4", disp.stagePosition_x, disp.stagePosition_y+(py+1)*disp.blockSize, disp.blockSize*disp.stageSize_x, disp.bockSize*lineNum);
+    }
+    //lineNumが0の時(消えない時)は何もしない
   }
 
   // 新しいミノのインスタンスを返す
