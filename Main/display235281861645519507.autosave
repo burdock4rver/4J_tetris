@@ -1,4 +1,4 @@
-class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
 
   int sSarray_x;       // 横配列
@@ -18,7 +18,8 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
   private final float COLLECTNEXT_X = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
   private final float COLLECTNEXT_Y = 20;          
   private final color MINO_COLOR = #D6FFFC;
-  private final color TEXT_COLOR = #00FFFF;
+  private final color BACK_GROUND_TEXT_COLOR = #00FFFF;
+
   private ArrayList<ViewedText> t_a_s_text = new ArrayList();
 
   boolean tetris_flag = false;
@@ -44,7 +45,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
   public Display(Stage stage) {    
     //テクスチャ設定
     this.stage = stage;
-    ui_img = loadImage("resources/main.png");
+    ui_img = loadImage("resources/MAIN_TEST6.png");
     minoTex = new PImage[7];
     
     minos = new Mino[7];
@@ -186,15 +187,14 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     return false;
   }
   
-  //scoreを描画
+  //scoreを絵画
   public void drawScore(Stage stage){
     textSize(35);
-    fill(TEXT_COLOR);
-    textAlign(RIGHT);
+    fill(BACK_GROUND_TEXT_COLOR);
     text(score, 350, 139);
   }
   
-    //Tetrisなどの文字を描画
+    //Tetrisなどの文字を絵画
   public void dispText(Stage stage) {
     int tempTLine = 0;
     int tempLen = 0;
@@ -221,7 +221,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     }
     
     if((tempTLine = stage.getClearLine()) != 0){
-      tLine = tempTLine; //<>// //<>// //<>// //<>//
+      tLine = tempTLine; //<>// //<>//
     } else tLine = 0;
     
     if (tetris_flag) {
@@ -242,7 +242,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
       if (!(len >= 0 && len <= 1))  text(len - 1, 310, 280);
     }
 
-     //<>// //<>// //<>//
+     //<>//
     if(tSpinFlag){
       t_a_s_text.add(0, new ViewedText("Tspin")); 
       switch(tLine){
@@ -278,16 +278,14 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     for (int i = 0; i < t_a_s_text.size(); i++) {
       textSize(25);
       fill(255);
-      textAlign(CENTER);
-      text(t_a_s_text.get(i).getText(), width * 0.5, 250 + 30 * i);
+      text(t_a_s_text.get(i).getText(), 300, 250 + 30 * i);
     }
   }
   
   public void dispLevel(Stage stage){
     int level = stage.getLevel();
     textSize(55);
-    textAlign(RIGHT);
-    fill(TEXT_COLOR);
+    fill(BACK_GROUND_TEXT_COLOR);
     text(level, 325, 755);
   }
   
@@ -299,8 +297,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     String gametime = min + " : " + sec;
     //println(gametime);
     textSize(16);
-    textAlign(RIGHT);
-    fill(TEXT_COLOR);
+    fill(BACK_GROUND_TEXT_COLOR);
     text(gametime, 79, 365);
   }
 }
