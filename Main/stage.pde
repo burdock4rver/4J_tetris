@@ -136,7 +136,7 @@ class Stage {
       isGround = !mino.fall(stage);  // 落下と接地判定
       waitFall = 0;
       if (!isGround) {
-        sound.playSE("soft");
+        //sound.playSE("soft");
         fallMinoFlag = false;
       }
     }
