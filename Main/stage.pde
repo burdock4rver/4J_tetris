@@ -1,4 +1,4 @@
-class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
   private int score;
 
@@ -135,7 +135,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     if (waitFall >= fall_time) {
       isGround = !mino.fall(stage);  // 落下と接地判定
       waitFall = 0;
-      if (fallMinoFlag == true && !isGround) {
+      if (!isGround) {
         sound.playSE("soft");
         fallMinoFlag = false;
       }
@@ -582,50 +582,50 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     else if(mino[2][3] == 0 )tRo = 3; //LEFT
     else if(mino[1][2] == 0 )tRo = 4;  //DOWN
     if(CP3 &&CP4){
-      if(tRo==1) //<>//
+      if(tRo==1) //<>// //<>//
       {
-        if(CP1 || CP2) { //<>//
+        if(CP1 || CP2) { //<>// //<>//
           if((stage[posy+2][posx+0] != 0) && (stage[posy+2][posx+4] != 0)){
-             println("Tspin"); //<>//
-             return true; //<>//
+             println("Tspin"); //<>// //<>//
+             return true; //<>// //<>//
           }
         }
       }
-      else if(tRo==2) //<>//
-      { //<>//
-        if(CP2) { //<>// //<>//
-          println("Tspin"); //<>//
-          return true; //<>//
-        } 
-      } //<>//
-      else if(tRo==3) //<>//
-      { //<>//
-        if(CP1) { //<>// //<>//
+      else if(tRo==2) //<>// //<>//
+      { //<>// //<>//
+        if(CP2) { //<>// //<>// //<>//
           println("Tspin"); //<>// //<>//
-          return true; //<>//
+          return true; //<>// //<>//
         } 
-      } //<>//
-      else if(tRo==4) //<>//
-      { //<>//
-        if(CP1 || CP2) { //<>// //<>//
-          println("Tspin"); //<>// //<>//
-          return true; //<>//
+      } //<>// //<>//
+      else if(tRo==3) //<>// //<>//
+      { //<>// //<>//
+        if(CP1) { //<>// //<>// //<>//
+          println("Tspin"); //<>// //<>// //<>//
+          return true; //<>// //<>//
         } 
-      } //<>//
+      } //<>// //<>//
+      else if(tRo==4) //<>// //<>//
+      { //<>// //<>//
+        if(CP1 || CP2) { //<>// //<>// //<>//
+          println("Tspin"); //<>// //<>// //<>//
+          return true; //<>// //<>//
+        } 
+      } //<>// //<>//
     }
-    return false; //<>//
-  } //<>//
-   //<>//
+    return false; //<>// //<>//
+  } //<>// //<>//
+   //<>// //<>//
   private void levelUp(){
-    if (score < 10) level = 1;
-    else if (score < 40) level = 2;
-    else if (score < 80) level = 3;
-    else if (score < 120) level = 4;
-    else if (score < 160) level = 5;
-    else if (score < 200) level = 6;
-    else if (score < 240) level = 7;
-    else if (score < 280) level = 8;
-    else if (score < 320) level = 9;
+    if (score < 500) level = 1;
+    else if (score < 800) level = 2;
+    else if (score < 1500) level = 3;
+    else if (score < 2300) level = 4;
+    else if (score < 3200) level = 5;
+    else if (score < 4500) level = 6;
+    else if (score < 7500) level = 7;
+    else if (score < 10000) level = 8;
+    else level = 9;
     
     println(level);
   }
