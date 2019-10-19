@@ -8,6 +8,8 @@ class Scene {
     finishFlag = false;
     elapsedTimeMS = 0;
     startTimeMS = millis();
+    imageMode(CORNER);
+    rectMode(CORNER);
   }
   public void update() {
     elapsedTimeMS = millis() - startTimeMS;

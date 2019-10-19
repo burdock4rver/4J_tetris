@@ -126,7 +126,7 @@ public class MixInput implements InputInterface {
 }
 
 // 入力
-public static class Input {
+public static class Input_title {
   protected static InputInterface inputInterface;
 
   // 前回の状態
@@ -139,7 +139,7 @@ public static class Input {
   protected static boolean prevButtonC = false;
 
   public static void setInputInterface(InputInterface inputInterface) {
-    Input.inputInterface = inputInterface;
+   Input_title.inputInterface = inputInterface;
     prevRight = false;
     prevUp = false;
     prevLeft = false;
