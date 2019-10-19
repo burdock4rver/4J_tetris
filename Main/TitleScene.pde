@@ -18,10 +18,13 @@ class TitleScene extends Scene {
   //Imageview view;
 
   final private int HOW_TO_PLAY = 2;
+  
+  Imageview view;
 
   public TitleScene() {
-    //view = new Imageview();
     super();
+    view = new Imageview();
+    //view = new Imageview();
     //Input.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
     Input_title.setInputInterface(new KeyboardInput()); // キーボード
     back = loadImage("title_resources/select.png");
@@ -92,24 +95,31 @@ class TitleScene extends Scene {
     image(start, width / 2, 394);
     image(how, width / 2, 493);  
 
-    switch(nowImage){
-      case HOW_TO_PLAY :
-        image(test, width / 2, 428);
-        //view.HowToPlay();
-        break;
-      default :
-        state = -1;
-        break;	
-    }
+    view.HowToPlay();
   }
   
   public void keyPressed() {
     super.keyPressed();
+    if (Input_title.up() || Input_title.down()) {
+      switch(select){
+        case 1:
+          if (view.isRunnning()) break;
+          finishFlag = true; break;
+        case HOW_TO_PLAY :
+          view.pushSwitch();
+          break;
+        default :
+          state = -1;
+          break;	
+      }
+    }
+    
+    if (Input_title.right()) view.goFrontPage();
+    else if (Input_title.left()) view.goBackPage();
   }
 
   public void keyReleased() {
     super.keyReleased();
-    if(key == 'z') imageChange(select);
   }
 
   void oval(float x, float y, float w, float h) {
@@ -120,13 +130,5 @@ class TitleScene extends Scene {
     rect(x, y, w, h, 15);
   }
 
-  private void imageChange(int imageNum) {
-    nowImage = (nowImage == 0) ? imageNum : 0;
-    if (select == 1) finishFlag = true;
-    //if (select == 1 && !view.getView) finishFlag = true ;
-  }
-
   public boolean isFinish() { return finishFlag; }
 }
-
-
