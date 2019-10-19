@@ -1,5 +1,14 @@
 class InputKey extends Input {
 
+  InputKey() {
+   super();
+ }
+  
+  public void update(int delta_time)
+  { 
+    super.update(delta_time);
+  }
+  
   public void checkInput() {
     if (key == 'd') {
       keyState[R_MOVE] = true;
