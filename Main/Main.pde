@@ -1,4 +1,4 @@
- //<>// //<>// //<>//
+   
 Scene nowScene;
 
 
@@ -8,7 +8,7 @@ public void setup() {
 
   setupFonts();
   nowScene = new TitleScene();
-} //<>// //<>// //<>//
+}   
 
 public void draw() {
   nowScene.update();
@@ -16,8 +16,8 @@ public void draw() {
 }
 
 private void setupFonts() {
-  PFont font; //<>// //<>//
-  font = loadFont("ModiThorson-48.vlw"); //<>// //<>//
+  PFont font;  
+  font = loadFont("ModiThorson-48.vlw");  
   textFont(font, 48);
 }
 

@@ -1,4 +1,4 @@
-class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+class Stage {         
 
   private int score;
 
@@ -582,6 +582,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<
     else if(mino[2][3] == 0 )tRo = 3; //LEFT
     else if(mino[1][2] == 0 )tRo = 4;  //DOWN
     if(CP3 &&CP4){
+<<<<<<< HEAD
       if(tRo==1) //<>// //<>//
       {
         if(CP1 || CP2) { //<>// //<>//
@@ -616,6 +617,42 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<
     return false; //<>// //<>//
   } //<>// //<>//
    //<>// //<>//
+=======
+      if(tRo==1) 
+      {
+        if(CP1 || CP2) { 
+          if((stage[posy+2][posx+0] != 0) && (stage[posy+2][posx+4] != 0)){
+             println("Tspin"); 
+             return true; 
+          }
+        }
+      }
+      else if(tRo==2) 
+      { 
+        if(CP2) {  
+          println("Tspin"); 
+          return true; 
+        } 
+      } 
+      else if(tRo==3) 
+      { 
+        if(CP1) {  
+          println("Tspin");  
+          return true; 
+        } 
+      } 
+      else if(tRo==4) 
+      { 
+        if(CP1 || CP2) {  
+          println("Tspin");  
+          return true; 
+        } 
+      } 
+    }
+    return false; 
+  } 
+   
+>>>>>>> f1e9e8e4eb5f148169c85b38a54d713a35541679
   private void levelUp(){
     if (score < 500) level = 1;
     else if (score < 800) level = 2;

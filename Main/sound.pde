@@ -23,7 +23,7 @@ public class Sound{
   }
   
   private void setupSounds(int secneNum){
-    //bgm    = minim.loadFile("sounds/BGM.ogg"); //<>// //<>// //<>//
+    //bgm    = minim.loadFile("sounds/BGM.ogg");   
     //tetris = minim.loadFile("sounds/tetris1.ogg");
     //aline  = minim.loadFile("sounds/aLine.ogg");
     //twoLine  = minim.loadFile("sounds/twoLine.ogg");
@@ -35,7 +35,7 @@ public class Sound{
       case RESULTSCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
     }
     
-    tetris = minim.loadFile("sounds/tetris1.mp3"); //<>// //<>//
+    tetris = minim.loadFile("sounds/tetris1.mp3");  
     aline  = minim.loadFile("sounds/aLine.mp3");
     twoLine  = minim.loadFile("sounds/twoLine.mp3");
     drop   = minim.loadFile("sounds/drop.mp3");
