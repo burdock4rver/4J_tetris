@@ -19,7 +19,6 @@ private void setupFonts() {
   PFont font; //<>// //<>//
   font = loadFont("ModiThorson-48.vlw"); //<>// //<>//
   textFont(font, 48);
-  textAlign(RIGHT);
 }
 
 public void keyPressed() {

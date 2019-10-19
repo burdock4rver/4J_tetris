@@ -186,14 +186,15 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     return false;
   }
   
-  //scoreを絵画
+  //scoreを描画
   public void drawScore(Stage stage){
     textSize(35);
     fill(34,181,115);
+    textAlign(RIGHT);
     text(score, 350, 139);
   }
   
-    //Tetrisなどの文字を絵画
+    //Tetrisなどの文字を描画
   public void dispText(Stage stage) {
     int tempTLine = 0;
     int tempLen = 0;
@@ -277,13 +278,15 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     for (int i = 0; i < t_a_s_text.size(); i++) {
       textSize(25);
       fill(255);
-      text(t_a_s_text.get(i).getText(), 300, 250 + 30 * i);
+      textAlign(CENTER);
+      text(t_a_s_text.get(i).getText(), width * 0.5, 250 + 30 * i);
     }
   }
   
   public void dispLevel(Stage stage){
     int level = stage.getLevel();
     textSize(55);
+    textAlign(RIGHT);
     fill(34,181,115);
     text(level, 325, 755);
   }
@@ -296,6 +299,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     String gametime = min + " : " + sec;
     //println(gametime);
     textSize(16);
+    textAlign(RIGHT);
     fill(34,181,115);
     text(gametime, 79, 365);
   }
