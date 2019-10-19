@@ -28,11 +28,11 @@ public class Imageview{
     public void HowToPlay(){
         if (!runSwitch) return;
         switch (scene) {
-            case 0: image(images[0], width/2, 428); break;
-            case 1: image(images[1], width/2, 428); break;
-            case 2: image(images[2], width/2, 428); break;
-            case 3: image(images[3], width/2, 428); break;
-            case 4: image(images[4], width/2, 428); break;
+            case 0: image(images[0], width/2, 424); break;
+            case 1: image(images[1], width/2, 424); break;
+            case 2: image(images[2], width/2, 424); break;
+            case 3: image(images[3], width/2, 424); break;
+            case 4: image(images[4], width/2, 424); break;
         }
     }
 
