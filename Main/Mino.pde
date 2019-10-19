@@ -12,7 +12,7 @@ public abstract class Mino {
   private int posx, posy;
   private int ghost_y;
 
-  public int id;  //ブロックID
+  private int id;  //ブロックID
 
   public abstract void showTexture();
 
