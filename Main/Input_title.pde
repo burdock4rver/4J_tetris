@@ -139,7 +139,7 @@ public static class Input_title {
   protected static boolean prevButtonC = false;
 
   public static void setInputInterface(InputInterface inputInterface) {
-   Input_title.inputInterface = inputInterface;
+    Input_title.inputInterface = inputInterface;
     prevRight = false;
     prevUp = false;
     prevLeft = false;

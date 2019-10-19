@@ -5,10 +5,7 @@ class TitleScene extends Scene {
   int state = -1;                    // how to playの切り替え用
   int count = 0;
   boolean selectFlag = false;
-  boolean selectChange = false;      // 選択を切り替えたか
   boolean keyReleasedFlag = false;
-
-  private int nowImage = 0;
 
   PImage back;   // 背景
   PImage start; 
@@ -17,6 +14,7 @@ class TitleScene extends Scene {
 
   //Imageview view;
 
+  final private int ENTER_GAME = 1;
   final private int HOW_TO_PLAY = 2;
   
   Imageview view;
@@ -37,26 +35,25 @@ class TitleScene extends Scene {
     super.update();
 
     if (Input_title.upPress()) {
-    selectChange = true;
-
-    if (select == -1)
-      select = HOW_TO_PLAY;
-    else
-      select = 3 - select;
+      if (!view.isRunnning()) {
+        if (select == -1)
+          select = HOW_TO_PLAY;
+        else
+          select = 3 - select;
+      }
     }
 
     if (Input_title.downPress()) {
-      selectChange = true;
-
-      if (select == -1)
-        select = 1;
-      else
-        select = 3 - select;
+      if (!view.isRunnning()) {
+        if (select == -1)
+          select = 1;
+        else
+          select = 3 - select;
+      }
     }
 
     //HOW TO PLAYが押された場合
-    if(select == HOW_TO_PLAY && Input_title.buttonA())
-    {
+    if(select == HOW_TO_PLAY && Input_title.buttonA()) {
       selectFlag = true;
     }
 
@@ -72,22 +69,16 @@ class TitleScene extends Scene {
     imageMode(CENTER);
     image(back, width/2,height/2);
 
-    if (select == 1)
-    {
+    if (select == ENTER_GAME) {
       fill(41,171,226,80);
-    }
-    else
-    {
+    } else {
       noFill();
     }
     oval(width/2, 393, 210, 30);
 
-    if (select == HOW_TO_PLAY)
-    {
+    if (select == HOW_TO_PLAY) {
       fill(41,171,226, 80);
-    }
-    else
-      {
+    } else {
       noFill();
     }
     oval(width/2, 492, 210, 30);
@@ -100,22 +91,17 @@ class TitleScene extends Scene {
   
   public void keyPressed() {
     super.keyPressed();
-    if (Input_title.up() || Input_title.down()) {
-      switch(select){
-        case 1:
-          if (view.isRunnning()) break;
-          finishFlag = true; break;
-        case HOW_TO_PLAY :
-          view.pushSwitch();
-          break;
-        default :
-          state = -1;
-          break;	
-      }
+
+    switch (select) {
+      case ENTER_GAME:
+        if (Input_title.buttonA()) finishFlag = true;
+        break;
+      case HOW_TO_PLAY:
+        if (Input_title.buttonA()) view.pushSwitch();
+        if (Input_title.right()) view.goFrontPage();
+        else if (Input_title.left()) view.goBackPage();
+        break;
     }
-    
-    if (Input_title.right()) view.goFrontPage();
-    else if (Input_title.left()) view.goBackPage();
   }
 
   public void keyReleased() {
