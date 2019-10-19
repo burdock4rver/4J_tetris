@@ -7,6 +7,7 @@ public abstract class Mino {
   public float holdSize;
   public float nextBlockSize; //ネクストのブロックサイズ
   private PImage texture;   //ブロックのテクスチャ
+  private int turnImino[][];
 
   // ミノの左上の座標 stageの配列にそのまま入る
   private int posx, posy;
@@ -31,6 +32,7 @@ public abstract class Mino {
 
   //ブロックの回転
   public boolean turnRight(int[][] stage) {  //
+  
     int rotate_shape[][] = rotateRight();
     boolean SspinFlag = false;
     
@@ -42,6 +44,14 @@ public abstract class Mino {
         if(id == 1){
         SspinFlag = superTSpin(stage,rotate_shape,posx,posy,false);
         }
+        else if(id ==2){
+        chengeImino(checkImino(rotate_shape));
+        posy+=1;
+       if(turnCheck(stage,turnImino)==true)
+        return true;
+        posy-=1;
+        }
+        
         if(SspinFlag == true)return true;
         return turnCheck(stage,rotate_shape);
       }
@@ -52,13 +62,22 @@ public abstract class Mino {
     int rotate_shape[][] = rotateLeft();
     boolean SspinFlag = false;
     
+    
     if (checkMino(stage, rotate_shape, 0, 0)) {
       shape = rotate_shape;
+      
       return true;
     } else {
       if(id == 1){
         SspinFlag = superTSpin(stage,rotate_shape,posx,posy,true);
-      }  
+      } 
+      else if(id ==2){
+        chengeImino(checkImino(rotate_shape));
+        posy +=1;
+        if(turnCheck(stage,turnImino)==true)
+        return true;
+        posy -=1;
+      }
       if(SspinFlag == true)return true;
       return turnCheck(stage,rotate_shape);
     }
@@ -67,6 +86,7 @@ public abstract class Mino {
   //回転判定部分(まとめただけ)
   public boolean turnCheck(int[][] stage,int[][] rotate_shape)
   {
+    
     for (int mpos = 1; mpos < 3; mpos += 1)
         {
           if (checkMino(stage, rotate_shape, -mpos, mpos)) {
@@ -131,7 +151,7 @@ public abstract class Mino {
           int check_x = x + posx + dx;
           int check_y = y + posy + dy;
           // インデックスがstage[][]からはみ出さないか監視
-          if (check_x < 0 || check_x >= stage[0].length || check_y < 0 || check_y > stage.length) {
+          if (check_x < 0 || check_x >= stage[0].length || check_y < 0 || check_y >= stage.length) {
             return false;
           }
           if (stage[check_y][check_x] != 0) {
@@ -196,6 +216,7 @@ public abstract class Mino {
             rotation[y][x] = shape[-(x - 2) + 3][y];
           }
        }
+       if(rotation[3][1] == 2&&rotation[3][2] == 2&&rotation[3][3] == 2&&rotation[3][4] == 0)rotation[3][4]=2;
     }else{
       for (int y = 0; y < 5; y++) {
         for (int x = 0; x < 5; x++) {
@@ -211,12 +232,14 @@ public abstract class Mino {
     int[][] rotation = new int[5][5];
     
     // 回転行列
+    
     if(id == 2){
       for (int y = 1; y < 5; y++) {
         for (int x = 1; x < 5; x++) {
           rotation[y][x] = shape[x][-(y - 2) + 3];
         }
       }
+      if(rotation[3][1] == 2&&rotation[3][2] == 2&&rotation[3][3] == 2&&rotation[3][4] == 0)rotation[3][4]=2;
     }else{
       for (int y = 0; y < 5; y++) {
         for (int x = 0; x < 5; x++) {
@@ -230,6 +253,71 @@ public abstract class Mino {
   
   public boolean superTSpin(int[][] stage,int[][] rotate_shape,int posx,int posy,boolean RLFlag){
     return false;
+  }
+  private int checkImino(int[][] rotate_shape)
+  {
+   /* println(rotate_shape[1][3]);
+    println(rotate_shape[1][2]);
+    println(rotate_shape[1][3]);*/
+    if(rotate_shape[1][3]==2)
+    {
+      
+      return 2;
+    }
+    if(rotate_shape[4][3]==2)
+    {
+      return 3;
+    }
+    if(rotate_shape[1][2]==2)
+    {
+      return 4;
+    }
+    if(rotate_shape[2][4]==2)
+    {
+      return 1;
+    }
+    return 0;
+  }
+  private void chengeImino(int num)
+  {
+    int moveI[][];
+    if(num==2)
+    {
+      moveI = new int[][] {
+      {0, 0, 0, 0, 0}, 
+      {0, 0, 2, 0, 0}, 
+      {0, 0, 2, 0, 0}, 
+      {0, 0, 2, 0, 0}, 
+      {0, 0, 2, 0, 0}};
+    }
+    else if(num==3)
+    {
+      moveI = new int[][] {
+      {0, 0, 0, 0, 0}, 
+      {0, 0, 0, 0, 0}, 
+      {2, 2, 2, 2, 0}, 
+      {0, 0, 0, 0, 0}, 
+      {0, 0, 0, 0, 0}};
+    }
+    else if(num==4)
+    {
+      moveI = new int[][] {
+      {0, 0, 2, 0, 0}, 
+      {0, 0, 2, 0, 0}, 
+      {0, 0, 2, 0, 0}, 
+      {0, 0, 2, 0, 0}, 
+      {0, 0, 0, 0, 0}};
+    }
+    else
+    {
+      moveI = new int[][] {
+      {0, 0, 0, 0, 0}, 
+      {0, 0, 0, 0, 0}, 
+      {0, 2, 2, 2, 2}, 
+      {0, 0, 0, 0, 0}, 
+      {0, 0, 0, 0, 0}};
+    }
+    turnImino=moveI;
   }
   
   
