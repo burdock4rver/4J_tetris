@@ -103,10 +103,10 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
-      {-1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, -1}, 
-      {-1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, -1}, 
-      {-1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, -1}, 
-      {-1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
+      {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
       
       {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}};
   }
@@ -221,7 +221,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     tSpinFlag = checkTSpin(stage,mino.posx,mino.posy,mino.shape);
     // ラインチェックと次のミノの処理
     stageSetMino(mino);      // stage[][]にミノのブロックを反映
-    gameOver();
+    gameFinishFlag = gameOver();
     clearLineNum += checkline(mino.posy);    // ラインチェック
     clearLineNum = gameClear(clearLineNum);
     //onDispFlag();
@@ -441,7 +441,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     return clear;
   }
 
-  public void gameOver() {
+  public boolean gameOver() {
     boolean gameOverFlag = false;
     //画面外にミノがあるか探す
     for (int y = 0; y < 4; y += 1)
@@ -460,7 +460,6 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
     {
       for (int x = 4; x <= 6; x+= 1)
       {  
-
         if (stage[5][x] != 0&&nextMino[0].id == 1)
         {
           gameOverFlag = true;
@@ -493,6 +492,7 @@ class Stage { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
       lastline = 0;
       score = 0;
     }
+    return gameOverFlag;
   }
   
 
