@@ -18,7 +18,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
   private final float COLLECTNEXT_X = 20;          //ネクストブロック座標補正(次のブロック以外のネクストの位置を変えるため)
   private final float COLLECTNEXT_Y = 20;          
   private final color MINO_COLOR = #D6FFFC;
-
+  private final color TEXT_COLOR = #00FFFF;
   private ArrayList<ViewedText> t_a_s_text = new ArrayList();
 
   boolean tetris_flag = false;
@@ -189,7 +189,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
   //scoreを描画
   public void drawScore(Stage stage){
     textSize(35);
-    fill(34,181,115);
+    fill(TEXT_COLOR);
     textAlign(RIGHT);
     text(score, 350, 139);
   }
@@ -287,7 +287,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     int level = stage.getLevel();
     textSize(55);
     textAlign(RIGHT);
-    fill(34,181,115);
+    fill(TEXT_COLOR);
     text(level, 325, 755);
   }
   
@@ -300,7 +300,7 @@ class Display { //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// /
     //println(gametime);
     textSize(16);
     textAlign(RIGHT);
-    fill(34,181,115);
+    fill(TEXT_COLOR);
     text(gametime, 79, 365);
   }
 }
