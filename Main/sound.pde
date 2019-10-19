@@ -12,7 +12,7 @@ final int RESULTSCENE = 2;
   
 public class Sound{
   private AudioPlayer bgm;  //テトリスBGM
-  private AudioPlayer tetris, aline, twoLine, drop, soft, tSpin1, tSpin2, tSpin3;
+  private AudioPlayer tetris, aline, twoLine, drop, soft, tSpin1, tSpin2, tSpin3, allclear, hold;
   
   private AudioPlayer preSE, nowSE;
   
@@ -35,14 +35,16 @@ public class Sound{
       case RESULTSCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
     }
     
-    tetris = minim.loadFile("sounds/tetris1.mp3");  
-    aline  = minim.loadFile("sounds/aLine.mp3");
-    twoLine  = minim.loadFile("sounds/twoLine.mp3");
-    drop   = minim.loadFile("sounds/drop.mp3");
-    soft   = minim.loadFile("sounds/soft.mp3");
-    tSpin1 = minim.loadFile("sounds/tSpin1.mp3");
-    tSpin2 = minim.loadFile("sounds/tSpin2.mp3");
-    tSpin3 = minim.loadFile("sounds/tSpin3.mp3");
+    tetris  = minim.loadFile("sounds/tetris1.mp3");  
+    aline   = minim.loadFile("sounds/aLine.mp3");
+    twoLine = minim.loadFile("sounds/twoLine.mp3");
+    drop    = minim.loadFile("sounds/drop.mp3");
+    soft    = minim.loadFile("sounds/soft.mp3");
+    tSpin1  = minim.loadFile("sounds/tSpin1.mp3");
+    tSpin2  = minim.loadFile("sounds/tSpin2.mp3");
+    tSpin3  = minim.loadFile("sounds/tSpin3.mp3");
+    allclear= minim.loadFile("sounds/allclear.mp3");
+    hold    = minim.loadFile("sounds/hold.mp3");
 
     sounds = new AudioPlayer[] {
       tetris,
@@ -52,7 +54,9 @@ public class Sound{
       soft,
       tSpin1,
       tSpin2,
-      tSpin3
+      tSpin3,
+      allclear,
+      hold
     };
     
     preSE = tetris;
@@ -76,14 +80,16 @@ public class Sound{
   /* SEを再生する関数 呼び出しは文字列型を引数に */
   public void playSE(String soundName) {
     switch(soundName) {
-      case "tetris": tetris.play(); nowSE = tetris; break;
-      case "aline" : aline.play();  nowSE = aline;  break;
+      case "tetris"  : tetris.play();   nowSE = tetris;   break;
+      case "aline"   : aline.play();    nowSE = aline;    break;
       case "twoLine" : twoLine.play();  nowSE = twoLine;  break;
-      case "drop"  : drop.play();   nowSE = drop;   break;
-      case "soft"  : soft.play();   nowSE = soft;   break;
-      case "tSpin1": tSpin1.play(); nowSE = tSpin1; break;
-      case "tSpin2": tSpin2.play(); nowSE = tSpin2; break;
-      case "tSpin3": tSpin3.play(); nowSE = tSpin3; break;
+      case "drop"    : drop.play();     nowSE = drop;     break;
+      case "soft"    : soft.play();     nowSE = soft;     break;
+      case "tSpin1"  : tSpin1.play();   nowSE = tSpin1;   break;
+      case "tSpin2"  : tSpin2.play();   nowSE = tSpin2;   break;
+      case "tSpin3"  : tSpin3.play();   nowSE = tSpin3;   break;
+      case "allclear": allclear.play(); nowSE = allclear; break;
+      case "hold"    : hold.play();     nowSE = hold;     break;
     }
     for (AudioPlayer se: sounds) {
       if(se == nowSE) se.rewind();

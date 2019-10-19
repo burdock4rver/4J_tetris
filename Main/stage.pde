@@ -234,21 +234,23 @@ class Stage {
     setNextMino();         // 次のミノを取り出す
     levelUp();
     
-
-    if(line4) sound.playSE("tetris");
-    else if (line3) {
-      if (tSpinFlag == true) sound.playSE("tSpin3");
-      else sound.playSE("twoLine");
+    if (allClearFlag) sound.playSE("allclear");
+    else {
+      if(line4) sound.playSE("tetris");
+      else if (line3) {
+        if (tSpinFlag == true) sound.playSE("tSpin3");
+        else sound.playSE("twoLine");
+      }
+      else if (line2) {
+        if (tSpinFlag == true) sound.playSE("tSpin2");
+        else sound.playSE("twoLine");
+      }
+      else if (line1) {
+        if (tSpinFlag == true) sound.playSE("tSpin1");
+        else sound.playSE("aline");
+      }
+      else sound.playSE("drop");
     }
-    else if (line2) {
-      if (tSpinFlag == true) sound.playSE("tSpin2");
-      else sound.playSE("twoLine");
-    }
-    else if (line1) {
-      if (tSpinFlag == true) sound.playSE("tSpin1");
-      else sound.playSE("aline");
-    }
-    else sound.playSE("drop");
 
     doneHold = false; 
     isGround = false;
@@ -301,6 +303,7 @@ class Stage {
   // ホールドの処理
   public void hold() {
     if (!doneHold) {           // 既にホールドを使っていないかのチェック
+      sound.playSE("hold");
       minoFreeTime = 0;        // 各種変数の再設定
       lastInputTime = 0;
       waitFall = 0;
