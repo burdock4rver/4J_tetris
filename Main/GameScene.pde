@@ -15,7 +15,7 @@ class GameScene extends Scene {
     stage = new Stage(sound);
     disp = new Display(stage);
     input = new InputKey();
-    // input = new inputButton(); // アーケードとキーボード両方のインプット
+    // input = new InputButton(); // アーケードとキーボード両方のインプット
     pre_time = 0;  
   }   
 
