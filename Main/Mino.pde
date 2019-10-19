@@ -23,10 +23,10 @@ public abstract class Mino {
   }
 
   /*
-   回転はstageとミノの状況からcheckMino(), rotateRight(), rotateLeft()をうまく使って実装する
-   回転後のshapeは上書きしてもらって構わない
-   各種ミノで実装すること
-   posxとposyの変更も忘れずに
+  回転はstageとミノの状況からcheckMino(), rotateRight(), rotateLeft()をうまく使って実装する
+  回転後のshapeは上書きしてもらって構わない
+  各種ミノで実装すること
+  posxとposyの変更も忘れずに
    */
 
   //ブロックの回転
@@ -53,17 +53,15 @@ public abstract class Mino {
     boolean SspinFlag = false;
     
     if (checkMino(stage, rotate_shape, 0, 0)) {
-        shape = rotate_shape;
-        return true;
-     } else
-     {
+      shape = rotate_shape;
+      return true;
+    } else {
       if(id == 1){
         SspinFlag = superTSpin(stage,rotate_shape,posx,posy,true);
       }  
       if(SspinFlag == true)return true;
-     return turnCheck(stage,rotate_shape);
+      return turnCheck(stage,rotate_shape);
     }
-    
 
   }
   //回転判定部分(まとめただけ)

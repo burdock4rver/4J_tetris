@@ -147,7 +147,6 @@ class Display {
   public void drawgame(Stage stage) {  //ゲームプレイ画面
     for (int i = (int)arst_y; i < sSarray_y; i++) {
       for (int j = 0; j < sSarray_x; j++) {
-
         if (stage.stage[i][j] == 0) {
           fill(200,200,255,50);
           noStroke();

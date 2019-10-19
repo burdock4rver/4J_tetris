@@ -10,12 +10,12 @@ class GameScene extends Scene {
 
   public GameScene() {   
     super();
-    
+    noTint();
     sound = new Sound(GAMESCENE);
     stage = new Stage(sound);
     disp = new Display(stage);
     input = new InputKey();
-    pre_time = 0;  
+    pre_time = 0; 
   }   
 
   public void update() {
