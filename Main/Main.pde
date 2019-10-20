@@ -1,4 +1,3 @@
-   
 Scene nowScene;
 static int[] result;
 

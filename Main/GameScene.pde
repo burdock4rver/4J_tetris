@@ -37,7 +37,8 @@ class GameScene extends Scene {
       if (disp.startScreen(stage)) screenNum++;
     } else if (screenNum == 1) {  //ゲーム画面
       if (stage.update(input, delta_time)) finishFlag = true;
-
+      if (finishFlag) stage.getResultScore();
+      
       disp.drawBackground();
       disp.drawgame(stage);
       disp.showNext();
