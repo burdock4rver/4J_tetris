@@ -515,7 +515,7 @@ class Stage {
           stage[y][x] = 0;
         }
       }
-      ranking(score);
+      //ranking(score);
       holdMino = null;
       doneHold = false;
       lenCount = 0;

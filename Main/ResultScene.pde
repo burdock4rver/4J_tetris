@@ -63,7 +63,9 @@ class ResultScene extends Scene {
   
   
   private void dispAText(int img,float pointX,float pointY,float sizeWidth,float sizeHeight){
+    tint(255,255,255,textAlpha[img]);
     image(text_img[img], pointX, pointY, sizeWidth, sizeHeight);
+    noTint();
   }
   
   private void dispBText(int img,float pointX,float pointY,float sizeWidth,float sizeHeight,float alpha){
