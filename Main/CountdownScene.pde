@@ -15,6 +15,10 @@ class CountdownScene extends Scene {
     count = 3;
     text_size = 70;
     backImageAlpha = 255;
+    noTint();
+    image(backImage, 0, 0, width, height);
+    tint(255, backImageAlpha);
+    image(backTitle, 0, 0, width, height);
   }
   public void update() {
     super.update();
