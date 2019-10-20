@@ -7,7 +7,7 @@ public void setup() {
   size(480, 848);
 
   setupFonts();
-  nowScene = new TitleScene();
+  nowScene = new DemoScene();
 }   
 
 public void draw() {
