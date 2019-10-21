@@ -16,12 +16,14 @@ class GameScene extends Scene {
     disp = new Display(stage);
     input = new InputKey();
     // input = new InputButton(); // アーケードとキーボード両方のインプット
-    pre_time = 0;  
+    pre_time = 0;
+    sound.playBGM(1);
   }   
 
   public void update() {
     super.update();
     sound.stopCheck();
+    sound.bgmRoop();
     // 時間計測
     delta_time = elapsedTimeMS - pre_time;
     pre_time = elapsedTimeMS;
@@ -30,7 +32,6 @@ class GameScene extends Scene {
     //update 
     input.update(delta_time); 
     disp.update();
-    sound.playBGM();
 
       //ゲーム表示
       if (screenNum == 0) {  //スタート画面

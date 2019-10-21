@@ -12,12 +12,13 @@ final int RESULTSCENE = 2;
   
 public class Sound{
   private AudioPlayer bgm;  //テトリスBGM
-  private AudioPlayer tetris, aline, twoLine, drop, soft, tSpin1, tSpin2, tSpin3, allclear, hold;
-
   private AudioPlayer se2, se1;
 
   private int start1, end1;
   private int start2, end2;
+  private int start_gameBGM, start_trBGM, end_gameBGM;
+
+  private int nowBGM;
   
   private AudioPlayer preSE, nowSE;
   
@@ -34,17 +35,29 @@ public class Sound{
     start2 =  1;
     end2 = 2;
 
-    bgm = minim.loadFile("sounds/BGM.mp3");
+    start_gameBGM = 0;
+    end_gameBGM = 170;
+    start_trBGM = 176;
+
+    bgm = minim.loadFile("sounds/bgm.mp3");
 
     se2 = minim.loadFile("sounds/se.mp3");
     se1 = minim.loadFile("sounds/se.mp3");
-
-    preSE = tetris;
   }
 
   /* BGMを再生する関数 */
-  public void playBGM() {
-    if(!bgm.isPlaying()) bgm.rewind();
+  public void playBGM(int museNum) {
+    nowBGM = museNum;
+    switch (nowBGM) {
+      case 0:
+        bgm.cue(start_trBGM * 2000);
+        bgm.setGain(-10);
+        break;
+      case 1:
+        bgm.cue(start_gameBGM * 2000);
+        bgm.shiftGain(-50, 0.0, 500);
+        break;
+    }
     bgm.play();
   }
   
@@ -55,7 +68,11 @@ public class Sound{
   }
 
   public void stopBgm() {
-    bgm.close();
+    bgm.pause();
+  }
+
+  public void endingBgm() {
+    bgm.shiftGain(-10, -50, 3000);
   }
 
   public void stopCheck() {
@@ -63,23 +80,15 @@ public class Sound{
     if (se1.position() >= this.end1 * 2000 - 200) se1.pause();
   }
 
+  public void bgmRoop() {
+    switch (nowBGM) {
+      case 0: if (!bgm.isPlaying()) bgm.cue(start_trBGM); break;
+      case 1: if (bgm.position() >= this.end_gameBGM * 2000 - 200) bgm.cue(start_gameBGM); break;
+    }
+  }
+
   /* SEを再生する関数 呼び出しは文字列型を引数に */
   public void playSE(String soundName) {
-    // switch(soundName) {
-    //   case "tetris"  : tetris.play();   nowSE = tetris;   break;
-    //   case "aline"   : aline.play();    nowSE = aline;    break;
-    //   case "twoLine" : twoLine.play();  nowSE = twoLine;  break;
-    //   case "drop"    : drop.play();     nowSE = drop;     break;
-    //   case "soft"    : soft.play();     nowSE = soft;     break;
-    //   case "tSpin1"  : tSpin1.play();   nowSE = tSpin1;   break;
-    //   case "tSpin2"  : tSpin2.play();   nowSE = tSpin2;   break;
-    //   case "tSpin3"  : tSpin3.play();   nowSE = tSpin3;   break;
-    //   case "allclear": allclear.play(); nowSE = allclear; break;
-    //   case "hold"    : hold.play();     nowSE = hold;     break;
-    // }
-    // for (AudioPlayer se: sounds) {
-    //   if(se == nowSE) se.rewind();
-    // }
     switch(soundName) {
       case "hold"    : start1 =  2; end1= 3; break;
       case "aline"   : start1 =  3; end1= 5; break;
