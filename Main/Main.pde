@@ -10,7 +10,8 @@ public void setup() {
   nowScene = new TitleScene(sound);
   result = new int [14];
   noCursor();
- 
+  
+  frameRate(30);
 }   
 
 public void draw() {
