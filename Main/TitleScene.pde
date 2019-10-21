@@ -32,11 +32,12 @@ class TitleScene extends Scene {
     start = loadImage("title_resources/start.png");
     how = loadImage("title_resources/how.png");
     test = loadImage("title_resources/test.png");
+    this.sound.playBGM(0);
   }
 
   public void update() {
     super.update();
-
+    sound.bgmRoop();
     if (Input_title.upPress()) {
       if (!view.isRunnning()) {
         if (select == -1)
@@ -97,7 +98,10 @@ class TitleScene extends Scene {
 
     switch (select) {
       case ENTER_GAME:
-        if (Input_title.buttonA()) finishFlag = true;
+        if (Input_title.buttonA()) {
+          finishFlag = true;
+          sound.endingBgm();
+        }
         break;
       case HOW_TO_PLAY:
         if (Input_title.buttonA()) view.pushSwitch();

@@ -21,6 +21,7 @@ class ResultScene extends Scene {
     textAlpha = new int[result.length];
     textAlphaNum = 0;
     this.sound = sound;
+    sound.playBGM(0);
     ui_img = loadImage("score/back.png");
     text_img[0] = loadImage("score/lenman.png");
     text_img[1] = loadImage("score/single.png");
@@ -46,6 +47,7 @@ class ResultScene extends Scene {
     drawBackground();
     dispText();
     sound.stopCheck();
+    sound.bgmRoop();
   }
 
   private void drawBackground() {  
