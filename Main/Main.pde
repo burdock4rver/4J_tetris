@@ -9,6 +9,7 @@ public void setup() {
   nowScene = new TitleScene(sound);
   result = new int [14];
   sound = new Sound();
+  noCursor();
 }   
 
 public void draw() {
