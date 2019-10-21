@@ -169,15 +169,15 @@ class Display {
           // ミノの影
           showGhost(x,y,mino);
           // ミノの本体
-            stroke(MINO_COLOR);
-            fill(0,50);
-            rect(STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.posy - arst_y), BLOCKSIZE, BLOCKSIZE, BLOCKRADIUS);
+          stroke(MINO_COLOR);
+          fill(0,50);
+          rect(STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.posy - arst_y), BLOCKSIZE, BLOCKSIZE, BLOCKRADIUS);
           //image(mino.texture, STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.posy - arst_y), BLOCKSIZE, BLOCKSIZE);
         }
       }
     }
   }
-  
+
   //スタート画面の表示
   public boolean startScreen(Stage stage){
     //ここにスタート画面を表示するコードを書く終了したらtrueにする
