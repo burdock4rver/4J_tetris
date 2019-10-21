@@ -57,7 +57,7 @@ class ResultScene extends Scene {
       textLineY += INTERVAL;
     }
     if(textAlpha[textAlphaNum] >= 255 && textAlphaNum < result.length -1) textAlphaNum++;
-    if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=8;
+    if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=7;
     dispScore();
   }
   
@@ -70,14 +70,14 @@ class ResultScene extends Scene {
   
   private void dispBText(int img,float pointX,float pointY,float sizeWidth,float sizeHeight,float alpha){
     textAlign(RIGHT);
-    fill(#ffffff,textAlpha[img]);
+    fill(#00ffff,textAlpha[img]);
     textSize(25);
     text(dispResult[img],pointX,pointY);
   }
   
   private void dispScore(){
     textAlign(CENTER);
-    fill(#ffffff,textAlpha[result.length-1]);
+    fill(#00ffff,textAlpha[result.length-1]);
     textSize(30);
     text(dispResult[result.length-1],width / 2,height - 142);
   }
