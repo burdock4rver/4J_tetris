@@ -7,6 +7,8 @@ public void setup() {
   setupFonts();
   nowScene = new TitleScene();
   result = new int [14];
+
+  noCursor();
 }   
 
 public void draw() {
