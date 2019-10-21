@@ -42,6 +42,20 @@ class Stage {
   private final int INPUT_WAIT = 1000;  // 最後の入力から何ms待つか(カサカサ)
   private final int CLEAR_LINE_NUM = 150;
 
+  //result変数
+  private int lines;
+  private int lineSingle;
+  private int lineDouble;
+  private int lineTriple;
+  private int tetris;
+  private int maxLen;
+  private int tSpin;
+  private int tSpinS;
+  private int tSpinD;
+  private int tSpinT;
+  private int allClear;
+
+
   RandomMino next;
   private Mino mino;
   private Mino holdMino;
@@ -65,7 +79,7 @@ class Stage {
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;
-    gameLimitTime = 360;
+    gameLimitTime = 60;
     gameTime = 0;
     startTime = millis();
     level = 1;
@@ -82,6 +96,18 @@ class Stage {
     lenCount = 0;
     lastline = 0;
     dispClearLine = 0;
+
+    lines = 0;
+    lineSingle = 0;
+    lineDouble = 0;
+    lineTriple = 0;
+    tetris = 0;
+    maxLen = 0;
+    tSpin = 0;
+    tSpinS = 0;
+    tSpinD = 0;
+    tSpinT = 0;
+    allClear = 0;
     
     stage = new int[][] { 
       {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1}, 
@@ -228,7 +254,7 @@ class Stage {
     allClearFlag = checkAllClear();
     if(allClearFlag == true) dispAllClearFlag = true;
     
-    addScore(lenCount);            // 得点か三
+    if(!gameFinishFlag)addScore(lenCount);            // 得点か三
     lenCount(clearLineNum);        // れん
     setNextMino();         // 次のミノを取り出す
     levelUp();
@@ -256,6 +282,7 @@ class Stage {
     minoFreeTime = 0;
     lastInputTime = 0;
     waitFall = 0;
+    countResultScore();
     downFlag();
   }
   
@@ -488,6 +515,7 @@ class Stage {
           stage[y][x] = 0;
         }
       }
+      //ranking(score);
       holdMino = null;
       doneHold = false;
       lenCount = 0;
@@ -669,5 +697,97 @@ class Stage {
     if(line2 == true) dispClearLine = 2;
     if(line3 == true) dispClearLine = 3;
     if(line4 == true) tetrisFlag = true;
+  }
+
+  public void countResultScore(){
+    if(!tSpinFlag){
+      if(line1) {
+        lineSingle += 1;
+        lines += 1;
+      }else
+      if(line2) {
+        lineDouble += 1;
+        lines += 2;
+      }else
+      if(line3) {
+        lineTriple += 1;
+        lines += 3;
+      }else
+      if(line4) {
+      tetris += 1;
+      lines += 4;
+      }
+    }else{
+      if(line1) {
+        tSpinS += 1;
+        lines += 1;
+      }else
+      if(line2) {
+        tSpinD += 1;
+        lines += 2;
+      } else
+      if(line3) {
+        tSpinT += 1;
+        lines += 3;
+      }else{
+        tSpin += 1;
+      }
+    }
+
+    if(allClearFlag)  allClear += 1;
+    if(maxLen < (lenCount - 1)) maxLen = lenCount - 1;
+  }
+  public void getResultScore(){
+    int[] tempResult;
+    tempResult = new int[]{maxLen,lineSingle,lineDouble,lineTriple,tetris
+    ,tSpin,tSpinS,tSpinD,tSpinT,allClear,level,lines,gameLimitTime-gameTime,score};
+    System.arraycopy(tempResult,0,result,0,tempResult.length);
+    println("");
+  }
+  
+  public int ranking(int score)
+  {
+    String lines[];
+    PrintWriter RankingFile;
+    int[] rank = new int[]{0,0,0,0,0,0};
+    lines = loadStrings("/data/ranking.csv");
+    if(lines == null)
+    {
+      //print("not file");
+      rank[0]=score;
+    }
+    else
+    {
+      for(int i=0;i<5;i+=1)
+      {
+        rank[i]=int(lines[i]);
+     //   println(rank[i]);
+      }
+      rank[5]=score;
+      for(int i=0;i<5;i+=1)//sort
+      {
+        for(int j=0;j<5;j+=1)
+        {
+          if(rank[j]<rank[j+1])
+          {
+            int num = rank[j];
+            rank[j]=rank[j+1];
+            rank[j+1]=num;
+          }
+        }
+      }
+    }
+    RankingFile = createWriter("/data/ranking.csv");
+    for(int i=0;i<5;i+=1)
+    {
+        RankingFile.println(rank[i]);
+    }
+    RankingFile.flush();
+    RankingFile.close();
+   /* for(int i=0;i<5;i+=1)
+    {
+        println(rank[i]);
+    }*/
+    return 0;
   }
 }

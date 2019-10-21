@@ -1,13 +1,12 @@
-   
 Scene nowScene;
-
+static int[] result;
 
 public void setup() {
 
   size(480, 848);
-
   setupFonts();
   nowScene = new TitleScene();
+  result = new int [14];
 }   
 
 public void draw() {
@@ -34,7 +33,7 @@ public void goNextScene() {
     case "Main$TitleScene": nowScene = new CountdownScene(); break;
     case "Main$CountdownScene": nowScene = new GameScene(); break;
     case "Main$GameScene": nowScene = new ResultScene(); break;
-    case "Main$ResultScene": nowScene = new TitleScene(); break;
+    case "Main$ResultScene": nowScene = new TitleScene();  break; 
     default :
       println(""+nowScene.getClass().getName());
     break;	
