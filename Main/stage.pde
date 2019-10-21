@@ -745,49 +745,49 @@ class Stage {
     println("");
   }
   
-  public int ranking(int score)
-  {
-    String lines[];
-    PrintWriter RankingFile;
-    int[] rank = new int[]{0,0,0,0,0,0};
-    lines = loadStrings("/data/ranking.csv");
-    if(lines == null)
-    {
-      //print("not file");
-      rank[0]=score;
-    }
-    else
-    {
-      for(int i=0;i<5;i+=1)
-      {
-        rank[i]=int(lines[i]);
-     //   println(rank[i]);
-      }
-      rank[5]=score;
-      for(int i=0;i<5;i+=1)//sort
-      {
-        for(int j=0;j<5;j+=1)
-        {
-          if(rank[j]<rank[j+1])
-          {
-            int num = rank[j];
-            rank[j]=rank[j+1];
-            rank[j+1]=num;
-          }
-        }
-      }
-    }
-    RankingFile = createWriter("/data/ranking.csv");
-    for(int i=0;i<5;i+=1)
-    {
-        RankingFile.println(rank[i]);
-    }
-    RankingFile.flush();
-    RankingFile.close();
-   /* for(int i=0;i<5;i+=1)
-    {
-        println(rank[i]);
-    }*/
-    return 0;
-  }
+  // public int ranking(int score)
+  // {
+  //   String lines[];
+  //   PrintWriter RankingFile;
+  //   int[] rank = new int[]{0,0,0,0,0,0};
+  //   lines = loadStrings("/data/ranking.csv");
+  //   if(lines == null)
+  //   {
+  //     //print("not file");
+  //     rank[0]=score;
+  //   }
+  //   else
+  //   {
+  //     for(int i=0;i<5;i+=1)
+  //     {
+  //       rank[i]=int(lines[i]);
+  //    //   println(rank[i]);
+  //     }
+  //     rank[5]=score;
+  //     for(int i=0;i<5;i+=1)//sort
+  //     {
+  //       for(int j=0;j<5;j+=1)
+  //       {
+  //         if(rank[j]<rank[j+1])
+  //         {
+  //           int num = rank[j];
+  //           rank[j]=rank[j+1];
+  //           rank[j+1]=num;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   RankingFile = createWriter("/data/ranking.csv");
+  //   for(int i=0;i<5;i+=1)
+  //   {
+  //       RankingFile.println(rank[i]);
+  //   }
+  //   RankingFile.flush();
+  //   RankingFile.close();
+  //  /* for(int i=0;i<5;i+=1)
+  //   {
+  //       println(rank[i]);
+  //   }*/
+  //   return 0;
+  // }
 }
