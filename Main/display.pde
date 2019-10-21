@@ -43,7 +43,7 @@ class Display {
   public Display(Stage stage) {    
     //テクスチャ設定
     this.stage = stage;
-    ui_img = loadImage("resources/MAIN.png");
+    ui_img = loadImage("resources/MAIN.jpg");
     minoTex = new PImage[7];
     
     minos = new Mino[7];

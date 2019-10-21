@@ -10,9 +10,12 @@ public void setup() {
   nowScene = new TitleScene(sound);
   result = new int [14];
   noCursor();
+ 
 }   
 
 public void draw() {
+  println(frameRate);
+  
   nowScene.update();
   if (nowScene.isFinish()) goNextScene();
 }

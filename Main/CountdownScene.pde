@@ -9,7 +9,7 @@ class CountdownScene extends Scene {
 
   public CountdownScene() {
     super();
-    backImage = loadImage("resources/MAIN.png");
+    backImage = loadImage("resources/MAIN.jpg");
     backTitle = loadImage("title_resources/select.png");
     background(0, 255);
     count = 3;
