@@ -23,50 +23,22 @@ public class Sound{
   
   private AudioPlayer sounds[];
   
-  Sound(int sceneNum){
-    setupSounds(sceneNum);
+  Sound(){
+    setupSounds();
   }
   
-  private void setupSounds(int secneNum){
+  private void setupSounds(){
     start1 = 0;
     end1= 0;
 
     start2 =  1;
     end2 = 2;
 
-    switch(secneNum) {
-      case TITLESCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
-      case GAMESCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
-      case RESULTSCENE: bgm = minim.loadFile("sounds/BGM.mp3"); break;
-    }
-    
-    // tetris  = minim.loadFile("sounds/tetris1.mp3");  
-    // aline   = minim.loadFile("sounds/aLine.mp3");
-    // twoLine = minim.loadFile("sounds/twoLine.mp3");
-    // drop    = minim.loadFile("sounds/drop.mp3");
-    // soft    = minim.loadFile("sounds/soft.mp3");
-    // tSpin1  = minim.loadFile("sounds/tSpin1.mp3");
-    // tSpin2  = minim.loadFile("sounds/tSpin2.mp3");
-    // tSpin3  = minim.loadFile("sounds/tSpin3.mp3");
-    // allclear= minim.loadFile("sounds/allclear.mp3");
-    // hold    = minim.loadFile("sounds/hold.mp3");
+    bgm = minim.loadFile("sounds/BGM.mp3");
 
     se_move = minim.loadFile("sounds/se.mp3");
     se_break = minim.loadFile("sounds/se.mp3");
 
-    // sounds = new AudioPlayer[] {
-    //   tetris,
-    //   aline,
-    //   twoLine,
-    //   drop,
-    //   soft,
-    //   tSpin1,
-    //   tSpin2,
-    //   tSpin3,
-    //   allclear,
-    //   hold
-    // };
-    
     preSE = tetris;
   }
 
@@ -80,6 +52,10 @@ public class Sound{
     bgm.close();
     se_move.close();
     se_break.close();
+  }
+
+  public void stopBgm() {
+    bgm.close();
   }
 
   public void stopCheck() {

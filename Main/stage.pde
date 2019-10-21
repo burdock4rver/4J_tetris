@@ -184,7 +184,7 @@ class Stage {
       }
     }
 
-    if (gameFinishFlag) sound.stopAllSounds();
+    if (gameFinishFlag) sound.stopBgm();
     return gameFinishFlag;
   }
 

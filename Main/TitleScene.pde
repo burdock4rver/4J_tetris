@@ -19,9 +19,12 @@ class TitleScene extends Scene {
   
   Imageview view;
 
-  public TitleScene() {
+  private Sound sound;
+
+  public TitleScene(Sound sound) {
     super();
     view = new Imageview();
+    this.sound = sound;
     //view = new Imageview();
     //Input.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
     Input_title.setInputInterface(new KeyboardInput()); // キーボード

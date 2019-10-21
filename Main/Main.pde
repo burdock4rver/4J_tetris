@@ -1,12 +1,14 @@
 Scene nowScene;
+Sound sound;
 static int[] result;
 
 public void setup() {
 
   size(480, 848);
   setupFonts();
-  nowScene = new TitleScene();
+  nowScene = new TitleScene(sound);
   result = new int [14];
+  sound = new Sound();
 }   
 
 public void draw() {
@@ -31,9 +33,9 @@ public void keyReleased() {
 public void goNextScene() {
   switch (nowScene.getClass().getName()) {
     case "Main$TitleScene": nowScene = new CountdownScene(); break;
-    case "Main$CountdownScene": nowScene = new GameScene(); break;
-    case "Main$GameScene": nowScene = new ResultScene(); break;
-    case "Main$ResultScene": nowScene = new TitleScene();  break; 
+    case "Main$CountdownScene": nowScene = new GameScene(sound); break;
+    case "Main$GameScene": nowScene = new ResultScene(sound); break;
+    case "Main$ResultScene": nowScene = new TitleScene(sound);  break; 
     default :
       println(""+nowScene.getClass().getName());
     break;	

@@ -12,11 +12,15 @@ class ResultScene extends Scene {
   String dispResult[];
   int textAlpha[];
   int textAlphaNum;
-  public ResultScene() {
+
+  private Sound sound;
+
+  public ResultScene(Sound sound) {
     text_img = new PImage[13];
     dispResult = new String[result.length];
     textAlpha = new int[result.length];
     textAlphaNum = 0;
+    this.sound = sound;
     ui_img = loadImage("score/back.png");
     text_img[0] = loadImage("score/lenman.png");
     text_img[1] = loadImage("score/single.png");
@@ -41,6 +45,7 @@ class ResultScene extends Scene {
   public void update() {
     drawBackground();
     dispText();
+    sound.stopCheck();
   }
 
   private void drawBackground() {  
