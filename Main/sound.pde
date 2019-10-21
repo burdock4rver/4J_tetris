@@ -79,6 +79,7 @@ public class Sound{
   public void stopAllSounds() {
     bgm.close();
     se_move.close();
+    se_break.close();
   }
 
   public void stopCheck() {
