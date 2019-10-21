@@ -14,7 +14,7 @@ public class Sound{
   private AudioPlayer bgm;  //テトリスBGM
   private AudioPlayer tetris, aline, twoLine, drop, soft, tSpin1, tSpin2, tSpin3, allclear, hold;
 
-  private AudioPlayer se_move, se_break;
+  private AudioPlayer se2, se1;
 
   private int start1, end1;
   private int start2, end2;
@@ -36,8 +36,8 @@ public class Sound{
 
     bgm = minim.loadFile("sounds/BGM.mp3");
 
-    se_move = minim.loadFile("sounds/se.mp3");
-    se_break = minim.loadFile("sounds/se.mp3");
+    se2 = minim.loadFile("sounds/se.mp3");
+    se1 = minim.loadFile("sounds/se.mp3");
 
     preSE = tetris;
   }
@@ -50,8 +50,8 @@ public class Sound{
   
   public void stopAllSounds() {
     bgm.close();
-    se_move.close();
-    se_break.close();
+    se2.close();
+    se1.close();
   }
 
   public void stopBgm() {
@@ -59,8 +59,8 @@ public class Sound{
   }
 
   public void stopCheck() {
-    if (se_move.position() >= this.end2 * 2000 - 200) se_move.pause();
-    if (se_break.position() >= this.end1 * 2000 - 200) se_break.pause();
+    if (se2.position() >= this.end2 * 2000 - 200) se2.pause();
+    if (se1.position() >= this.end1 * 2000 - 200) se1.pause();
   }
 
   /* SEを再生する関数 呼び出しは文字列型を引数に */
@@ -92,18 +92,18 @@ public class Sound{
       case "score"   : start1 = 16; break;
       
       case "soft": start2 = 1; end2 = 2; break;
-      case "drop": start2 =  0; end1= 2; break;
+      case "drop": start1 = 0; end1 = 2; break;
     }
 
     switch(soundName) {
       case "soft":
-      case "drop":
-        se_move.cue(start2 * 2000);
-        se_move.play();
+        se2.cue(start2 * 2000);
+        se2.play();
         break;
+      case "drop":
       default :
-        se_break.cue(start1 * 2000);
-        se_break.play();
+        se1.cue(start1 * 2000);
+        se1.play();
         break;	
     }
   }
