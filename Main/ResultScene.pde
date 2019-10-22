@@ -14,6 +14,7 @@ class ResultScene extends Scene {
   int textAlphaNum;
 
   private Sound sound;
+  private int startTime;
 
   public ResultScene(Sound sound) {
     text_img = new PImage[13];
@@ -42,12 +43,17 @@ class ResultScene extends Scene {
     for(int i = 0;i < result.length;i++) {
       if(i != TIME)  dispResult[i] = String.valueOf(result[i]);
     }
+    
+    startTime = millis();
   }
   public void update() {
     drawBackground();
     dispText();
     sound.stopCheck();
     sound.bgmRoop();
+
+    if (millis() - startTime >= 30000)
+      exit();
   }
 
   private void drawBackground() {  
