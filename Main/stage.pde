@@ -79,7 +79,7 @@ class Stage {
     minoFreeTime = 0;
     lastInputTime = 0;
     clearLineNum = 0;
-    gameLimitTime = 60;
+    gameLimitTime = 300;
     gameTime = 0;
     startTime = millis();
     level = 1;

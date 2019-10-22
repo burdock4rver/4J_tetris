@@ -26,8 +26,8 @@ class TitleScene extends Scene {
     view = new Imageview();
     this.sound = sound;
     //view = new Imageview();
-    //Input.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
-    Input_title.setInputInterface(new KeyboardInput()); // キーボード
+    Input_title.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
+    //Input_title.setInputInterface(new KeyboardInput()); // キーボード
     back = loadImage("title_resources/select.png");
     start = loadImage("title_resources/start.png");
     how = loadImage("title_resources/how.png");
@@ -50,7 +50,7 @@ class TitleScene extends Scene {
     if (Input_title.downPress()) {
       if (!view.isRunnning()) {
         if (select == -1)
-          select = 1;
+          select = ENTER_GAME;
         else
           select = 3 - select;
       }
