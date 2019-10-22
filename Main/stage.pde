@@ -251,7 +251,7 @@ class Stage {
     clearLineNum = gameClear(clearLineNum);
     //onDispFlag();
     firstGroundFlag = true;
-    allClearFlag = checkAllClear();
+    if(!gameFinishFlag)allClearFlag = checkAllClear();
     if(allClearFlag == true) dispAllClearFlag = true;
     
     if(!gameFinishFlag)addScore(lenCount);            // 得点か三

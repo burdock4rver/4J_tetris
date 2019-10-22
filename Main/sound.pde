@@ -35,7 +35,7 @@ public class Sound{
     end_gameBGM = 170;
     start_trBGM = 176;
 
-    bgm = minim.loadFile("sounds/bgm.mp3");
+    bgm = minim.loadFile("sounds/BGM.mp3");
 
     se2 = minim.loadFile("sounds/se.mp3");
     se1 = minim.loadFile("sounds/se.mp3");
