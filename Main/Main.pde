@@ -3,14 +3,13 @@ Sound sound;
 static int[] result;
 
 public void setup() {
-
-  size(480, 848);
+  fullScreen();
+  //size(480, 848);
   setupFonts();
   sound = new Sound();
   nowScene = new TitleScene(sound);
   result = new int [14];
   noCursor();
-  
   frameRate(30);
 }   
 
