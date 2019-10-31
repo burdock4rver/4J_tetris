@@ -26,8 +26,8 @@ class TitleScene extends Scene {
     view = new Imageview();
     this.sound = sound;
     //view = new Imageview();
-    Input_title.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
-    //Input_title.setInputInterface(new KeyboardInput()); // キーボード
+    //Input_title.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
+    Input_title.setInputInterface(new KeyboardInput()); // キーボード
     back = loadImage("title_resources/select.png");
     start = loadImage("title_resources/start.png");
     how = loadImage("title_resources/how.png");
