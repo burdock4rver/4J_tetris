@@ -14,23 +14,23 @@ public interface InputInterface {
 // キーボードからの入力
 public class KeyboardInput implements InputInterface {
   public boolean right() {
-    return keyPressed && keyCode == RIGHT;
+    return keyPressed && (keyCode == RIGHT || key == 'd');
   }
 
   public boolean up() {
-    return keyPressed && keyCode == UP;
+    return keyPressed && (keyCode == UP || key == 'w');
   }
 
   public boolean left() {
-    return keyPressed && keyCode == LEFT;
+    return keyPressed && (keyCode == LEFT || key == 'a');
   }
 
   public boolean down() {
-    return keyPressed && keyCode == DOWN;
+    return keyPressed && (keyCode == DOWN || key == 's');
   }
 
   public boolean buttonA() {
-    return keyPressed && key == 'z';
+    return keyPressed && (key == 'z' || key == ' ' || keyCode == ENTER);
   }
 
   public boolean buttonB() {
@@ -278,7 +278,7 @@ public static class Input_title {
       return false;
     }
   }
-  
+
   public static boolean anyButtonPress() {
     return rightPress() || upPress() || leftPress() || downPress() || buttonAPress() || buttonBPress() || buttonCPress();
   }
