@@ -25,7 +25,7 @@ class InputKey extends Input {
     if (key == ' ') {
       keyState[HOLD] = true;
     }
-    if (key == 'l') {
+    if (key == 'k') {
       keyState[R_TURN] = true;
     }
     if (key == 'j') {
@@ -49,7 +49,7 @@ class InputKey extends Input {
     if (key == ' ') {
       keyState[HOLD] = false;
     }
-    if (key == 'l') {
+    if (key == 'k') {
       keyState[R_TURN] = false;
     }
     if (key == 'j') {
