@@ -28,7 +28,8 @@ class ResultScene extends Scene {
     Input_title.setInputInterface(new KeyboardInput()); // キーボード
     textAlphaNum = 0;
     this.sound = sound;
-    //sound.playBGM(0);
+    sound.stopBGM();
+    sound.playBGM(1);
     ui_img = loadImage("score/back.png");
     text_img[0] = loadImage("score/lenman.png");
     text_img[1] = loadImage("score/single.png");
