@@ -75,7 +75,7 @@ class ResultScene extends Scene {
     if(Input_title.buttonA()){
       if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=51;
     }else{
-    if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=7;
+      if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=7;
     }
     dispScore();
   }
