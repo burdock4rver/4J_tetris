@@ -141,18 +141,30 @@ class ResultScene extends Scene {
   // スコア順にソートしてランキングを取得
   String res = db.query("SELECT * FROM ranking ORDER BY score DESC");
   
+  int participants = 0;  
   // 接続できない場合はnullが返る
   if (res != null && !res.isEmpty()) {
     // ランキングを表示
     String[] ranking = split(res, '\n');
     
+    participants = ranking.length + 1;
     for (String row : ranking) {
       String[] item = split(row, ',');
       println(item[0] + ": " + item[1]);
     }
   }
   
-  // 接続できるかチェック
+  //現在の順位を取得
+  String otherOverScore = db.query("SELECT * FROM ranking WHERE score >" + dispResult[result.length-1]);
+  String[] otherOverScoreList = split(otherOverScore,'\n');
+  
+  int myRank = otherOverScoreList.length + 1;
+  
+  print(otherOverScore);
+  
+  print("あなたの順位は"+ participants +"人中 "+myRank + "位です。");
+  
+  // 接続できるかチェック 
   if (!db.canConnect()) {
     isFinish(); // タイトルへ戻る処理など
   }
