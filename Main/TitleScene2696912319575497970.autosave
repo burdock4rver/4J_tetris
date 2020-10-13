@@ -70,7 +70,7 @@ class TitleScene extends Scene {
       }
     }
 
-    /*switch (select) {
+    switch (select) {
       case ENTER_GAME:
         if (Input_title.buttonAPress()) {
           finishFlag = true;
@@ -82,7 +82,7 @@ class TitleScene extends Scene {
         if (Input_title.rightPress()) view.goFrontPage();
         else if (Input_title.leftPress()) view.goBackPage();
         break;
-    }*/
+    }
 
     imageMode(CENTER);
     image(back, width/2,height/2);
@@ -107,6 +107,7 @@ class TitleScene extends Scene {
     view.HowToPlay();
   }
   
+  int i = 0;
   public void keyPressed() {
     super.keyPressed();
 
