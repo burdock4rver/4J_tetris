@@ -128,7 +128,7 @@ final int RESULTSCENE = 2;
   
 public class Sound{
   private AudioPlayer bgm,titleResultBGM;  //テトリスBGM
-  private AudioPlayer tetris, aline, twoLine, drop, soft, tSpin1, tSpin2, tSpin3;
+  private AudioPlayer tetris, aline, twoLine, drop, soft, tSpin1, tSpin2, tSpin3, hold;
   
   private AudioPlayer preSE, nowSE;
   
@@ -161,6 +161,7 @@ public class Sound{
     tSpin1 = minim.loadFile("sounds/tSpin1.mp3");
     tSpin2 = minim.loadFile("sounds/tSpin2.mp3");
     tSpin3 = minim.loadFile("sounds/tSpin3.mp3");
+    hold   = minim.loadFile("sounds/hold.mp3");
 
     
     sounds = new AudioPlayer[] {
@@ -171,7 +172,8 @@ public class Sound{
       soft,
       tSpin1,
       tSpin2,
-      tSpin3
+      tSpin3,
+      hold
     };
     
     preSE = tetris;
@@ -196,6 +198,7 @@ public class Sound{
     drop.close();
     soft.close();
     titleResultBGM.close();
+    hold.close();
   }
   
   public void playSE(String soundName) {
@@ -208,6 +211,7 @@ public class Sound{
       case "tSpin1": tSpin1.play(); nowSE = tSpin1; break;
       case "tSpin2": tSpin2.play(); nowSE = tSpin2; break;
       case "tSpin3": tSpin3.play(); nowSE = tSpin3; break;
+      case "hold"  : hold.play();   nowSE = hold;   break;
     }
     for (AudioPlayer se: sounds) {
       if(se == nowSE) se.rewind();

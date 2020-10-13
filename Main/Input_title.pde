@@ -30,7 +30,7 @@ public class KeyboardInput implements InputInterface {
   }
 
   public boolean buttonA() {
-    return keyPressed && (key == 'z' || key == ' ' || keyCode == ENTER);
+    return keyPressed && (key == 'z' || keyCode == ENTER || key == ' ' );
   }
 
   public boolean buttonB() {
