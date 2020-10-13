@@ -24,7 +24,7 @@ class GameScene extends Scene {
   public void update() {
     super.update();
     sound.stopCheck();
-    sound.bgmRoop();
+    sound.bgmRoop(0);
     // 時間計測
     delta_time = elapsedTimeMS - pre_time;
     pre_time = elapsedTimeMS;

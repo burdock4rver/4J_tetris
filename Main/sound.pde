@@ -234,4 +234,13 @@ public class Sound{
   
   public void bgmRoop() {
   }
+  
+  public void bgmRoop(int bgmNum){
+    if(bgmNum == 0){
+      if(!bgm.isPlaying()) bgm.loop();
+    }
+    if(bgmNum == 1){
+      if(!titleResultBGM.isPlaying()) titleResultBGM.loop();
+    }
+  }
 }

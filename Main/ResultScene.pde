@@ -60,7 +60,7 @@ class ResultScene extends Scene {
     drawBackground();
     dispText();
     sound.stopCheck();
-    sound.bgmRoop();
+    sound.bgmRoop(1);
     
     //nキーを押すとスコア登録
     if(finishFlag)  settingScoreDB();
@@ -154,7 +154,7 @@ class ResultScene extends Scene {
   
   // 接続できるかチェック
   if (!db.canConnect()) {
-    exit(); // タイトルへ戻る処理など
+    isFinish(); // タイトルへ戻る処理など
   }
   
   // Yes/Noダイアログを表示
@@ -167,21 +167,23 @@ class ResultScene extends Scene {
     
     // 取り消しが押されたら
     if (name == null) {
-      exit(); // タイトルへ戻る処理など
+      isFinish(); // タイトルへ戻る処理など
     }
     
     // 日時を取得
     LocalDateTime ldt = LocalDateTime.now();
     String datetime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(ldt);
     
+    if("".equals(name)) name = "名無しのテトラー";
+    
     db.query("INSERT INTO ranking VALUES ('" + name + "', " + score + ", '" + datetime + "')");
     
   // Noが選択されたら
   } else if (regist == JOptionPane.NO_OPTION) {
-    exit(); // タイトルへ戻る処理など
+    isFinish(); // タイトルへ戻る処理など
   }
   
-  exit();
+  isFinish();
   }
   
 }

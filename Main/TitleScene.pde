@@ -37,7 +37,7 @@ class TitleScene extends Scene {
 
   public void update() {
     super.update();
-    sound.bgmRoop();
+    sound.bgmRoop(1);
     if (Input_title.upPress()) {
       if (!view.isRunnning()) {
         if (select == -1)
