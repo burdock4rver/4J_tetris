@@ -38,7 +38,8 @@ public void goNextScene() {
   switch (nowScene.getClass().getName()) {
     case "Main$TitleScene": nowScene = new CountdownScene(); break;
     case "Main$CountdownScene": nowScene = new GameScene(sound); break;
-    case "Main$GameScene": nowScene = new ResultScene(sound); break;
+    case "Main$GameScene": nowScene = new OneCushionScene(); break;
+    case "Main$OneCushionScene": nowScene = new ResultScene(sound); break;
     case "Main$ResultScene": nowScene = new TitleScene(sound);  break; 
     default :
       println(""+nowScene.getClass().getName());
