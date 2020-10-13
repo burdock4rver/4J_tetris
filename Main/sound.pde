@@ -127,7 +127,7 @@ final int GAMESCENE  = 1;
 final int RESULTSCENE = 2;
   
 public class Sound{
-  private AudioPlayer bgm;  //テトリスBGM
+  private AudioPlayer bgm,titleResultBGM;  //テトリスBGM
   private AudioPlayer tetris, aline, twoLine, drop, soft, tSpin1, tSpin2, tSpin3;
   
   private AudioPlayer preSE, nowSE;
@@ -139,7 +139,9 @@ public class Sound{
   }
   
   private void setupSounds(/*int secneNum*/){
-    bgm    = minim.loadFile("sounds/bgm.mp3"); //<>// //<>//
+     //<>//
+    bgm    = minim.loadFile("sounds/bgm2.mp3");
+    titleResultBGM = minim.loadFile("sounds/title_result_BGM.mp3"); //<>//
     //tetris = minim.loadFile("sounds/tetris1.ogg");
     //aline  = minim.loadFile("sounds/aLine.ogg");
     //twoLine  = minim.loadFile("sounds/twoLine.ogg");
@@ -176,8 +178,14 @@ public class Sound{
   }
 
   public void playBGM(int a) { //t
-    if(!bgm.isPlaying()) bgm.rewind();
-    bgm.play();
+    if(a == 0){
+      if(!bgm.isPlaying()) bgm.rewind();
+      bgm.play();
+    }else if(a == 1){
+      if(!titleResultBGM.isPlaying()) titleResultBGM.rewind();
+      titleResultBGM.play();
+    }
+    
   }
   
   public void stopAllSounds() {
@@ -187,6 +195,7 @@ public class Sound{
     twoLine.close();
     drop.close();
     soft.close();
+    titleResultBGM.close();
   }
   
   public void playSE(String soundName) {
@@ -203,6 +212,11 @@ public class Sound{
     for (AudioPlayer se: sounds) {
       if(se == nowSE) se.rewind();
     }
+  }
+  
+  public void stopBGM(){
+    bgm.pause();
+    titleResultBGM.pause();
   }
   
   public void stopBgm(){

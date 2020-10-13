@@ -1,4 +1,4 @@
-class Stage {          //<>//
+class Stage {          //<>// //<>// //<>//
 
   private int score;
 

@@ -17,7 +17,8 @@ class GameScene extends Scene {
     input = new InputKey();
     //input = new InputButton(); // アーケードとキーボード両方のインプット
     pre_time = 0;
-    sound.playBGM(1);
+    sound.stopBGM();
+    sound.playBGM(0);
   }   
 
   public void update() {

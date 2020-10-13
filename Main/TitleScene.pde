@@ -32,7 +32,7 @@ class TitleScene extends Scene {
     start = loadImage("title_resources/start.png");
     how = loadImage("title_resources/how.png");
     test = loadImage("title_resources/test.png");
-    this.sound.playBGM(0);
+    this.sound.playBGM(1);
   }
 
   public void update() {
