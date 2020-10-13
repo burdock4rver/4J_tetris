@@ -40,7 +40,7 @@ class Stage {          //<>// //<>// //<>//
   private final int SOFT_FALL_TIME = 40;  //強制落下間隔時間
   private final int FREE_TIME = 4000;   // 接地後に最大何ms動かせるか
   private final int INPUT_WAIT = 1000;  // 最後の入力から何ms待つか(カサカサ)
-  private final int CLEAR_LINE_NUM = 150;
+  private final int CLEAR_LINE_NUM = 10000; //issue #6
 
   //result変数
   private int lines;
@@ -249,7 +249,7 @@ class Stage {          //<>// //<>// //<>//
     stageSetMino(mino);      // stage[][]にミノのブロックを反映
     gameFinishFlag = gameOver();
     clearLineNum += checkline(mino.posy);    // ラインチェック
-    clearLineNum = gameClear(clearLineNum);
+    clearLineNum = gameClear(clearLineNum);//issue #6
     //onDispFlag();
     firstGroundFlag = true;
     if(!gameFinishFlag)allClearFlag = checkAllClear();
@@ -450,7 +450,7 @@ class Stage {          //<>// //<>// //<>//
     if(allClearFlag) score+=1000;
   }
 
-  public int gameClear(int clear) {
+  public int gameClear(int clear) {//issue #6//issue #6 発生原因箇所
     if (clear >= CLEAR_LINE_NUM)
     {
       println("clear");
@@ -575,7 +575,7 @@ class Stage {          //<>// //<>// //<>//
     return score;
   }
   
-    public int getTime(){
+  public int getTime(){
     return gameTime;
   }
   
