@@ -1,4 +1,4 @@
-class Stage {          //<>// //<>// //<>// //<>//
+class Stage {          //<>// //<>// //<>// //<>// //<>//
 
   private int score;
 
@@ -508,14 +508,14 @@ class Stage {          //<>// //<>// //<>// //<>//
     }
     //処理内容　盤面削除､ホールド初期化
     if (gameOverFlag == true)
-    {
+    {/*
       for (int y = 0; y < 23; y += 1)
       {
         for (int x = 1; x <= 10; x+= 1)
         {  
           stage[y][x] = 0;
         }
-      }
+      }*/
       // ranking(score);
       holdMino = null;
       doneHold = false;
