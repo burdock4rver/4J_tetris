@@ -61,12 +61,11 @@ class ResultScene extends Scene {
     //スコア登録、update()の初めにないとおかしい挙動になることがある
     if(Input_title.buttonA()){
       if(dispFinishFlag){ 
-        settingScoreDB();
+        if(millis() - startTime >= 300) settingScoreDB();
         //finishFlag = true;
       }
     }
-    //
-    //スペース押した状態だとバグる
+    
     drawBackground();
     dispText();
     sound.stopCheck();
