@@ -5,6 +5,8 @@ static int[] result;
 public void setup() {
   //fullScreen();
   size(480, 848);
+  this.surface.setTitle("Tetris");
+  this.surface.setIcon(loadImage("title_resources/icon.png"));
   setupFonts();
   sound = new Sound();
   nowScene = new TitleScene(sound);

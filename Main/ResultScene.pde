@@ -16,6 +16,7 @@ class ResultScene extends Scene {
   String dispResult[];
   int textAlpha[];
   int textAlphaNum;
+  boolean dispFinishFlag = false;
 
   private Sound sound;
   private int startTime;
@@ -57,13 +58,19 @@ class ResultScene extends Scene {
     
   }
   public void update() {
+    //スコア登録、update()の初めにないとおかしい挙動になることがある
+    if(Input_title.buttonA()){
+      if(dispFinishFlag){ 
+        settingScoreDB();
+        //finishFlag = true;
+      }
+    }
+    //
+    //スペース押した状態だとバグる
     drawBackground();
     dispText();
     sound.stopCheck();
     sound.bgmRoop(1);
-    
-    //nキーを押すとスコア登録
-    if(finishFlag)  settingScoreDB();
     
     if (millis() - startTime >= 30000)
       exit();
@@ -74,6 +81,19 @@ class ResultScene extends Scene {
   }
   
   private void dispText(){
+    if(textAlpha[textAlphaNum] >= 255 && textAlphaNum < result.length -1) textAlphaNum++;
+    
+    //if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=51;
+    if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=21;
+    
+    if(Input_title.buttonA()){
+      for(int i = 0;i < textAlpha.length;i++){
+        textAlpha[i] = 255;
+        dispFinishFlag = true;
+      }
+    }
+
+    //描画
     textLineX = TEXTLINEX;
     textLineY = TEXTLINEY;
     for(int i = 0;i < text_img.length;i++){
@@ -81,12 +101,6 @@ class ResultScene extends Scene {
       dispAText(i,textLineX,textLineY,text_img[i].width,text_img[i].height);
       dispBText(i,width -textLineX,textLineY+13,text_img[i].width,text_img[i].height,255);
       textLineY += INTERVAL;
-    }
-    if(textAlpha[textAlphaNum] >= 255 && textAlphaNum < result.length -1) textAlphaNum++;
-    if(Input_title.buttonA()){
-      if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=51;
-    }else{
-      if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=7;
     }
     dispScore();
   }
@@ -113,7 +127,6 @@ class ResultScene extends Scene {
   }
   
   private void changeTimeFormat(){
-
     int time = result[TIME];    //time
     int minute = time / 60;
     int seconds = time % 60;
@@ -125,17 +138,28 @@ class ResultScene extends Scene {
 
   public void keyPressed() {}
   public void keyReleased() {
-    if (key == 'n') finishFlag = true;
+    //if (key == 'n') finishFlag = true;
   }
   
   public boolean isFinish() { return finishFlag; }
   
   public void settingScoreDB(){
-      // 獲得スコア(仮)
   int score = Integer.parseInt(dispResult[result.length-1]);
   
   // 接続先DBは"test", "pacman", "tetris", "unagi"から指定
-  DataBase db = new DataBase("test");
+  DataBase db = new DataBase("tetris");
+  
+    // 接続できるかチェック 
+  if (!db.canConnect()) {
+    //finishFlag = true; // タイトルへ戻る処理など
+      int goTitle = JOptionPane.showConfirmDialog(null, "ネットワークに繋がっていません。タイトル画面へ戻りますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+      if(goTitle == JOptionPane.YES_NO_OPTION){
+        finishFlag = true;
+        return;
+      } else if (goTitle == JOptionPane.NO_OPTION){
+        return;
+    }
+  }
   
   // スコア順にソートしてランキングを取得
   String res = db.query("SELECT * FROM ranking ORDER BY score DESC");
@@ -158,11 +182,6 @@ class ResultScene extends Scene {
   
   print("あなたの順位は"+ participants +"人中 "+myRank + "位です。");
   
-  // 接続できるかチェック 
-  if (!db.canConnect()) {
-    isFinish(); // タイトルへ戻る処理など
-  }
-  
   // Yes/Noダイアログを表示
   int regist = JOptionPane.showConfirmDialog(null, "ランキングに登録しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
   
@@ -173,7 +192,7 @@ class ResultScene extends Scene {
     
     // 取り消しが押されたら
     if (name == null) {
-      isFinish(); // タイトルへ戻る処理など
+      finishFlag = true; // タイトルへ戻る処理など
     }
     
     // 日時を取得
@@ -182,14 +201,14 @@ class ResultScene extends Scene {
     
     if("".equals(name)) name = "名無しのテトラー";
     
-    db.query("INSERT INTO ranking VALUES ('" + name + "', " + score + ", '" + datetime + "')");
+    if(name != null) db.query("INSERT INTO ranking VALUES ('" + name + "', " + score + ", '" + datetime + "')");
     
   // Noが選択されたら
   } else if (regist == JOptionPane.NO_OPTION) {
-    isFinish(); // タイトルへ戻る処理など
+    finishFlag = true; // タイトルへ戻る処理など
   }
   
-  isFinish();
+  finishFlag = true;
   }
   
 }
