@@ -133,21 +133,18 @@ class ResultScene extends Scene {
   public void settingScoreDB(){
       // 獲得スコア(仮)
   int score = Integer.parseInt(dispResult[result.length-1]);
-  //int score = int(random(0, 10000));
   
   // 接続先DBは"test", "pacman", "tetris", "unagi"から指定
   DataBase db = new DataBase("test");
   
   // スコア順にソートしてランキングを取得
   String res = db.query("SELECT * FROM ranking ORDER BY score DESC");
-  
-  int participants = 0;  
+    
   // 接続できない場合はnullが返る
   if (res != null && !res.isEmpty()) {
     // ランキングを表示
     String[] ranking = split(res, '\n');
     
-    participants = ranking.length + 1;
     for (String row : ranking) {
       String[] item = split(row, ',');
       println(item[0] + ": " + item[1]);
@@ -155,12 +152,9 @@ class ResultScene extends Scene {
   }
   
   //現在の順位を取得
-  String otherOverScore = db.query("SELECT * FROM ranking WHERE score >" + dispResult[result.length-1]);
-  String[] otherOverScoreList = split(otherOverScore,'\n');
+  String participants = db.query("SELECT COUNT(*) + 1 FROM ranking");
+  String myRank = db.query("SELECT COUNT(*) + 1 FROM ranking WHERE score > " + dispResult[result.length - 1]);
   
-  int myRank = otherOverScoreList.length + 1;
-  
-  print(otherOverScore);
   
   print("あなたの順位は"+ participants +"人中 "+myRank + "位です。");
   
