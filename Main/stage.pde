@@ -643,6 +643,21 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
         } 
       } 
     }
+    
+    if(CP1 && CP2){
+      if(tRo == 2){
+        if(CP3){
+          println("Tspin");  
+          return true; 
+        }
+      }
+      else if(tRo == 3){
+        if(CP4){
+          println("Tspin");  
+          return true; 
+        }
+      }
+    }
     return false; 
   } 
    
