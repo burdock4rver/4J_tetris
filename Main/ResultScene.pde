@@ -151,7 +151,12 @@ class ResultScene extends Scene {
     // 接続できるかチェック 
   if (!db.canConnect()) {
     //finishFlag = true; // タイトルへ戻る処理など
-      int goTitle = JOptionPane.showConfirmDialog(null, "ネットワークに繋がっていません。タイトル画面へ戻りますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+      int goTitle = JOptionPane.showConfirmDialog(null, 
+      "ネットワークに繋がっていません。タイトル画面へ戻りますか？",
+      "確認", 
+      JOptionPane.YES_NO_OPTION, 
+      JOptionPane.QUESTION_MESSAGE);
+      
       if(goTitle == JOptionPane.YES_NO_OPTION){
         finishFlag = true;
         return;
@@ -159,7 +164,7 @@ class ResultScene extends Scene {
         return;
     }
   }
-  
+/*  
   // スコア順にソートしてランキングを取得
   String res = db.query("SELECT * FROM ranking ORDER BY score DESC");
     
@@ -180,7 +185,7 @@ class ResultScene extends Scene {
   
   
   print("あなたの順位は"+ participants +"人中 "+myRank + "位です。");
-  
+*/  
   // Yes/Noダイアログを表示
   int regist = JOptionPane.showConfirmDialog(null, "ランキングに登録しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
   
@@ -201,6 +206,8 @@ class ResultScene extends Scene {
     if("".equals(name)) name = "名無しのBBBer";
     
     if(name != null) db.query("INSERT INTO ranking VALUES ('" + name + "', " + score + ", '" + datetime + "')");
+    
+    JOptionPane.showMessageDialog(frame, "スコアが送信されました。Webサイトで順位が確認できます。(Readme参照)", "送信メッセージ", JOptionPane.PLAIN_MESSAGE);
     
   // Noが選択されたら
   } else if (regist == JOptionPane.NO_OPTION) {
