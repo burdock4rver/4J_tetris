@@ -77,7 +77,6 @@ class Display {
     if (mino.posy < mino.ghost_y) {
       fill(210, 100);
       noStroke();
-      //filter(BL
       rect(STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.ghost_y - arst_y), BLOCKSIZE, BLOCKSIZE);
     }
   }
@@ -151,12 +150,9 @@ class Display {
         if (stage.stage[i][j] == 0) {
           fill(200,200,255,50);
           noStroke();
-          //stroke(150);
-          //rect(STAGEPOSITION_X-BLOCKSIZE+BLOCKSIZE*j, STAGEPOSITION_Y+BLOCKSIZE*(i-arst_y), BLOCKSIZE, BLOCKSIZE);
         } else if (stage.stage[i][j] > 0) {
           stroke(MINO_COLOR);
           rect(STAGEPOSITION_X + BLOCKSIZE * (j - 1), STAGEPOSITION_Y + BLOCKSIZE * (i-arst_y), BLOCKSIZE, BLOCKSIZE, BLOCKRADIUS);
-          //image(minoTex[stage.stage[i][j] - 1], STAGEPOSITION_X + BLOCKSIZE * (j - 1), STAGEPOSITION_Y + BLOCKSIZE * (i-arst_y), BLOCKSIZE, BLOCKSIZE);
         }
       }
     }
@@ -173,7 +169,6 @@ class Display {
           stroke(MINO_COLOR);
           fill(0,50);
           rect(STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.posy - arst_y), BLOCKSIZE, BLOCKSIZE, BLOCKRADIUS);
-          //image(mino.texture, STAGEPOSITION_X + BLOCKSIZE * (x + mino.posx - 1), STAGEPOSITION_Y + BLOCKSIZE * (y + mino.posy - arst_y), BLOCKSIZE, BLOCKSIZE);
         }
       }
     }
@@ -216,7 +211,6 @@ class Display {
     if ((tempLen = stage.getLenCount()) != len){
       len = tempLen;
       if (len != 0 || len != 1) len_disp_start_time = millis();
-      //lenFlag = true;
     }
     
     if((tempTLine = stage.getClearLine()) != 0){
@@ -234,7 +228,6 @@ class Display {
     }
 
     if ((millis() - len_disp_start_time <= 3000)) {
-      //println("ALL CLEAR" + (millis() - allClear_disp_start_time)); 
       textSize(25);
       fill(255);
       if (!(len >= 0 && len <= 1))  text("Ren", 80, 500);
@@ -296,7 +289,6 @@ class Display {
     String sec = String.valueOf(time % 60);
     if(sec.length() == 1) sec = "0" + sec; 
     String gametime = min + " : " + sec;
-    //println(gametime);
     textSize(16);
     textAlign(RIGHT);
     fill(TEXT_COLOR);

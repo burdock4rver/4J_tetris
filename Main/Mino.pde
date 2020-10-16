@@ -31,7 +31,7 @@ public abstract class Mino {
    */
 
   //ブロックの回転
-  public boolean turnRight(int[][] stage) {  //
+  public boolean turnRight(int[][] stage) {
   
     int rotate_shape[][] = rotateRight();
     boolean SspinFlag = false;
@@ -256,9 +256,6 @@ public abstract class Mino {
   }
   private int checkImino(int[][] rotate_shape)
   {
-   /* println(rotate_shape[1][3]);
-    println(rotate_shape[1][2]);
-    println(rotate_shape[1][3]);*/
     if(rotate_shape[1][3]==2)
     {
       
@@ -319,7 +316,5 @@ public abstract class Mino {
     }
     turnImino=moveI;
   }
-  
-  
   
 }

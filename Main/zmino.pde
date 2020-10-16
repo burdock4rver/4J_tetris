@@ -15,7 +15,6 @@ public class ZMino extends Mino {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
 
-    //super.texture = loadImage("resources/minoZfront.png");
     super.id = 6;
   }
   

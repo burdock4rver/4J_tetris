@@ -3,7 +3,6 @@ Sound sound;
 static int[] result;
 
 public void setup() {
-  //fullScreen();
   size(480, 848);
   this.surface.setTitle("BBB");
   this.surface.setIcon(loadImage("title_resources/icon.png"));
@@ -11,13 +10,10 @@ public void setup() {
   sound = new Sound();
   nowScene = new TitleScene(sound);
   result = new int [14];
-  // noCursor();
   frameRate(30);
 }   
 
-public void draw() {
-  //println(frameRate);
-  
+public void draw() {  
   nowScene.update();
   if (nowScene.isFinish()) goNextScene();
 }

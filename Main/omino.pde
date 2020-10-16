@@ -15,7 +15,6 @@ public class OMino extends Mino {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
 
-    //super.texture = loadImage("resources/minoOfront.png");
     super.id = 7;
   }
 

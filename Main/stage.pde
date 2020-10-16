@@ -1,4 +1,4 @@
-class Stage {          //<>// //<>// //<>// //<>// //<>//
+class Stage { //<>//
 
   private int score;
 
@@ -162,7 +162,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
       isGround = !mino.fall(stage);  // 落下と接地判定
       waitFall = 0;
       if (!isGround) {
-        //sound.playSE("soft");
         fallMinoFlag = false;
       }
     }
@@ -194,12 +193,10 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
     // キーと操作の対応はclass InputKeyを参照されたし
     if (input.state[input.R_MOVE]) {        // 右移動
       wasOperate = mino.moveRight(stage);
-      //if(wasOperate)sound.playSE("soft");
     }
 
     if (input.state[input.L_MOVE]) {        // 左移動
       wasOperate = mino.moveLeft(stage);
-      //if(wasOperate)sound.playSE("soft");
     }
     
     if (input.state[input.H_DROP]) {        // ハードドロップ
@@ -221,7 +218,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
     boolean wasOperate = wasOp;
       if (input.state[input.R_TURN]) {        // 右回転
         wasOperate = mino.turnRight(stage);
-        //if(wasOperate)sound.playSE("soft");
         // 浮かび上がったときの処理
         boolean preIsGround = isGround;
         isGround = !mino.checkMino(stage, 0, 1);
@@ -232,7 +228,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
 
     if (input.state[input.L_TURN]) {        // 左回転
       wasOperate = mino.turnLeft(stage);
-      //if(wasOperate)sound.playSE("soft");
       // 浮かび上がったときの処理
       boolean preIsGround = isGround;
       isGround = !mino.checkMino(stage, 0, 1);
@@ -250,7 +245,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
     gameFinishFlag = gameOver();
     clearLineNum += checkline(mino.posy);    // ラインチェック
     clearLineNum = gameClear(clearLineNum);//issue #6
-    //onDispFlag();
     firstGroundFlag = true;
     if(!gameFinishFlag)allClearFlag = checkAllClear();
     if(allClearFlag == true) dispAllClearFlag = true;
@@ -453,7 +447,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
   public int gameClear(int clear) {//issue #6//issue #6 発生原因箇所
     if (clear >= CLEAR_LINE_NUM)
     {
-      println("clear");
       for (int y = 0; y < 23; y += 1)
       {
         for (int x = 1; x <= 10; x+= 1)
@@ -508,15 +501,7 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
     }
     //処理内容　盤面削除､ホールド初期化
     if (gameOverFlag == true)
-    {/*
-      for (int y = 0; y < 23; y += 1)
-      {
-        for (int x = 1; x <= 10; x+= 1)
-        {  
-          stage[y][x] = 0;
-        }
-      }*/
-      // ranking(score);
+    {      
       holdMino = null;
       doneHold = false;
       lenCount = 0;
@@ -614,7 +599,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
       {
         if(CP1 || CP2) { 
           if((stage[posy+2][posx+0] != 0) && (stage[posy+2][posx+4] != 0)){
-             println("Tspin"); 
              return true; 
           }
         }
@@ -622,21 +606,18 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
       else if(tRo==2) 
       { 
         if(CP2) {  
-          println("Tspin"); 
           return true; 
         } 
       } 
       else if(tRo==3) 
       { 
         if(CP1) {  
-          println("Tspin");  
           return true; 
         } 
       } 
       else if(tRo==4) 
       { 
         if(CP1 || CP2) {  
-          println("Tspin");  
           return true; 
         } 
       } 
@@ -645,13 +626,11 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
     if(CP1 && CP2){
       if(tRo == 2){
         if(CP3){
-          println("Tspin");  
           return true; 
         }
       }
       else if(tRo == 3){
         if(CP4){
-          println("Tspin");  
           return true; 
         }
       }
@@ -753,52 +732,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
     tempResult = new int[]{maxLen,lineSingle,lineDouble,lineTriple,tetris
     ,tSpin,tSpinS,tSpinD,tSpinT,allClear,level,lines,gameLimitTime-gameTime,score};
     System.arraycopy(tempResult,0,result,0,tempResult.length);
-    println("");
   }
   
-  // public int ranking(int score)
-  // {
-  //   String lines[];
-  //   PrintWriter RankingFile;
-  //   int[] rank = new int[]{0,0,0,0,0,0};
-  //   lines = loadStrings("/data/ranking.csv");
-  //   if(lines == null)
-  //   {
-  //     //print("not file");
-  //     rank[0]=score;
-  //   }
-  //   else
-  //   {
-  //     for(int i=0;i<5;i+=1)
-  //     {
-  //       rank[i]=int(lines[i]);
-  //    //   println(rank[i]);
-  //     }
-  //     rank[5]=score;
-  //     for(int i=0;i<5;i+=1)//sort
-  //     {
-  //       for(int j=0;j<5;j+=1)
-  //       {
-  //         if(rank[j]<rank[j+1])
-  //         {
-  //           int num = rank[j];
-  //           rank[j]=rank[j+1];
-  //           rank[j+1]=num;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   RankingFile = createWriter("/data/ranking.csv");
-  //   for(int i=0;i<5;i+=1)
-  //   {
-  //       RankingFile.println(rank[i]);
-  //   }
-  //   RankingFile.flush();
-  //   RankingFile.close();
-  //  /* for(int i=0;i<5;i+=1)
-  //   {
-  //       println(rank[i]);
-  //   }*/
-  //   return 0;
-  // }
 }

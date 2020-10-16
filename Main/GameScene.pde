@@ -15,7 +15,6 @@ class GameScene extends Scene {
     stage = new Stage(sound);
     disp = new Display(stage);
     input = new InputKey();
-    //input = new InputButton(); // アーケードとキーボード両方のインプット
     pre_time = 0;
     sound.stopBGM();
     sound.playBGM(0);
@@ -42,7 +41,6 @@ class GameScene extends Scene {
       if (stage.update(input, delta_time)) finishFlag = true;
       if (finishFlag) {
         stage.getResultScore();
-        // sound.stopAllSounds();
       }
       
       disp.drawBackground();

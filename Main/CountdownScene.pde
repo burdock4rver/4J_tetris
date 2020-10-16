@@ -9,7 +9,7 @@ class CountdownScene extends Scene {
 
   public CountdownScene() {
     super();
-    backImage = loadImage("resources/MAIN.jpg");
+    backImage = loadImage("resources/MAIN.png");
     backTitle = loadImage("title_resources/select.png");
     background(0, 255);
     count = 3;
@@ -30,8 +30,6 @@ class CountdownScene extends Scene {
     image(backImage, 0, 0, width, height);
     tint(255, backImageAlpha);
     image(backTitle, 0, 0, width, height);
-    // fill(0, backImageAlpha);
-    // rect(0, 0, width, height);
     textSize(text_size);
     fill(#D0FFFF);
     textAlign(CENTER);
