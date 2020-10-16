@@ -11,7 +11,7 @@ public void setup() {
   sound = new Sound();
   nowScene = new TitleScene(sound);
   result = new int [14];
-  noCursor();
+  // noCursor();
   frameRate(30);
 }   
 
