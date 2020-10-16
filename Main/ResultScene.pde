@@ -198,7 +198,7 @@ class ResultScene extends Scene {
     LocalDateTime ldt = LocalDateTime.now();
     String datetime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(ldt);
     
-    if("".equals(name)) name = "名無しのテトラー";
+    if("".equals(name)) name = "名無しのBBBer";
     
     if(name != null) db.query("INSERT INTO ranking VALUES ('" + name + "', " + score + ", '" + datetime + "')");
     
