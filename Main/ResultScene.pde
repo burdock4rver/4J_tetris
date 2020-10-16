@@ -151,7 +151,12 @@ class ResultScene extends Scene {
     // 接続できるかチェック 
   if (!db.canConnect()) {
     //finishFlag = true; // タイトルへ戻る処理など
-      int goTitle = JOptionPane.showConfirmDialog(null, "ネットワークに繋がっていません。タイトル画面へ戻りますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+      int goTitle = JOptionPane.showConfirmDialog(null, 
+      "ネットワークに繋がっていません。タイトル画面へ戻りますか？",
+      "確認", 
+      JOptionPane.YES_NO_OPTION, 
+      JOptionPane.QUESTION_MESSAGE);
+      
       if(goTitle == JOptionPane.YES_NO_OPTION){
         finishFlag = true;
         return;
@@ -198,9 +203,11 @@ class ResultScene extends Scene {
     LocalDateTime ldt = LocalDateTime.now();
     String datetime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(ldt);
     
-    if("".equals(name)) name = "名無しのテトラー";
+    if("".equals(name)) name = "名無しのBBBer";
     
     if(name != null) db.query("INSERT INTO ranking VALUES ('" + name + "', " + score + ", '" + datetime + "')");
+    
+    JOptionPane.showMessageDialog(frame, "スコアが送信されました。Webサイトで順位が確認できます。(Readme参照)", "送信メッセージ", JOptionPane.PLAIN_MESSAGE);
     
   // Noが選択されたら
   } else if (regist == JOptionPane.NO_OPTION) {
