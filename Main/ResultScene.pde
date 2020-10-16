@@ -164,7 +164,7 @@ class ResultScene extends Scene {
         return;
     }
   }
-  
+/*  
   // スコア順にソートしてランキングを取得
   String res = db.query("SELECT * FROM ranking ORDER BY score DESC");
     
@@ -185,7 +185,7 @@ class ResultScene extends Scene {
   
   
   print("あなたの順位は"+ participants +"人中 "+myRank + "位です。");
-  
+*/  
   // Yes/Noダイアログを表示
   int regist = JOptionPane.showConfirmDialog(null, "ランキングに登録しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
   
