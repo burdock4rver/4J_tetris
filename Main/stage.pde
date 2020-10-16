@@ -544,8 +544,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
       
     }
     lastline = count;
-    if(lenCount != 0)
-    println("len:"+lenCount);
   }
 
   /**
@@ -671,8 +669,6 @@ class Stage {          //<>// //<>// //<>// //<>// //<>//
     else if (score < 7500) level = 7;
     else if (score < 10000) level = 8;
     else level = 9;
-    
-    println(level);
   }
   
   public int getLevel(){
