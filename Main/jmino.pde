@@ -15,7 +15,6 @@ public class JMino extends Mino {
       {0, 0, 0, 0, 0}, 
       {0, 0, 0, 0, 0}};
 
-    //super.texture = loadImage("resources/minoJfront.png");
     super.id = 3;
   }
 

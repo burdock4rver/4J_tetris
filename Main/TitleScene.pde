@@ -25,8 +25,6 @@ class TitleScene extends Scene {
     super();
     view = new Imageview();
     this.sound = sound;
-    //view = new Imageview();
-    //Input_title.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
     Input_title.setInputInterface(new KeyboardInput()); // キーボード
     back = loadImage("title_resources/select.png");
     start = loadImage("title_resources/start.png");
@@ -69,20 +67,6 @@ class TitleScene extends Scene {
         keyReleasedFlag = false;
       }
     }
-
-    /*switch (select) {
-      case ENTER_GAME:
-        if (Input_title.buttonAPress()) {
-          finishFlag = true;
-          sound.endingBgm();
-        }
-        break;
-      case HOW_TO_PLAY:
-        if (Input_title.buttonAPress()) view.pushSwitch();
-        if (Input_title.rightPress()) view.goFrontPage();
-        else if (Input_title.leftPress()) view.goBackPage();
-        break;
-    }*/
 
     imageMode(CENTER);
     image(back, width/2,height/2);

@@ -25,7 +25,6 @@ class ResultScene extends Scene {
     text_img = new PImage[13];
     dispResult = new String[result.length];
     textAlpha = new int[result.length];
-    //Input_title.setInputInterface(new MixInput());    // キーボード・アーケード同時対応
     Input_title.setInputInterface(new KeyboardInput()); // キーボード
     textAlphaNum = 0;
     this.sound = sound;
@@ -52,8 +51,6 @@ class ResultScene extends Scene {
       if(i != TIME)  dispResult[i] = String.valueOf(result[i]);
     }
     
-    //
-    
     startTime = millis();
     
   }
@@ -62,7 +59,6 @@ class ResultScene extends Scene {
     if(Input_title.buttonA()){
       if(dispFinishFlag){ 
         if(millis() - startTime >= 300) settingScoreDB();
-        //finishFlag = true;
       }
     }
     
@@ -82,7 +78,6 @@ class ResultScene extends Scene {
   private void dispText(){
     if(textAlpha[textAlphaNum] >= 255 && textAlphaNum < result.length -1) textAlphaNum++;
     
-    //if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=51;
     if(textAlphaNum < result.length && textAlpha[textAlphaNum] <= 255)  textAlpha[textAlphaNum] +=21;
     
     if(Input_title.buttonA()){
@@ -137,7 +132,6 @@ class ResultScene extends Scene {
 
   public void keyPressed() {}
   public void keyReleased() {
-    //if (key == 'n') finishFlag = true;
   }
   
   public boolean isFinish() { return finishFlag; }
@@ -164,28 +158,7 @@ class ResultScene extends Scene {
         return;
     }
   }
-/*  
-  // スコア順にソートしてランキングを取得
-  String res = db.query("SELECT * FROM ranking ORDER BY score DESC");
-    
-  // 接続できない場合はnullが返る
-  if (res != null && !res.isEmpty()) {
-    // ランキングを表示
-    String[] ranking = split(res, '\n');
-    
-    for (String row : ranking) {
-      String[] item = split(row, ',');
-      println(item[0] + ": " + item[1]);
-    }
-  }
   
-  //現在の順位を取得
-  String participants = db.query("SELECT COUNT(*) + 1 FROM ranking");
-  String myRank = db.query("SELECT COUNT(*) + 1 FROM ranking WHERE score > " + dispResult[result.length - 1]);
-  
-  
-  print("あなたの順位は"+ participants +"人中 "+myRank + "位です。");
-*/  
   // Yes/Noダイアログを表示
   int regist = JOptionPane.showConfirmDialog(null, "ランキングに登録しますか？", "確認", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
   
